@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDS Docs — Flowtitude Design System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4/cdn.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* Load FDS tokens inline for docs */
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-display: var(--font-body);
+      --color-primary-50: oklch(0.9700 0.0255 27.19);
+      --color-primary-100: oklch(0.9400 0.0428 27.19);
+      --color-primary-200: oklch(0.8700 0.0765 27.19);
+      --color-primary-300: oklch(0.8000 0.1056 27.19);
+      --color-primary-400: oklch(0.7000 0.1432 27.19);
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+      --color-primary-700: oklch(0.4517 0.1884 27.19);
+      --color-primary-800: oklch(0.3916 0.1805 27.19);
+      --color-primary-900: oklch(0.3192 0.1698 27.19);
+      --color-primary-950: oklch(0.2505 0.1579 27.19);
+      --color-secondary-50: oklch(0.969 0.002 18.01);
+      --color-secondary-100: oklch(0.927 0.007 17.53);
+      --color-secondary-200: oklch(0.862 0.01 17.51);
+      --color-secondary-300: oklch(0.786 0.017 17.61);
+      --color-secondary-400: oklch(0.719 0.022 17.74);
+      --color-secondary-500: oklch(0.64 0.031 18.02);
+      --color-secondary-600: oklch(0.569 0.036 18.28);
+      --color-secondary-700: oklch(0.493 0.029 18.21);
+      --color-secondary-800: oklch(0.42 0.025 18.21);
+      --color-secondary-900: oklch(0.292 0.015 18.07);
+      --color-secondary-950: oklch(0.23 0.011 18.02);
+      --color-primary: oklch(0.5365 0.1984 27.19);
+      --color-secondary: var(--color-secondary-500);
+      --radius-button: var(--radius-sm);
+      --radius-card: var(--radius-md);
+    }
+  </style>
+  <style>
+    :root {
+      --btn-py: 0.6em;
+      --btn-px: 1.75em;
+      --btn-primary-color: #f5f5f5;
+      --btn-secondary-color: #f5f5f5;
+      --btn-outline-bg: transparent;
+      --btn-outline-border: currentColor;
+      --btn-outline-color: #262626;
+    }
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .doc-section { scroll-margin-top: 4rem; }
+    .code-block {
+      background: #1e1e2e; color: #cdd6f4; border-radius: 8px;
+      padding: 1rem; font-family: monospace; font-size: 0.85rem;
+      overflow-x: auto; margin: 0.5rem 0 1.5rem; line-height: 1.6;
+      position: relative;
+    }
+    .code-block .copy-btn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      background: #45475a; color: #cdd6f4; border: none; border-radius: 4px;
+      padding: 0.25rem 0.5rem; font-size: 0.75rem; cursor: pointer;
+    }
+    .code-block .copy-btn:hover { background: #585b70; }
+    .example-box {
+      border: 1px solid #e5e5e5; border-radius: 8px; padding: 2rem;
+      background: white; margin: 0.5rem 0;
+    }
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e5e5; }
+    .tab {
+      padding: 0.5rem 1rem; cursor: pointer; border: none; background: none;
+      font-size: 0.9rem; color: #737373; border-bottom: 2px solid transparent;
+      margin-bottom: -2px; transition: all 0.2s;
+    }
+    .tab.active { color: oklch(0.5365 0.1984 27.19); border-bottom-color: oklch(0.5365 0.1984 27.19); font-weight: 600; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Nav -->
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-lg font-bold text-primary-600">FDS</span>
+        <span class="text-sm text-neutral-400">Flowtitude Design System</span>
+        <span class="text-xs bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full">Free</span>
+      </div>
+      <div class="flex gap-4 text-sm">
+        <a href="tokens.html" class="text-neutral-600 hover:text-primary-500 transition">Tokens</a>
+        <a href="buttons.html" class="text-neutral-600 hover:text-primary-500 transition">Buttons</a>
+        <a href="typography.html" class="text-neutral-600 hover:text-primary-500 transition">Typography</a>
+        <a href="layouts.html" class="text-neutral-600 hover:text-primary-500 transition">Layouts</a>
+        <a href="utilities.html" class="text-neutral-600 hover:text-primary-500 transition">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="px-6 py-16 text-center">
+    <h1 class="text-5xl font-bold tracking-tight text-neutral-900 mb-4">Flowtitude Design System</h1>
+    <p class="text-lg text-neutral-500 max-w-2xl mx-auto mb-8">
+      Design system CSS gratuito sobre Tailwind CSS 4. Tokens fluidos, componentes y layouts inteligentes.
+    </p>
+    <div class="flex gap-3 justify-center">
+      <a href="tokens.html" class="inline-flex items-center gap-2 bg-primary-500 text-white font-semibold py-2.5 px-6 rounded-md hover:scale-105 transition">
+        Ver Tokens
+      </a>
+      <a href="buttons.html" class="inline-flex items-center gap-2 border border-neutral-300 text-neutral-700 font-semibold py-2.5 px-6 rounded-md hover:shadow-lg transition">
+        Componentes
+      </a>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <main class="max-w-6xl mx-auto px-6 pb-16">
+
+    <!-- What's included -->
+    <section class="doc-section mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-neutral-900">Contenido</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <a href="tokens.html" class="block p-6 bg-white rounded-lg border border-neutral-200 hover:shadow-md hover:-translate-y-0.5 transition">
+          <div class="text-2xl mb-2">🎨</div>
+          <h3 class="font-semibold text-lg mb-1">Design Tokens</h3>
+          <p class="text-sm text-neutral-500">Tipografia fluida, spacing semantico, colores OKLCH, aspect ratios.</p>
+        </a>
+
+        <a href="buttons.html" class="block p-6 bg-white rounded-lg border border-neutral-200 hover:shadow-md hover:-translate-y-0.5 transition">
+          <div class="text-2xl mb-2">🔘</div>
+          <h3 class="font-semibold text-lg mb-1">Buttons</h3>
+          <p class="text-sm text-neutral-500">6 variantes de color, 4 tamanos, formas y layouts.</p>
+        </a>
+
+        <a href="typography.html" class="block p-6 bg-white rounded-lg border border-neutral-200 hover:shadow-md hover:-translate-y-0.5 transition">
+          <div class="text-2xl mb-2">📝</div>
+          <h3 class="font-semibold text-lg mb-1">Typography</h3>
+          <p class="text-sm text-neutral-500">Display, heading, subheading, text — escala fluida completa.</p>
+        </a>
+
+        <a href="layouts.html" class="block p-6 bg-white rounded-lg border border-neutral-200 hover:shadow-md hover:-translate-y-0.5 transition">
+          <div class="text-2xl mb-2">📐</div>
+          <h3 class="font-semibold text-lg mb-1">Layouts</h3>
+          <p class="text-sm text-neutral-500">Secciones inteligentes, content-flex 9 puntos, grids proporcionales.</p>
+        </a>
+
+        <a href="utilities.html" class="block p-6 bg-white rounded-lg border border-neutral-200 hover:shadow-md hover:-translate-y-0.5 transition">
+          <div class="text-2xl mb-2">🛠️</div>
+          <h3 class="font-semibold text-lg mb-1">Utilities</h3>
+          <p class="text-sm text-neutral-500">Grids auto-fill/fit, duraciones, flip, bg-image, click-parent.</p>
+        </a>
+
+        <div class="p-6 bg-neutral-50 rounded-lg border border-dashed border-neutral-300">
+          <div class="text-2xl mb-2">🔒</div>
+          <h3 class="font-semibold text-lg mb-1 text-neutral-400">Pro (pronto)</h3>
+          <p class="text-sm text-neutral-400">Cards, accordion, forms, animaciones scroll, bento grid.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="doc-section mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-neutral-900">Arquitectura</h2>
+
+      <h3 class="text-xl font-semibold mb-3">CSS Layers</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+@layer theme, base, layouts, components, utilities, custom;</div>
+
+      <h3 class="text-xl font-semibold mb-3 mt-8">Estructura de archivos</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+main.css                    # Entry point
+theme/flowtitude.css        # Tokens (knobs + derived)
+base/base.css               # Reset, body
+base/typography.css         # h1-h6, .prose
+layouts/section.css         # Secciones inteligentes
+layouts/content-flex.css    # Posicionamiento 9 puntos
+components/buttons.css      # .btn + variantes
+components/typography.css   # .display, .heading, .subheading
+components/components.css   # .bg-image, .click-parent
+components/custom.css       # .eyebrow
+utility/core/utilities.css  # flip-w, flip-h
+utility/layout/grid-basic.css      # Grids proporcionales
+utility/animations/durations.css   # Duraciones</div>
+
+      <h3 class="text-xl font-semibold mb-3 mt-8">Instalacion (WordPress + WindPress)</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+1. Instalar WindPress en WordPress
+2. Ir a WindPress > Importar
+3. Seleccionar archivo .windpress de FDS
+4. WindPress regenera todo automaticamente</div>
+    </section>
+
+    <!-- Tokens preview -->
+    <section class="doc-section mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-neutral-900">Vista rapida de tokens</h2>
+
+      <h3 class="text-xl font-semibold mb-4">Paleta Primary</h3>
+      <div class="flex gap-1 mb-6">
+        <div class="flex-1 h-12 rounded bg-primary-50 flex items-end p-1"><span class="text-[10px]">50</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-100 flex items-end p-1"><span class="text-[10px]">100</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-200 flex items-end p-1"><span class="text-[10px]">200</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-300 flex items-end p-1"><span class="text-[10px]">300</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-400 flex items-end p-1"><span class="text-[10px] text-white">400</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-500 flex items-end p-1"><span class="text-[10px] text-white">500</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-600 flex items-end p-1"><span class="text-[10px] text-white">600</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-700 flex items-end p-1"><span class="text-[10px] text-white">700</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-800 flex items-end p-1"><span class="text-[10px] text-white">800</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-900 flex items-end p-1"><span class="text-[10px] text-white">900</span></div>
+        <div class="flex-1 h-12 rounded bg-primary-950 flex items-end p-1"><span class="text-[10px] text-white">950</span></div>
+      </div>
+
+      <h3 class="text-xl font-semibold mb-4">Paleta Secondary</h3>
+      <div class="flex gap-1 mb-8">
+        <div class="flex-1 h-12 rounded bg-secondary-50 flex items-end p-1"><span class="text-[10px]">50</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-100 flex items-end p-1"><span class="text-[10px]">100</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-200 flex items-end p-1"><span class="text-[10px]">200</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-300 flex items-end p-1"><span class="text-[10px]">300</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-400 flex items-end p-1"><span class="text-[10px]">400</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-500 flex items-end p-1"><span class="text-[10px] text-white">500</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-600 flex items-end p-1"><span class="text-[10px] text-white">600</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-700 flex items-end p-1"><span class="text-[10px] text-white">700</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-800 flex items-end p-1"><span class="text-[10px] text-white">800</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-900 flex items-end p-1"><span class="text-[10px] text-white">900</span></div>
+        <div class="flex-1 h-12 rounded bg-secondary-950 flex items-end p-1"><span class="text-[10px] text-white">950</span></div>
+      </div>
+
+      <a href="tokens.html" class="text-primary-500 font-semibold hover:underline">Ver todos los tokens &rarr;</a>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    Flowtitude Design System &mdash; Free &amp; Open
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>

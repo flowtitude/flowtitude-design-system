@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layouts — FDS Docs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+    }
+  </style>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .example-box { border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.5rem; background: white; margin: 0.5rem 0 0.5rem; }
+    .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: 0 0 8px 8px; padding: 1rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem; }
+    .code-block .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #45475a; color: #cdd6f4; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer; }
+    .demo-cell { background: oklch(0.94 0.0428 27.19); border: 1px solid oklch(0.87 0.0765 27.19); border-radius: 6px; padding: 1rem; text-align: center; font-size: 0.8rem; color: oklch(0.4517 0.1884 27.19); font-weight: 500; min-height: 3rem; display: flex; align-items: center; justify-content: center; }
+    .demo-flex-box { width: 100%; height: 200px; background: #f0f0f0; border-radius: 8px; position: relative; }
+    .demo-flex-content { background: oklch(0.94 0.0428 27.19); border: 1px solid oklch(0.87 0.0765 27.19); border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.75rem; color: oklch(0.4517 0.1884 27.19); }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-5xl mx-auto flex items-center gap-4">
+      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
+      <span class="text-neutral-300">/</span>
+      <span class="text-neutral-600 font-medium">Layouts</span>
+      <div class="ml-auto flex gap-4 text-sm">
+        <a href="tokens.html" class="text-neutral-500 hover:text-primary-500">Tokens</a>
+        <a href="buttons.html" class="text-neutral-500 hover:text-primary-500">Buttons</a>
+        <a href="typography.html" class="text-neutral-500 hover:text-primary-500">Typography</a>
+        <a href="utilities.html" class="text-neutral-500 hover:text-primary-500">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-2">Layouts</h1>
+    <p class="text-neutral-500 mb-10">Secciones inteligentes, content-flex 9 puntos y grids proporcionales.</p>
+
+    <!-- Sections -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Secciones</h2>
+      <p class="text-sm text-neutral-500 mb-4">Cada <code>&lt;section&gt;</code> es automaticamente un container con padding y max-width.</p>
+      <div class="code-block" style="border-radius: 8px;">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;section&gt;
+  &lt;div&gt;  &lt;!-- auto: mx-auto max-w-container flex-col --&gt;
+    &lt;div&gt;  &lt;!-- auto: w-full --&gt;
+      Contenido aqui
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</div>
+
+      <h3 class="text-lg font-medium mb-3">Modificadores</h3>
+      <div class="code-block" style="border-radius: 8px;">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;!-- Spacing inteligente automatico --&gt;
+&lt;section class="has-background"&gt;...&lt;/section&gt;  &lt;!-- Padding completo arriba y abajo --&gt;
+&lt;section class="half-top"&gt;...&lt;/section&gt;        &lt;!-- Padding top reducido 50% --&gt;
+&lt;section class="half-bottom"&gt;...&lt;/section&gt;     &lt;!-- Padding bottom reducido 50% --&gt;
+
+&lt;!-- Full viewport width --&gt;
+&lt;div class="block-bleed"&gt;...&lt;/div&gt;</div>
+    </section>
+
+    <!-- Content Flex -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Content Flex — 9 puntos</h2>
+      <p class="text-sm text-neutral-500 mb-4">Posiciona contenido en cualquier punto de un contenedor. Default: center.</p>
+
+      <div class="example-box">
+        <div class="grid grid-cols-3 gap-3" style="height: 300px;">
+          <div class="demo-flex-box flex flex-col justify-start items-start p-3">
+            <div class="demo-flex-content">.top-left</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-start items-center p-3">
+            <div class="demo-flex-content">.top</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-start items-end p-3">
+            <div class="demo-flex-content">.top-right</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-center items-start p-3">
+            <div class="demo-flex-content">.left</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-center items-center p-3" style="background: oklch(0.94 0.0428 27.19);">
+            <div class="demo-flex-content" style="background: white;">.center (default)</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-center items-end p-3">
+            <div class="demo-flex-content">.right</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-end items-start p-3">
+            <div class="demo-flex-content">.bottom-left</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-end items-center p-3">
+            <div class="demo-flex-content">.bottom</div>
+          </div>
+          <div class="demo-flex-box flex flex-col justify-end items-end p-3">
+            <div class="demo-flex-content">.bottom-right</div>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="content-flex"&gt;Default: centrado&lt;/div&gt;
+&lt;div class="content-flex top-left"&gt;Arriba izquierda&lt;/div&gt;
+&lt;div class="content-flex top"&gt;Arriba centro&lt;/div&gt;
+&lt;div class="content-flex top-right"&gt;Arriba derecha&lt;/div&gt;
+&lt;div class="content-flex left"&gt;Centro izquierda&lt;/div&gt;
+&lt;div class="content-flex right"&gt;Centro derecha&lt;/div&gt;
+&lt;div class="content-flex bottom-left"&gt;Abajo izquierda&lt;/div&gt;
+&lt;div class="content-flex bottom"&gt;Abajo centro&lt;/div&gt;
+&lt;div class="content-flex bottom-right"&gt;Abajo derecha&lt;/div&gt;</div>
+    </section>
+
+    <!-- Grids -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Grids proporcionales</h2>
+      <p class="text-sm text-neutral-500 mb-4">Clases <code>@utility</code> para grids con proporciones predefinidas.</p>
+
+      <h3 class="text-lg font-medium mb-3">2 columnas</h3>
+      <div class="example-box space-y-3">
+        <div class="grid gap-2" style="grid-template-columns: 1fr 2fr;"><div class="demo-cell">1fr</div><div class="demo-cell">2fr</div></div>
+        <div class="grid gap-2" style="grid-template-columns: 2fr 1fr;"><div class="demo-cell">2fr</div><div class="demo-cell">1fr</div></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="grid grid-cols-1-2"&gt;33% / 67%&lt;/div&gt;
+&lt;div class="grid grid-cols-2-1"&gt;67% / 33%&lt;/div&gt;</div>
+
+      <h3 class="text-lg font-medium mb-3">3 columnas</h3>
+      <div class="example-box space-y-3">
+        <div class="grid gap-2" style="grid-template-columns: 1fr 2fr 1fr;"><div class="demo-cell">1fr</div><div class="demo-cell">2fr</div><div class="demo-cell">1fr</div></div>
+        <div class="grid gap-2" style="grid-template-columns: 2fr 1fr 1fr;"><div class="demo-cell">2fr</div><div class="demo-cell">1fr</div><div class="demo-cell">1fr</div></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="grid grid-cols-1-2-1"&gt;25% / 50% / 25%&lt;/div&gt;
+&lt;div class="grid grid-cols-2-1-1"&gt;50% / 25% / 25%&lt;/div&gt;
+&lt;div class="grid grid-cols-1-1-2"&gt;25% / 25% / 50%&lt;/div&gt;
+&lt;div class="grid grid-cols-1-3"&gt;25% / 75%&lt;/div&gt;
+&lt;div class="grid grid-cols-3-1"&gt;75% / 25%&lt;/div&gt;</div>
+
+      <h3 class="text-lg font-medium mb-3">Auto-fill / Auto-fit (responsive cards)</h3>
+      <div class="example-box">
+        <div class="grid gap-3" style="grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));">
+          <div class="demo-cell">Card</div>
+          <div class="demo-cell">Card</div>
+          <div class="demo-cell">Card</div>
+          <div class="demo-cell">Card</div>
+          <div class="demo-cell">Card</div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;!-- auto-fill: mantiene columnas vacias --&gt;
+&lt;div class="grid grid-auto-fill-xs"&gt;...&lt;/div&gt;  &lt;!-- 12rem cards --&gt;
+&lt;div class="grid grid-auto-fill-sm"&gt;...&lt;/div&gt;  &lt;!-- 14rem cards --&gt;
+&lt;div class="grid grid-auto-fill-md"&gt;...&lt;/div&gt;  &lt;!-- 18rem cards --&gt;
+&lt;div class="grid grid-auto-fill-lg"&gt;...&lt;/div&gt;  &lt;!-- 24rem cards --&gt;
+&lt;div class="grid grid-auto-fill-xl"&gt;...&lt;/div&gt;  &lt;!-- 36rem cards --&gt;
+
+&lt;!-- auto-fit: expande para llenar --&gt;
+&lt;div class="grid grid-auto-fit-md"&gt;...&lt;/div&gt;</div>
+    </section>
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+  </footer>
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>

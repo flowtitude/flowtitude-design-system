@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tokens — FDS Docs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --color-primary-50: oklch(0.97 0.0255 27.19);
+      --color-primary-100: oklch(0.94 0.0428 27.19);
+      --color-primary-200: oklch(0.87 0.0765 27.19);
+      --color-primary-300: oklch(0.80 0.1056 27.19);
+      --color-primary-400: oklch(0.70 0.1432 27.19);
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+      --color-primary-700: oklch(0.4517 0.1884 27.19);
+      --color-primary-800: oklch(0.3916 0.1805 27.19);
+      --color-primary-900: oklch(0.3192 0.1698 27.19);
+      --color-primary-950: oklch(0.2505 0.1579 27.19);
+      --color-secondary-50: oklch(0.969 0.002 18.01);
+      --color-secondary-100: oklch(0.927 0.007 17.53);
+      --color-secondary-200: oklch(0.862 0.01 17.51);
+      --color-secondary-300: oklch(0.786 0.017 17.61);
+      --color-secondary-400: oklch(0.719 0.022 17.74);
+      --color-secondary-500: oklch(0.64 0.031 18.02);
+      --color-secondary-600: oklch(0.569 0.036 18.28);
+      --color-secondary-700: oklch(0.493 0.029 18.21);
+      --color-secondary-800: oklch(0.42 0.025 18.21);
+      --color-secondary-900: oklch(0.292 0.015 18.07);
+      --color-secondary-950: oklch(0.23 0.011 18.02);
+    }
+  </style>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 1rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem; }
+    .code-block .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #45475a; color: #cdd6f4; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer; }
+    .swatch { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+    .swatch-color { width: 100%; height: 3rem; border-radius: 6px; }
+    .swatch-label { font-size: 0.7rem; color: #888; }
+    .token-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem; }
+    .token-row:first-child { font-weight: 600; border-bottom: 2px solid #ddd; }
+    .token-name { font-family: monospace; font-size: 0.8rem; }
+    .spacing-bar { height: 1.5rem; background: oklch(0.5365 0.1984 27.19); border-radius: 4px; opacity: 0.7; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-5xl mx-auto flex items-center gap-4">
+      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
+      <span class="text-neutral-300">/</span>
+      <span class="text-neutral-600 font-medium">Tokens</span>
+      <div class="ml-auto flex gap-4 text-sm">
+        <a href="buttons.html" class="text-neutral-500 hover:text-primary-500">Buttons</a>
+        <a href="typography.html" class="text-neutral-500 hover:text-primary-500">Typography</a>
+        <a href="layouts.html" class="text-neutral-500 hover:text-primary-500">Layouts</a>
+        <a href="utilities.html" class="text-neutral-500 hover:text-primary-500">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-2">Design Tokens</h1>
+    <p class="text-neutral-500 mb-10">Variables CSS que controlan todo el sistema. ~35 knobs editables generan 50+ valores derivados.</p>
+
+    <!-- Colors -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Colores (OKLCH)</h2>
+
+      <h3 class="text-lg font-medium mb-3">Primary</h3>
+      <div class="grid grid-cols-11 gap-2 mb-6">
+        <div class="swatch"><div class="swatch-color bg-primary-50"></div><span class="swatch-label">50</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-100"></div><span class="swatch-label">100</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-200"></div><span class="swatch-label">200</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-300"></div><span class="swatch-label">300</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-400"></div><span class="swatch-label">400</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-500"></div><span class="swatch-label">500</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-600"></div><span class="swatch-label">600</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-700"></div><span class="swatch-label">700</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-800"></div><span class="swatch-label">800</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-900"></div><span class="swatch-label">900</span></div>
+        <div class="swatch"><div class="swatch-color bg-primary-950"></div><span class="swatch-label">950</span></div>
+      </div>
+
+      <h3 class="text-lg font-medium mb-3">Secondary</h3>
+      <div class="grid grid-cols-11 gap-2 mb-6">
+        <div class="swatch"><div class="swatch-color bg-secondary-50"></div><span class="swatch-label">50</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-100"></div><span class="swatch-label">100</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-200"></div><span class="swatch-label">200</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-300"></div><span class="swatch-label">300</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-400"></div><span class="swatch-label">400</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-500"></div><span class="swatch-label">500</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-600"></div><span class="swatch-label">600</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-700"></div><span class="swatch-label">700</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-800"></div><span class="swatch-label">800</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-900"></div><span class="swatch-label">900</span></div>
+        <div class="swatch"><div class="swatch-color bg-secondary-950"></div><span class="swatch-label">950</span></div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Spacing semantico</h2>
+      <p class="text-sm text-neutral-500 mb-4">Cada nivel se calcula con <code>clamp()</code> — fluido entre 410px y 1280px viewport.</p>
+
+      <div class="space-y-3 max-w-xl">
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-inner</code><div class="spacing-bar" style="width: 10%"></div><span class="text-xs text-neutral-400">0.5x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-content</code><div class="spacing-bar" style="width: 16%"></div><span class="text-xs text-neutral-400">0.75x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-stack</code><div class="spacing-bar" style="width: 22%"></div><span class="text-xs text-neutral-400">1x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-block</code><div class="spacing-bar" style="width: 22%"></div><span class="text-xs text-neutral-400">1x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-columns</code><div class="spacing-bar" style="width: 33%"></div><span class="text-xs text-neutral-400">1.5x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-section</code><div class="spacing-bar" style="width: 66%"></div><span class="text-xs text-neutral-400">3x</span></div>
+        <div class="flex items-center gap-4"><code class="w-40 text-xs text-right">--spacing-hero</code><div class="spacing-bar" style="width: 100%"></div><span class="text-xs text-neutral-400">4.5x</span></div>
+      </div>
+    </section>
+
+    <!-- Typography scale -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Escala tipografica</h2>
+      <p class="text-sm text-neutral-500 mb-4">Generada desde <code>--ft-type-step-min: 1.125</code> / <code>--ft-type-step-max: 1.2</code></p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+--text-base → calc(clamp(1rem ... 1.125rem) * factor)
+--text-sm   → base / step
+--text-xs   → sm / step
+--text-lg   → base * step
+--text-xl   → lg * step
+...continua hasta --text-9xl</div>
+    </section>
+
+    <!-- Knobs reference -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Referencia de knobs</h2>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+/* Viewport */
+--viewport-min: 410px;
+--viewport-max: 1280px;
+
+/* Typography */
+--ft-text-min: 1rem;
+--ft-text-max: 1.125rem;
+--ft-type-step-min: 1.125;
+--ft-type-step-max: 1.2;
+--ft-text-factor: 1;
+
+/* Spacing */
+--ft-space-min: 0.5rem;
+--ft-space-max: 1.5rem;
+--ft-space-step-min: 1.3;
+--ft-space-step-max: 1.5;
+--ft-space-factor: 1;
+
+/* Semantic multipliers */
+--ft-space-factor-inner: 0.5;
+--ft-space-factor-content: 0.75;
+--ft-space-factor-stack: 1;
+--ft-space-factor-block: 1;
+--ft-space-factor-columns: 1.5;
+--ft-space-factor-section: 3;
+--ft-space-factor-hero: 4.5;
+
+/* Layout */
+--ft-container: min(var(--container-7xl), 90%);
+--ft-padding-content-x: 1rem;
+--ft-padding-content-y: var(--spacing-section);
+--ft-gap-content: var(--spacing-block);
+
+/* Colors */
+--ft-color-text: #000;
+--ft-color-background: #f9ecec;
+
+/* Card widths */
+--ft-card-xs: 12rem;  /* 192px */
+--ft-card-sm: 14rem;  /* 224px */
+--ft-card-md: 18rem;  /* 288px */
+--ft-card-lg: 24rem;  /* 384px */
+--ft-card-xl: 36rem;  /* 576px */</div>
+    </section>
+
+    <!-- Other tokens -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Otros tokens</h2>
+
+      <h3 class="text-lg font-medium mb-3">Leading (line-height)</h3>
+      <div class="code-block">
+--leading-none: 1em;
+--leading-tight: 1.2em;
+--leading-snug: 1.375em;
+--leading-normal: 1.5em;
+--leading-relaxed: 1.625em;
+--leading-loose: 2em;</div>
+
+      <h3 class="text-lg font-medium mb-3">Border Radius</h3>
+      <div class="code-block">
+--radius-button: var(--radius-sm);
+--radius-card: var(--radius-md);
+--radius-section: var(--radius-md);</div>
+
+      <h3 class="text-lg font-medium mb-3">Aspect Ratios</h3>
+      <div class="code-block">
+--aspect-rrss: 1.91 / 1;       /* Social media */
+--aspect-wide: 18 / 8;          /* Panoramico */
+--aspect-ultrawide: 18 / 5;     /* Ultra panoramico */
+--aspect-golden: 1.618 / 1;     /* Proporcion aurea */
+--aspect-portrait: 3 / 4;       /* Retrato */
+--aspect-landscape: 4 / 3;      /* Paisaje */</div>
+    </section>
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+  </footer>
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>

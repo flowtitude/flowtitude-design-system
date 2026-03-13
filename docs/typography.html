@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography — FDS Docs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --font-display: var(--font-body);
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+      --color-secondary-500: oklch(0.64 0.031 18.02);
+      --color-secondary-700: oklch(0.493 0.029 18.21);
+    }
+  </style>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .example-box { border: 1px solid #e5e5e5; border-radius: 8px; padding: 2rem; background: white; margin: 0.5rem 0 0.5rem; }
+    .code-block {
+      background: #1e1e2e; color: #cdd6f4; border-radius: 0 0 8px 8px;
+      padding: 1rem; font-family: monospace; font-size: 0.8rem;
+      overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem;
+    }
+    .code-block .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #45475a; color: #cdd6f4; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer; }
+    .class-label { display: inline-block; background: #f0f0f0; border-radius: 4px; padding: 0.15rem 0.5rem; font-family: monospace; font-size: 0.75rem; color: #666; margin-bottom: 0.25rem; }
+    .size-note { color: #999; font-size: 0.8rem; margin-left: 0.5rem; }
+
+    /* FDS typography classes */
+    .display, .display-lg { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(3rem, 2.5rem + 2vw, 4.5rem); }
+    .display-md { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem); }
+    .display-sm { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem); }
+    .heading-lg { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(2rem, 1.6rem + 1.5vw, 2.75rem); }
+    .heading, .heading-md { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.4rem); }
+    .heading-sm { font-family: var(--font-display, Arial); font-weight: 500; line-height: 1; letter-spacing: -0.025em; text-wrap: balance; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+    .subheading-lg { font-family: var(--font-display, Arial); font-weight: 600; line-height: 1; letter-spacing: -0.025em; text-wrap: pretty; font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem); }
+    .subheading, .subheading-md { font-family: var(--font-display, Arial); font-weight: 600; line-height: 1; text-wrap: pretty; font-size: clamp(1.2rem, 1rem + 0.6vw, 1.5rem); }
+    .subheading-sm { font-family: var(--font-display, Arial); font-weight: 600; line-height: 1; text-wrap: pretty; font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.3rem); }
+    .text-large { font-size: 1.125rem; line-height: 1.375; text-wrap: pretty; }
+    .text-medium { font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
+    .text-small { font-size: 0.875rem; line-height: 1.625; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-5xl mx-auto flex items-center gap-4">
+      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
+      <span class="text-neutral-300">/</span>
+      <span class="text-neutral-600 font-medium">Typography</span>
+      <div class="ml-auto flex gap-4 text-sm">
+        <a href="tokens.html" class="text-neutral-500 hover:text-primary-500">Tokens</a>
+        <a href="buttons.html" class="text-neutral-500 hover:text-primary-500">Buttons</a>
+        <a href="layouts.html" class="text-neutral-500 hover:text-primary-500">Layouts</a>
+        <a href="utilities.html" class="text-neutral-500 hover:text-primary-500">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-2">Typography</h1>
+    <p class="text-neutral-500 mb-10">Clases semanticas para tipografia. Escala fluida via <code class="bg-neutral-100 px-1.5 py-0.5 rounded text-sm">clamp()</code> — sin media queries.</p>
+
+    <!-- Display -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Display</h2>
+      <p class="text-sm text-neutral-500 mb-4">Impacto maximo. Para heroes y titulos principales.</p>
+      <div class="example-box space-y-4">
+        <div><span class="class-label">.display-lg</span><span class="size-note">text-9xl</span><div class="display-lg">Display Large</div></div>
+        <div><span class="class-label">.display-md</span><span class="size-note">text-8xl</span><div class="display-md">Display Medium</div></div>
+        <div><span class="class-label">.display-sm</span><span class="size-note">text-7xl</span><div class="display-sm">Display Small</div></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;h1 class="display-lg"&gt;Display Large&lt;/h1&gt;
+&lt;h1 class="display-md"&gt;Display Medium&lt;/h1&gt;
+&lt;h1 class="display-sm"&gt;Display Small&lt;/h1&gt;
+
+&lt;!-- .display es alias de .display-lg --&gt;</div>
+    </section>
+
+    <!-- Heading -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Heading</h2>
+      <p class="text-sm text-neutral-500 mb-4">Titulos estructurales. El comodin para la mayoria de secciones.</p>
+      <div class="example-box space-y-4">
+        <div><span class="class-label">.heading-lg</span><span class="size-note">text-6xl</span><div class="heading-lg">Heading Large</div></div>
+        <div><span class="class-label">.heading-md</span><span class="size-note">text-5xl</span><div class="heading-md">Heading Medium</div></div>
+        <div><span class="class-label">.heading-sm</span><span class="size-note">text-4xl</span><div class="heading-sm">Heading Small</div></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;h2 class="heading-lg"&gt;Heading Large&lt;/h2&gt;
+&lt;h2 class="heading"&gt;Heading (alias de heading-md)&lt;/h2&gt;
+&lt;h3 class="heading-sm"&gt;Heading Small&lt;/h3&gt;</div>
+    </section>
+
+    <!-- Subheading -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Subheading</h2>
+      <p class="text-sm text-neutral-500 mb-4">Puente entre heading y contenido. Font-semibold.</p>
+      <div class="example-box space-y-3">
+        <div><span class="class-label">.subheading-lg</span><span class="size-note">text-3xl</span><div class="subheading-lg">Subheading Large</div></div>
+        <div><span class="class-label">.subheading-md</span><span class="size-note">text-2xl</span><div class="subheading-md">Subheading Medium</div></div>
+        <div><span class="class-label">.subheading-sm</span><span class="size-note">text-xl</span><div class="subheading-sm">Subheading Small</div></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;h3 class="subheading-lg"&gt;Subheading Large&lt;/h3&gt;
+&lt;h4 class="subheading"&gt;Subheading (alias de subheading-md)&lt;/h4&gt;
+&lt;h5 class="subheading-sm"&gt;Subheading Small&lt;/h5&gt;</div>
+    </section>
+
+    <!-- Text -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Text (body)</h2>
+      <div class="example-box space-y-4">
+        <div><span class="class-label">.text-large</span><span class="size-note">text-lg, leading-snug</span><p class="text-large">Texto grande para destacar del cuerpo principal. Ideal para introducciones o llamadas de atencion.</p></div>
+        <div><span class="class-label">.text-medium</span><span class="size-note">text-base, leading-normal</span><p class="text-medium">Texto base para la mayoria del contenido. Tamano por defecto del body.</p></div>
+        <div><span class="class-label">.text-small</span><span class="size-note">text-sm, leading-relaxed</span><p class="text-small">Texto pequeno para informacion de apoyo, notas al pie o metadata.</p></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;p class="text-large"&gt;Intro o destacado&lt;/p&gt;
+&lt;p class="text-medium"&gt;Contenido base&lt;/p&gt;
+&lt;p class="text-small"&gt;Notas o metadata&lt;/p&gt;</div>
+    </section>
+
+    <!-- Scale reference -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Escala completa</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-b-2 border-neutral-200">
+              <th class="text-left py-2 pr-4">Clase</th>
+              <th class="text-left py-2 pr-4">Alias</th>
+              <th class="text-left py-2 pr-4">TW Size</th>
+              <th class="text-left py-2 pr-4">Font</th>
+              <th class="text-left py-2">Uso</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            <tr><td class="py-2 pr-4 font-mono text-xs">.display-lg</td><td class="py-2 pr-4 text-neutral-400">.display</td><td class="py-2 pr-4">9xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Heroes, impacto maximo</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.display-md</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">8xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Display estandar</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.display-sm</td><td class="py-2 pr-4 text-neutral-400">.display-single</td><td class="py-2 pr-4">7xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Display controlado</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.heading-lg</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">6xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Contenido principal</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.heading-md</td><td class="py-2 pr-4 text-neutral-400">.heading</td><td class="py-2 pr-4">5xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Comodin para titulos</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.heading-sm</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">4xl</td><td class="py-2 pr-4">medium</td><td class="py-2 text-neutral-500">Subdivisiones claras</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.subheading-lg</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">3xl</td><td class="py-2 pr-4">semibold</td><td class="py-2 text-neutral-500">Puente heading/contenido</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.subheading-md</td><td class="py-2 pr-4 text-neutral-400">.subheading</td><td class="py-2 pr-4">2xl</td><td class="py-2 pr-4">semibold</td><td class="py-2 text-neutral-500">Versatil</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.subheading-sm</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">xl</td><td class="py-2 pr-4">semibold</td><td class="py-2 text-neutral-500">Sutil pero efectivo</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.text-large</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">lg</td><td class="py-2 pr-4">body</td><td class="py-2 text-neutral-500">Destacar del body</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.text-medium</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">base</td><td class="py-2 pr-4">body</td><td class="py-2 text-neutral-500">Contenido por defecto</td></tr>
+            <tr><td class="py-2 pr-4 font-mono text-xs">.text-small</td><td class="py-2 pr-4 text-neutral-400">-</td><td class="py-2 pr-4">sm</td><td class="py-2 pr-4">body</td><td class="py-2 text-neutral-500">Info de apoyo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+  </footer>
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>

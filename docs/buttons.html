@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buttons — FDS Docs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --font-display: var(--font-body);
+      --color-primary-50: oklch(0.97 0.0255 27.19);
+      --color-primary-100: oklch(0.94 0.0428 27.19);
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+      --color-secondary-500: oklch(0.64 0.031 18.02);
+      --color-secondary-600: oklch(0.569 0.036 18.28);
+      --radius-button: var(--radius-sm);
+    }
+  </style>
+  <style>
+    :root {
+      --btn-py: 0.6em; --btn-px: 1.75em;
+      --btn-primary-color: #f5f5f5; --btn-secondary-color: #f5f5f5;
+      --btn-outline-bg: transparent; --btn-outline-border: currentColor; --btn-outline-color: #262626;
+    }
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .example-box { border: 1px solid #e5e5e5; border-radius: 8px; padding: 2rem; background: white; margin: 0.5rem 0 0.5rem; }
+    .code-block {
+      background: #1e1e2e; color: #cdd6f4; border-radius: 0 0 8px 8px;
+      padding: 1rem; font-family: monospace; font-size: 0.8rem;
+      overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem;
+    }
+    .code-block .copy-btn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      background: #45475a; color: #cdd6f4; border: none; border-radius: 4px;
+      padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer;
+    }
+    .code-block .copy-btn:hover { background: #585b70; }
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e5e5; margin-top: 0.5rem; }
+    .tab {
+      padding: 0.4rem 1rem; cursor: pointer; border: none; background: none;
+      font-size: 0.8rem; color: #737373; border-bottom: 2px solid transparent;
+      margin-bottom: -2px; transition: all 0.15s;
+    }
+    .tab.active { color: oklch(0.5365 0.1984 27.19); border-bottom-color: oklch(0.5365 0.1984 27.19); font-weight: 600; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* FDS Button styles (from components/buttons.css) */
+    .btn {
+      display: inline-flex; overflow: hidden; position: relative; align-items: center; justify-content: center;
+      font-weight: 600; border-radius: var(--radius-sm, 0.25rem); transition: all 0.3s; min-width: fit-content; gap: 0.5rem;
+      padding: var(--btn-py) var(--btn-px); cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { transform: scale(1.05); }
+    .btn:focus-visible { outline: 2px solid oklch(0.5365 0.1984 27.19); outline-offset: 2px; }
+    .btn-light { background: #f5f5f5; color: #262626; border: 1px solid #f5f5f5; }
+    .btn-dark { background: #404040; color: #f5f5f5; border: 1px solid #404040; }
+    .btn-primary { background: oklch(0.5365 0.1984 27.19); border: 1px solid oklch(0.5365 0.1984 27.19); color: var(--btn-primary-color); }
+    .btn-secondary { background: oklch(0.64 0.031 18.02); border: 1px solid oklch(0.64 0.031 18.02); color: var(--btn-secondary-color); }
+    .btn-outline { background: var(--btn-outline-bg); border: 1px solid var(--btn-outline-border); color: var(--btn-outline-color); }
+    .btn-outline:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .btn-link { background: transparent; color: #262626; border: none; padding-left: 0; }
+    .btn-rounded { border-radius: 9999px; }
+    .btn-xs { font-size: 0.75rem; }
+    .btn-sm { font-size: 0.875rem; }
+    .btn-lg { font-size: 1.125rem; }
+    .btn-xl { font-size: 1.25rem; }
+    .btn-wide { padding-left: calc(var(--btn-px) * 1.5); padding-right: calc(var(--btn-px) * 1.5); }
+    .btn-block { width: 100%; }
+    .btn-circle { border-radius: 9999px; aspect-ratio: 1; padding: var(--btn-py); }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-5xl mx-auto flex items-center gap-4">
+      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
+      <span class="text-neutral-300">/</span>
+      <span class="text-neutral-600 font-medium">Buttons</span>
+      <div class="ml-auto flex gap-4 text-sm">
+        <a href="tokens.html" class="text-neutral-500 hover:text-primary-500">Tokens</a>
+        <a href="typography.html" class="text-neutral-500 hover:text-primary-500">Typography</a>
+        <a href="layouts.html" class="text-neutral-500 hover:text-primary-500">Layouts</a>
+        <a href="utilities.html" class="text-neutral-500 hover:text-primary-500">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-2">Buttons</h1>
+    <p class="text-neutral-500 mb-10">Clase base <code class="bg-neutral-100 px-1.5 py-0.5 rounded text-sm">.btn</code> + variantes de color, tamano, forma y layout.</p>
+
+    <!-- Color variants -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Variantes de color</h2>
+      <div class="example-box flex flex-wrap gap-3 items-center">
+        <button class="btn btn-light">Light</button>
+        <button class="btn btn-dark">Dark</button>
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-link">Link &rarr;</button>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;button class="btn btn-light"&gt;Light&lt;/button&gt;
+&lt;button class="btn btn-dark"&gt;Dark&lt;/button&gt;
+&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn-outline"&gt;Outline&lt;/button&gt;
+&lt;button class="btn btn-link"&gt;Link &amp;rarr;&lt;/button&gt;</div>
+    </section>
+
+    <!-- Sizes -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Tamanos</h2>
+      <div class="example-box flex flex-wrap gap-3 items-center">
+        <button class="btn btn-primary btn-xs">Extra Small</button>
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+        <button class="btn btn-primary btn-xl">Extra Large</button>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;button class="btn btn-primary btn-xs"&gt;Extra Small&lt;/button&gt;
+&lt;button class="btn btn-primary btn-sm"&gt;Small&lt;/button&gt;
+&lt;button class="btn btn-primary"&gt;Default&lt;/button&gt;
+&lt;button class="btn btn-primary btn-lg"&gt;Large&lt;/button&gt;
+&lt;button class="btn btn-primary btn-xl"&gt;Extra Large&lt;/button&gt;</div>
+    </section>
+
+    <!-- Shapes -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Formas</h2>
+      <div class="example-box flex flex-wrap gap-3 items-center">
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-rounded">Rounded</button>
+        <button class="btn btn-primary btn-circle">A</button>
+        <button class="btn btn-primary btn-wide">Wide</button>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;button class="btn btn-primary"&gt;Default&lt;/button&gt;
+&lt;button class="btn btn-primary btn-rounded"&gt;Rounded&lt;/button&gt;
+&lt;button class="btn btn-primary btn-circle"&gt;A&lt;/button&gt;
+&lt;button class="btn btn-primary btn-wide"&gt;Wide&lt;/button&gt;</div>
+    </section>
+
+    <!-- Block -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Full width</h2>
+      <div class="example-box">
+        <button class="btn btn-primary btn-block">Block Button (100% width)</button>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;button class="btn btn-primary btn-block"&gt;Block Button&lt;/button&gt;</div>
+    </section>
+
+    <!-- Combinations -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Combinaciones</h2>
+      <div class="example-box flex flex-wrap gap-3 items-center">
+        <button class="btn btn-outline btn-rounded btn-lg">Outline + Rounded + LG</button>
+        <button class="btn btn-dark btn-sm btn-wide">Dark + SM + Wide</button>
+        <button class="btn btn-secondary btn-rounded btn-xs">Secondary + Rounded + XS</button>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;button class="btn btn-outline btn-rounded btn-lg"&gt;Outline + Rounded + LG&lt;/button&gt;
+&lt;button class="btn btn-dark btn-sm btn-wide"&gt;Dark + SM + Wide&lt;/button&gt;
+&lt;button class="btn btn-secondary btn-rounded btn-xs"&gt;Secondary + Rounded + XS&lt;/button&gt;</div>
+    </section>
+
+    <!-- Submit auto-styling -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Submit (auto-estilizado)</h2>
+      <p class="text-neutral-500 text-sm mb-3"><code>button[type="submit"]</code> recibe estilo automaticamente sin necesidad de clase <code>.btn</code>.</p>
+      <div class="example-box">
+        <form onsubmit="event.preventDefault()">
+          <button type="submit" style="display:inline-flex;overflow:hidden;position:relative;align-items:center;justify-content:center;font-weight:400;border-radius:var(--radius-sm,0.25rem);transition:all 0.3s;min-width:fit-content;gap:0.5rem;background:oklch(0.5365 0.1984 27.19);border:1px solid oklch(0.5365 0.1984 27.19);padding:var(--btn-py) var(--btn-px);color:var(--btn-primary-color);cursor:pointer;">Enviar formulario</button>
+        </form>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;!-- Sin clase .btn — se estiliza solo --&gt;
+&lt;button type="submit"&gt;Enviar formulario&lt;/button&gt;</div>
+    </section>
+
+    <!-- CSS Variables -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Variables CSS de configuracion</h2>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+:root {
+  --btn-py: 0.6em;               /* Padding vertical */
+  --btn-px: 1.75em;              /* Padding horizontal */
+  --btn-primary-color: #f5f5f5;  /* Texto sobre primary */
+  --btn-secondary-color: #f5f5f5;/* Texto sobre secondary */
+  --btn-outline-bg: transparent;
+  --btn-outline-border: currentColor;
+  --btn-outline-color: #262626;
+}</div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>

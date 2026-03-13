@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilities — FDS Docs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --color-primary-500: oklch(0.5365 0.1984 27.19);
+      --color-primary-600: oklch(0.4963 0.1938 27.19);
+    }
+  </style>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
+    .doc-nav { position: sticky; top: 0; z-index: 50; }
+    .example-box { border: 1px solid #e5e5e5; border-radius: 8px; padding: 2rem; background: white; margin: 0.5rem 0 0.5rem; }
+    .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: 0 0 8px 8px; padding: 1rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem; }
+    .code-block.standalone { border-radius: 8px; }
+    .code-block .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #45475a; color: #cdd6f4; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer; }
+    .demo-arrow { width: 3rem; height: 3rem; background: oklch(0.5365 0.1984 27.19); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); display: inline-block; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
+    <div class="max-w-5xl mx-auto flex items-center gap-4">
+      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
+      <span class="text-neutral-300">/</span>
+      <span class="text-neutral-600 font-medium">Utilities</span>
+      <div class="ml-auto flex gap-4 text-sm">
+        <a href="tokens.html" class="text-neutral-500 hover:text-primary-500">Tokens</a>
+        <a href="buttons.html" class="text-neutral-500 hover:text-primary-500">Buttons</a>
+        <a href="typography.html" class="text-neutral-500 hover:text-primary-500">Typography</a>
+        <a href="layouts.html" class="text-neutral-500 hover:text-primary-500">Layouts</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-2">Utilities</h1>
+    <p class="text-neutral-500 mb-10">Clases utilitarias para transformaciones, duraciones, imagenes de fondo e interactividad.</p>
+
+    <!-- Flip -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Flip</h2>
+      <div class="example-box flex items-center gap-8">
+        <div class="text-center">
+          <div class="demo-arrow mb-2"></div>
+          <span class="text-xs text-neutral-500">Original</span>
+        </div>
+        <div class="text-center">
+          <div class="demo-arrow mb-2" style="transform: scaleX(-1);"></div>
+          <span class="text-xs text-neutral-500">.flip-w</span>
+        </div>
+        <div class="text-center">
+          <div class="demo-arrow mb-2" style="transform: scaleY(-1);"></div>
+          <span class="text-xs text-neutral-500">.flip-h</span>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="flip-w"&gt;Espejo horizontal&lt;/div&gt;
+&lt;div class="flip-h"&gt;Espejo vertical&lt;/div&gt;</div>
+    </section>
+
+    <!-- Durations -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Duraciones de transicion</h2>
+      <div class="example-box">
+        <div class="space-y-3">
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-none</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 0s;"></div>
+            <span class="text-xs text-neutral-400">0ms</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-faster</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 100ms;"></div>
+            <span class="text-xs text-neutral-400">100ms</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-fast</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 200ms;"></div>
+            <span class="text-xs text-neutral-400">200ms</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-normal</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 300ms;"></div>
+            <span class="text-xs text-neutral-400">300ms</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-slow</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 400ms;"></div>
+            <span class="text-xs text-neutral-400">400ms</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="w-36 text-xs text-right">.duration-slower</code>
+            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 500ms;"></div>
+            <span class="text-xs text-neutral-400">500ms</span>
+          </div>
+        </div>
+        <p class="text-xs text-neutral-400 mt-4">Haz hover sobre las barras para ver la diferencia de velocidad.</p>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="transition duration-fast"&gt;200ms&lt;/div&gt;
+&lt;div class="transition duration-normal"&gt;300ms&lt;/div&gt;
+&lt;div class="transition duration-slow"&gt;400ms&lt;/div&gt;</div>
+    </section>
+
+    <!-- bg-image -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">.bg-image</h2>
+      <p class="text-sm text-neutral-500 mb-4">Imagen de fondo full-cover con z-index negativo. Para usar dentro de secciones con contenido encima.</p>
+      <div class="code-block standalone">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;section class="relative has-background"&gt;
+  &lt;img src="hero.jpg" class="bg-image" alt=""&gt;
+  &lt;div&gt;
+    &lt;div&gt;
+      &lt;h1&gt;Contenido sobre la imagen&lt;/h1&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- .bg-image aplica: absolute inset-0 size-full object-cover -z-1 --&gt;</div>
+    </section>
+
+    <!-- click-parent -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">.click-parent</h2>
+      <p class="text-sm text-neutral-500 mb-4">Hace todo el contenedor clickeable via un pseudo-elemento ::after que cubre el area completa.</p>
+      <div class="code-block standalone">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="click-parent relative"&gt;
+  &lt;a href="/destino"&gt;Link interno&lt;/a&gt;
+  &lt;p&gt;Todo el bloque es clickeable&lt;/p&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- focus-from-child -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">.focus-from-child</h2>
+      <p class="text-sm text-neutral-500 mb-4">El contenedor recibe estilo visual cuando un hijo tiene focus. Ideal para cards con links internos.</p>
+      <div class="code-block standalone">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;div class="focus-from-child"&gt;
+  &lt;input type="text" placeholder="Al hacer focus aqui..."&gt;
+  &lt;p&gt;...todo el contenedor recibe shadow + border&lt;/p&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- Custom variants -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Custom Variants</h2>
+      <p class="text-sm text-neutral-500 mb-4">Variantes de Tailwind definidas en <code>main.css</code> para estilar basandose en el padre.</p>
+      <div class="code-block standalone">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+/* Definicion (main.css) */
+@custom-variant parent (*:has(> &));
+@custom-variant parent-hover (*:hover > &);
+@custom-variant parent-focus-within (*:focus-within > &);
+
+/* Uso en HTML */
+&lt;div&gt;  &lt;!-- padre --&gt;
+  &lt;span class="parent:text-red-500"&gt;
+    Rojo si es hijo directo
+  &lt;/span&gt;
+  &lt;span class="parent-hover:scale-110"&gt;
+    Escala cuando hover en el padre
+  &lt;/span&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- Eyebrow -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">.eyebrow</h2>
+      <p class="text-sm text-neutral-500 mb-4">Etiqueta pequena para categorias o labels sobre un titulo.</p>
+      <div class="example-box">
+        <span style="border: 1px solid #d4d4d4; border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.875rem; text-transform: uppercase; display: inline-block;">Categoria</span>
+        <p class="text-xs text-neutral-400 mt-2">Nota: en el codigo actual aparece como <code>.eyebrown</code> (typo pendiente de fix)</p>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+&lt;span class="eyebrow"&gt;Nuevo&lt;/span&gt;
+&lt;h2 class="heading"&gt;Titulo de seccion&lt;/h2&gt;</div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
+    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+  </footer>
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    }
+  </script>
+</body>
+</html>
