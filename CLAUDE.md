@@ -1,18 +1,10 @@
 # Flowtitude Design System (FDS)
 
 > Tipo: CSS Design System sobre Tailwind CSS 4
+> Layers: fluent-boards
 > Version: Free (gratuita)
 > Distribucion: Archivo .windpress (importar/exportar via WindPress)
-> Ultima actualizacion: 2026-03-13
-
-## Al Iniciar Sesion
-
-1. Lee `.claude/backlog.md` para conocer issues/features pendientes.
-2. Carga patterns relevantes de `~/.claude/patterns/`:
-   - `flowtitude.md` (este design system)
-   - `tailwind.md` (Tailwind CSS v4)
-   - `wordpress.md` (si se trabaja en integracion WP)
-3. Si el usuario no especifica que hacer, ofrece retomar el item de mayor prioridad.
+> Ultima actualizacion: 2026-03-15
 
 ## Que es FDS
 
@@ -25,6 +17,12 @@ Design system CSS gratuito construido sobre Tailwind CSS 4. Proporciona:
 
 **NO es un framework** — extiende Tailwind, no lo reemplaza.
 
+### Scope de uso
+- **Frontend WordPress (Bricks, Gutenberg, page builders)**: FDS se usa completo via WindPress para crear paginas y secciones.
+- **IA del tema hijo**: La IA en flowtitude-child debe conocer FDS para recomendar clases y crear estructura HTML.
+- **Todo lo demas (plugins WP, tema hijo, webapps, Vite)**: Usan Tailwind propio con el master `input.css` (en `claude-workflow/templates/layers/tailwind/`) que comparte tokens de FDS para consistencia visual.
+- **Curso**: Hay un curso en fluencommunity/flowtitude.com — revisar contenido al hacer cambios en FDS.
+
 ## Stack
 
 - **CSS**: Tailwind CSS v4 (sintaxis `@theme`, `@layer`, `@utility`)
@@ -32,7 +30,7 @@ Design system CSS gratuito construido sobre Tailwind CSS 4. Proporciona:
 - **Tokens**: CSS custom properties con `clamp()` para fluid design
 - **Colores**: Paletas en OKLCH (11 pasos: 50-950)
 
-## Estructura del Proyecto
+## File Structure
 
 ```
 flowtitude-design-system/
@@ -57,6 +55,12 @@ flowtitude-design-system/
     animations/durations.css   # Duraciones semanticas de transicion
   docs/
     sistema-espaciado-fluido-tailwind.md  # Documentacion del sistema de spacing
+    index.html                 # Docs interactivos — indice principal
+    tokens.html                # Visualizacion de design tokens
+    buttons.html               # Ejemplos de botones
+    typography.html            # Ejemplos de tipografia
+    layouts.html               # Ejemplos de layouts y grids
+    utilities.html             # Ejemplos de utilidades
   .claude/
     backlog.md                 # Issues y session log
 ```
@@ -105,7 +109,7 @@ El sistema usa ~35 variables "knob" (editables) que generan 50+ variables deriva
 - Sincronizar cambios: copiar archivos a `/wp-content/uploads/windpress/data/`
 - Verificar en browser con WindPress activo
 
-## Reglas de Desarrollo
+## Project-Specific Rules
 
 1. **Tailwind v4 syntax**: Usar `@theme`, `@layer`, `@utility`, `@custom-variant`
 2. **No @apply en utilities**: Solo en components y base (donde tiene sentido semantico)
@@ -113,9 +117,25 @@ El sistema usa ~35 variables "knob" (editables) que generan 50+ variables deriva
 4. **clamp() para fluid**: Sin media queries para tipografia y spacing
 5. **Naming**: `.btn-*`, `.badge-*`, `.card-*` (prefijo por componente)
 6. **Custom properties con prefijo**: `--ft-*` para knobs, `--spacing-*` para semantico
+7. **Al modificar CSS**: Revisar mapa curso↔codigo y avisar que lecciones hay que actualizar
+8. Sincronizar cambios a dev-descubre-tailwind si aplica
 
-## Al Finalizar Sesion
+## Curso (fluencommunity/flowtitude.com)
 
-1. Actualizar `.claude/backlog.md` con What/Why/Where/Learned
-2. Si se descubrio algo global → proponer a `~/.claude/patterns/flowtitude.md`
-3. Sincronizar cambios a dev-descubre-tailwind si aplica
+Hay un curso de 7 lecciones. Los docs de referencia cruzada estan en `docs/curso/`:
+- `docs/curso/index.html` — Contenido de las lecciones con alertas de discrepancias
+- `docs/curso/audit.html` — Auditoria completa + mapa archivo→lecciones
+
+### Mapa rapido: al cambiar un archivo, revisar estas lecciones
+
+| Archivo FDS | Lecciones |
+|---|---|
+| `main.css` | L2 (imports), L6 (variants), L7 (extension) |
+| `theme/flowtitude.css` | L3 (knobs), L4 (escala), L5 (spacing), L6 (cards) |
+| `base/base.css` | L2 (verificacion), L3 (color fondo) |
+| `base/typography.css` | L4 (preflight, prose) |
+| `components/typography.css` | L4 (display, heading, subheading, text) |
+| `components/buttons.css` | L3 (button variables) |
+| `layouts/section.css` | L5 (secciones) |
+| `layouts/content-flex.css` | L5 (content-flex) |
+| `utility/layout/grid-basic.css` | L6 (grids) |

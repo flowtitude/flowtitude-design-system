@@ -4,201 +4,507 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utilities — FDS Docs</title>
+  <link rel="stylesheet" href="shared.css">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
     @theme {
-      --font-body: Arial, ui-sans-serif, system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --color-primary-50: oklch(0.97 0.0255 27.19);
+      --color-primary-100: oklch(0.94 0.0428 27.19);
+      --color-primary-200: oklch(0.87 0.0765 27.19);
+      --color-primary-300: oklch(0.80 0.1056 27.19);
+      --color-primary-400: oklch(0.70 0.1432 27.19);
       --color-primary-500: oklch(0.5365 0.1984 27.19);
       --color-primary-600: oklch(0.4963 0.1938 27.19);
+      --color-primary-700: oklch(0.4517 0.1884 27.19);
+      --color-primary-800: oklch(0.3916 0.1805 27.19);
+      --color-primary-900: oklch(0.3192 0.1698 27.19);
+      --color-primary-950: oklch(0.2505 0.1579 27.19);
     }
   </style>
   <style>
-    body { font-family: Arial, sans-serif; background: #fafafa; color: #1a1a1a; }
-    .doc-nav { position: sticky; top: 0; z-index: 50; }
-    .example-box { border: 1px solid #e5e5e5; border-radius: 8px; padding: 2rem; background: white; margin: 0.5rem 0 0.5rem; }
-    .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: 0 0 8px 8px; padding: 1rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.5; position: relative; margin-bottom: 2rem; }
-    .code-block.standalone { border-radius: 8px; }
-    .code-block .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #45475a; color: #cdd6f4; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.7rem; cursor: pointer; }
-    .demo-arrow { width: 3rem; height: 3rem; background: oklch(0.5365 0.1984 27.19); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); display: inline-block; }
+    .demo-diamond {
+      width: 3rem;
+      height: 3rem;
+      background: var(--amber-500);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      display: inline-block;
+    }
+    .duration-bar {
+      height: 1.75rem;
+      width: 4rem;
+      background: var(--amber-500);
+      border-radius: 4px;
+      opacity: 0.65;
+      cursor: pointer;
+      transition-property: width, opacity;
+      transition-timing-function: var(--ease);
+    }
+    .duration-bar:hover {
+      width: 100%;
+      opacity: 1;
+    }
+    .duration-row {
+      display: grid;
+      grid-template-columns: 11rem 1fr 4rem;
+      align-items: center;
+      gap: 1rem;
+    }
+    .duration-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--amber-400);
+      text-align: right;
+    }
+    [data-theme="light"] .duration-label { color: var(--amber-800); }
+    .duration-ms {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
   </style>
 </head>
-<body class="min-h-screen">
-  <nav class="doc-nav bg-white border-b border-neutral-200 px-6 py-3">
-    <div class="max-w-5xl mx-auto flex items-center gap-4">
-      <a href="index.html" class="text-lg font-bold text-primary-600">FDS</a>
-      <span class="text-neutral-300">/</span>
-      <span class="text-neutral-600 font-medium">Utilities</span>
-      <div class="ml-auto flex gap-4 text-sm">
-        <a href="tokens.html" class="text-neutral-500 hover:text-primary-500">Tokens</a>
-        <a href="buttons.html" class="text-neutral-500 hover:text-primary-500">Buttons</a>
-        <a href="typography.html" class="text-neutral-500 hover:text-primary-500">Typography</a>
-        <a href="layouts.html" class="text-neutral-500 hover:text-primary-500">Layouts</a>
+<body>
+
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <button class="doc-menu-toggle" aria-label="Menu">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>
+      </button>
+      <a href="index.html" class="doc-logo-link" aria-label="Flowtitude Design System"><img src="logo-dark.svg" class="logo-img logo-for-dark" alt="Flowtitude"><img src="logo-light.svg" class="logo-img logo-for-light" alt="Flowtitude"></a>
+      
+      <nav class="doc-header-nav">
+        <a href="tokens.html">Tokens</a>
+        <a href="buttons.html">Buttons</a>
+        <a href="typography.html">Typography</a>
+        <a href="layouts.html">Layouts</a>
+        <a href="utilities.html">Utilities</a>
+      </nav>
+      <div class="doc-search">
+        <svg class="doc-search-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"/></svg>
+        <input type="search" class="doc-search-input" placeholder="Buscar..." aria-label="Buscar en la documentacion">
+        <span class="doc-search-kbd">/</span>
+        <div class="doc-search-results"></div>
       </div>
+      <div class="header-spacer"></div>
+      <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+      </button>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold mb-2">Utilities</h1>
-    <p class="text-neutral-500 mb-10">Clases utilitarias para transformaciones, duraciones, imagenes de fondo e interactividad.</p>
+  <div class="doc-sidebar-overlay"></div>
+  <div class="doc-layout">
+    <aside class="doc-sidebar">
+      <nav>
+        <div class="doc-sidebar-section">
+          <div class="doc-sidebar-title">Getting Started</div>
+          <a href="index.html">Overview</a>
+        </div>
+        <div class="doc-sidebar-section">
+          <div class="doc-sidebar-title">Foundation</div>
+          <a href="tokens.html">Design Tokens</a>
+          <a href="typography.html">Typography</a>
+        </div>
+        <div class="doc-sidebar-section">
+          <div class="doc-sidebar-title">Components</div>
+          <a href="buttons.html">Buttons</a>
+        </div>
+        <div class="doc-sidebar-section">
+          <div class="doc-sidebar-title">Layout</div>
+          <a href="layouts.html">Sections &amp; Grids</a>
+        </div>
+        <div class="doc-sidebar-section">
+          <div class="doc-sidebar-title">Utilities</div>
+          <a href="utilities.html">Utilities</a>
+        </div>
+      </nav>
+    </aside>
 
-    <!-- Flip -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Flip</h2>
-      <div class="example-box flex items-center gap-8">
-        <div class="text-center">
-          <div class="demo-arrow mb-2"></div>
-          <span class="text-xs text-neutral-500">Original</span>
-        </div>
-        <div class="text-center">
-          <div class="demo-arrow mb-2" style="transform: scaleX(-1);"></div>
-          <span class="text-xs text-neutral-500">.flip-w</span>
-        </div>
-        <div class="text-center">
-          <div class="demo-arrow mb-2" style="transform: scaleY(-1);"></div>
-          <span class="text-xs text-neutral-500">.flip-h</span>
-        </div>
-      </div>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-&lt;div class="flip-w"&gt;Espejo horizontal&lt;/div&gt;
-&lt;div class="flip-h"&gt;Espejo vertical&lt;/div&gt;</div>
-    </section>
+    <main class="doc-main">
 
-    <!-- Durations -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Duraciones de transicion</h2>
-      <div class="example-box">
-        <div class="space-y-3">
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-none</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 0s;"></div>
-            <span class="text-xs text-neutral-400">0ms</span>
+      <header class="doc-page-header">
+        <h1 class="doc-page-title">Utilities</h1>
+        <p class="doc-page-subtitle">Clases utilitarias para transformaciones, duraciones, imagenes de fondo, interactividad y custom variants de Tailwind.</p>
+      </header>
+
+      <!-- Flip -->
+      <section class="doc-section" id="flip">
+        <h2>Flip</h2>
+        <p>Voltea elementos horizontal o verticalmente con <code>.flip-w</code> y <code>.flip-h</code>. Usa <code>scaleX(-1)</code> y <code>scaleY(-1)</code> internamente.</p>
+
+        <div class="example-box" style="display: flex; gap: 2.5rem; align-items: center; justify-content: center;">
+          <div style="text-align: center;">
+            <div class="demo-diamond"></div>
+            <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-tertiary);">Original</div>
           </div>
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-faster</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 100ms;"></div>
-            <span class="text-xs text-neutral-400">100ms</span>
+          <div style="text-align: center;">
+            <div class="demo-diamond" style="transform: scaleX(-1);"></div>
+            <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-tertiary);">.flip-w</div>
           </div>
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-fast</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 200ms;"></div>
-            <span class="text-xs text-neutral-400">200ms</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-normal</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 300ms;"></div>
-            <span class="text-xs text-neutral-400">300ms</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-slow</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 400ms;"></div>
-            <span class="text-xs text-neutral-400">400ms</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <code class="w-36 text-xs text-right">.duration-slower</code>
-            <div class="h-8 rounded bg-primary-500 transition-all hover:w-full cursor-pointer" style="width: 4rem; transition-duration: 500ms;"></div>
-            <span class="text-xs text-neutral-400">500ms</span>
+          <div style="text-align: center;">
+            <div class="demo-diamond" style="transform: scaleY(-1);"></div>
+            <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-tertiary);">.flip-h</div>
           </div>
         </div>
-        <p class="text-xs text-neutral-400 mt-4">Haz hover sobre las barras para ver la diferencia de velocidad.</p>
-      </div>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;!-- Original --&gt;
+&lt;img src="arrow.svg" alt="Arrow"&gt;
+
+&lt;!-- Volteo horizontal --&gt;
+&lt;img src="arrow.svg" class="flip-w" alt="Arrow flipped"&gt;
+
+&lt;!-- Volteo vertical --&gt;
+&lt;img src="arrow.svg" class="flip-h" alt="Arrow flipped"&gt;</div>
+        </div>
+
+        <h3>Implementacion</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">utility/core/utilities.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">@utility flip-w {
+  transform: scaleX(-1);
+}
+
+@utility flip-h {
+  transform: scaleY(-1);
+}</div>
+        </div>
+      </section>
+
+      <!-- Transition Durations -->
+      <section class="doc-section" id="durations">
+        <h2>Transition Durations</h2>
+        <p>Clases semanticas para <code>transition-duration</code>. Pasa el cursor sobre las barras para ver la diferencia de velocidad en cada nivel.</p>
+
+        <div class="example-box">
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div class="duration-row">
+              <div class="duration-label">.duration-none</div>
+              <div class="duration-bar" style="transition-duration: 0s;"></div>
+              <div class="duration-ms">0ms</div>
+            </div>
+            <div class="duration-row">
+              <div class="duration-label">.duration-faster</div>
+              <div class="duration-bar" style="transition-duration: 100ms;"></div>
+              <div class="duration-ms">100ms</div>
+            </div>
+            <div class="duration-row">
+              <div class="duration-label">.duration-fast</div>
+              <div class="duration-bar" style="transition-duration: 200ms;"></div>
+              <div class="duration-ms">200ms</div>
+            </div>
+            <div class="duration-row">
+              <div class="duration-label">.duration-normal</div>
+              <div class="duration-bar" style="transition-duration: 300ms;"></div>
+              <div class="duration-ms">300ms</div>
+            </div>
+            <div class="duration-row">
+              <div class="duration-label">.duration-slow</div>
+              <div class="duration-bar" style="transition-duration: 400ms;"></div>
+              <div class="duration-ms">400ms</div>
+            </div>
+            <div class="duration-row">
+              <div class="duration-label">.duration-slower</div>
+              <div class="duration-bar" style="transition-duration: 500ms;"></div>
+              <div class="duration-ms">500ms</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;div class="transition duration-faster"&gt;100ms&lt;/div&gt;
 &lt;div class="transition duration-fast"&gt;200ms&lt;/div&gt;
 &lt;div class="transition duration-normal"&gt;300ms&lt;/div&gt;
-&lt;div class="transition duration-slow"&gt;400ms&lt;/div&gt;</div>
-    </section>
+&lt;div class="transition duration-slow"&gt;400ms&lt;/div&gt;
+&lt;div class="transition duration-slower"&gt;500ms&lt;/div&gt;</div>
+        </div>
 
-    <!-- bg-image -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">.bg-image</h2>
-      <p class="text-sm text-neutral-500 mb-4">Imagen de fondo full-cover con z-index negativo. Para usar dentro de secciones con contenido encima.</p>
-      <div class="code-block standalone">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-&lt;section class="relative has-background"&gt;
+        <h3>Referencia de duraciones</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Clase</th>
+              <th>Duracion</th>
+              <th>Uso recomendado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>.duration-none</code></td><td class="mono">0ms</td><td>Sin transicion (override)</td></tr>
+            <tr><td><code>.duration-faster</code></td><td class="mono">100ms</td><td>Feedback inmediato: tooltips, focus rings</td></tr>
+            <tr><td><code>.duration-fast</code></td><td class="mono">200ms</td><td>Hover states, cambios de color</td></tr>
+            <tr><td><code>.duration-normal</code></td><td class="mono">300ms</td><td>Default general, transforms</td></tr>
+            <tr><td><code>.duration-slow</code></td><td class="mono">400ms</td><td>Paneles, drawers, modals</td></tr>
+            <tr><td><code>.duration-slower</code></td><td class="mono">500ms</td><td>Animaciones de entrada complejas</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Background Image -->
+      <section class="doc-section" id="bg-image">
+        <h2>Background Image</h2>
+        <p>La clase <code>.bg-image</code> convierte un <code>&lt;img&gt;</code> en una imagen de fondo a pantalla completa con z-index negativo. Se usa dentro de secciones con contenido superpuesto.</p>
+
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;section class="relative"&gt;
   &lt;img src="hero.jpg" class="bg-image" alt=""&gt;
   &lt;div&gt;
-    &lt;div&gt;
-      &lt;h1&gt;Contenido sobre la imagen&lt;/h1&gt;
-    &lt;/div&gt;
+    &lt;h1&gt;Contenido sobre la imagen&lt;/h1&gt;
+    &lt;p&gt;La imagen cubre toda la seccion por detras.&lt;/p&gt;
   &lt;/div&gt;
-&lt;/section&gt;
+&lt;/section&gt;</div>
+        </div>
 
-&lt;!-- .bg-image aplica: absolute inset-0 size-full object-cover -z-1 --&gt;</div>
-    </section>
+        <h3>Que aplica la clase</h3>
+        <p>Internamente, <code>.bg-image</code> equivale a las siguientes propiedades de Tailwind:</p>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">components/components.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">.bg-image {
+  @apply absolute inset-0 size-full object-cover -z-1;
+}</div>
+        </div>
 
-    <!-- click-parent -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">.click-parent</h2>
-      <p class="text-sm text-neutral-500 mb-4">Hace todo el contenedor clickeable via un pseudo-elemento ::after que cubre el area completa.</p>
-      <div class="code-block standalone">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-&lt;div class="click-parent relative"&gt;
-  &lt;a href="/destino"&gt;Link interno&lt;/a&gt;
-  &lt;p&gt;Todo el bloque es clickeable&lt;/p&gt;
+        <div class="tip tip-info">
+          <svg class="tip-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+          <span>El contenedor padre necesita <code>position: relative</code> (clase <code>.relative</code> de Tailwind) para que el posicionamiento absoluto funcione correctamente.</span>
+        </div>
+      </section>
+
+      <!-- Click Parent -->
+      <section class="doc-section" id="click-parent">
+        <h2>Click Parent</h2>
+        <p>Hace clickeable todo el contenedor a traves de un pseudo-elemento <code>::after</code> que cubre toda el area. El primer <code>&lt;a&gt;</code> dentro del contenedor se convierte en el target de click.</p>
+
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;div class="relative"&gt;
+  &lt;a href="/articulo" class="click-parent"&gt;Titulo del articulo&lt;/a&gt;
+  &lt;p&gt;Descripcion del articulo...&lt;/p&gt;
 &lt;/div&gt;</div>
-    </section>
+        </div>
 
-    <!-- focus-from-child -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">.focus-from-child</h2>
-      <p class="text-sm text-neutral-500 mb-4">El contenedor recibe estilo visual cuando un hijo tiene focus. Ideal para cards con links internos.</p>
-      <div class="code-block standalone">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-&lt;div class="focus-from-child"&gt;
-  &lt;input type="text" placeholder="Al hacer focus aqui..."&gt;
-  &lt;p&gt;...todo el contenedor recibe shadow + border&lt;/p&gt;
+        <h3>Implementacion</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">components/components.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">.click-parent {
+  outline: none !important;
+}
+
+.click-parent::after {
+  content: "";
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}</div>
+        </div>
+
+        <div class="tip tip-warning">
+          <svg class="tip-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.168 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
+          <span>El contenedor padre necesita <code>position: relative</code> para que el <code>::after</code> se posicione correctamente sobre todo el area.</span>
+        </div>
+      </section>
+
+      <!-- Focus from Child -->
+      <section class="doc-section" id="focus-from-child">
+        <h2>Focus from Child</h2>
+        <p>El contenedor recibe estilos visuales cuando un hijo tiene foco. Ideal para cards con links internos donde quieres feedback visual en toda la card al navegar con teclado.</p>
+
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;div class="focus-from-child rounded-lg border p-6"&gt;
+  &lt;h3&gt;&lt;a href="/articulo"&gt;Titulo del articulo&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;Cuando el link recibe foco, toda la card muestra shadow y borde.&lt;/p&gt;
 &lt;/div&gt;</div>
-    </section>
+        </div>
 
-    <!-- Custom variants -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Custom Variants</h2>
-      <p class="text-sm text-neutral-500 mb-4">Variantes de Tailwind definidas en <code>main.css</code> para estilar basandose en el padre.</p>
-      <div class="code-block standalone">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-/* Definicion (main.css) */
-@custom-variant parent (*:has(> &));
+        <h3>Implementacion</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">components/components.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">.focus-from-child {
+  position: relative;
+  transition: all 700ms !important;
+}
+
+.focus-from-child:focus-within {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-color: var(--color-neutral-300);
+}
+
+.focus-from-child:hover {
+  cursor: pointer;
+}</div>
+        </div>
+
+        <div class="tip tip-info">
+          <svg class="tip-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+          <span>Usa <code>:focus-within</code> internamente, que se activa cuando cualquier hijo focusable recibe foco (links, botones, inputs).</span>
+        </div>
+      </section>
+
+      <!-- Custom Variants -->
+      <section class="doc-section" id="custom-variants">
+        <h2>Custom Variants</h2>
+        <p>Variantes personalizadas de Tailwind definidas en <code>main.css</code> que permiten aplicar estilos basados en el estado del elemento padre.</p>
+
+        <h3>Definicion</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">main.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">@custom-variant parent (*:has(> &));
 @custom-variant parent-hover (*:hover > &);
-@custom-variant parent-focus-within (*:focus-within > &);
+@custom-variant parent-focus-within (*:focus-within > &);</div>
+        </div>
 
-/* Uso en HTML */
-&lt;div&gt;  &lt;!-- padre --&gt;
-  &lt;span class="parent:text-red-500"&gt;
-    Rojo si es hijo directo
+        <h3>Uso en HTML</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;!-- Cambiar padding del padre cuando contiene este hijo --&gt;
+&lt;div class="parent:p-8"&gt;
+  &lt;span&gt;Este span hace que el padre tenga p-8&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Estilizar hijo cuando el padre recibe hover --&gt;
+&lt;div&gt;
+  &lt;span class="parent-hover:text-primary-500"&gt;
+    Se pone color primario al hacer hover en el padre
   &lt;/span&gt;
-  &lt;span class="parent-hover:scale-110"&gt;
-    Escala cuando hover en el padre
+&lt;/div&gt;
+
+&lt;!-- Estilizar hijo cuando el padre tiene focus-within --&gt;
+&lt;div&gt;
+  &lt;input type="text"&gt;
+  &lt;span class="parent-focus-within:opacity-100"&gt;
+    Aparece cuando el input recibe foco
   &lt;/span&gt;
 &lt;/div&gt;</div>
-    </section>
+        </div>
 
-    <!-- Eyebrow -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">.eyebrow</h2>
-      <p class="text-sm text-neutral-500 mb-4">Etiqueta pequena para categorias o labels sobre un titulo.</p>
-      <div class="example-box">
-        <span style="border: 1px solid #d4d4d4; border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.875rem; text-transform: uppercase; display: inline-block;">Categoria</span>
-        <p class="text-xs text-neutral-400 mt-2">Nota: en el codigo actual aparece como <code>.eyebrown</code> (typo pendiente de fix)</p>
-      </div>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-&lt;span class="eyebrow"&gt;Nuevo&lt;/span&gt;
-&lt;h2 class="heading"&gt;Titulo de seccion&lt;/h2&gt;</div>
-    </section>
+        <h3>Referencia de variants</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Se activa cuando</th>
+              <th>Ejemplo de clase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>parent:</code></td>
+              <td>El padre contiene al elemento como hijo directo</td>
+              <td class="mono">parent:p-8</td>
+            </tr>
+            <tr>
+              <td><code>parent-hover:</code></td>
+              <td>Se hace hover sobre el elemento padre</td>
+              <td class="mono">parent-hover:text-primary-500</td>
+            </tr>
+            <tr>
+              <td><code>parent-focus-within:</code></td>
+              <td>El padre tiene un hijo con foco</td>
+              <td class="mono">parent-focus-within:opacity-100</td>
+            </tr>
+          </tbody>
+        </table>
 
-  </main>
+        <div class="tip tip-info">
+          <svg class="tip-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+          <span>Estas variants usan <code>@custom-variant</code> de Tailwind CSS v4. La variant <code>parent:</code> usa <code>:has()</code>, que tiene soporte en todos los navegadores modernos pero no en IE o navegadores legacy.</span>
+        </div>
+      </section>
 
-  <footer class="border-t border-neutral-200 py-6 text-center text-sm text-neutral-400">
-    <a href="index.html" class="text-primary-500 hover:underline">&larr; Volver al indice</a>
+      <!-- Eyebrow -->
+      <section class="doc-section" id="eyebrow">
+        <h2>Eyebrow</h2>
+        <p>Etiqueta pequena para categorias o labels que se coloca encima de un titulo. Tipicamente usada en heroes o cards para indicar seccion o tipo de contenido.</p>
+
+        <div class="example-box" style="display: flex; gap: 1.5rem; align-items: center; justify-content: center;">
+          <span style="border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.875rem; text-transform: uppercase; display: inline-block; color: var(--text-secondary);">Categoria</span>
+        </div>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">HTML</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="html">&lt;span class="eyebrown"&gt;Categoria&lt;/span&gt;
+&lt;h1&gt;Titulo principal de la seccion&lt;/h1&gt;
+&lt;p&gt;Descripcion debajo del titulo.&lt;/p&gt;</div>
+        </div>
+
+        <h3>Implementacion</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <span class="code-filename">components/custom.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <div class="code-block" data-lang="css">.eyebrown {
+  @apply border rounded-md py-1 px-3 text-sm uppercase;
+}</div>
+        </div>
+
+        <div class="tip tip-info">
+          <svg class="tip-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+          <span>Esta clase esta definida en <code>components/custom.css</code> dentro del layer <code>components</code>. Hereda el color de texto y borde del contexto, asi que se adapta al tema automaticamente.</span>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="doc-footer">
+    <div class="doc-footer-inner">
+      <span>Flowtitude Design System &mdash; Free &amp; Open</span>
+      <a href="https://flowtitude.com" target="_blank" rel="noopener">flowtitude.com</a>
+    </div>
   </footer>
-  <script>
-    function copyCode(btn) {
-      const code = btn.parentElement.textContent.replace('Copiar', '').trim();
-      navigator.clipboard.writeText(code);
-      btn.textContent = 'Copiado!';
-      setTimeout(() => btn.textContent = 'Copiar', 1500);
-    }
-  </script>
+
+  <script src="shared.js"></script>
 </body>
 </html>

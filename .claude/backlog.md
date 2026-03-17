@@ -10,8 +10,12 @@
 | FDS-002 | 🔵 open | Anadir componente cards (.card + variantes) | Alta |
 | FDS-003 | 🔵 open | Corregir typo: .eyebrown → .eyebrow | Media |
 | FDS-004 | 🔵 open | Revisar uso de @apply vs CSS directo en base | Media |
-| FDS-005 | 🔵 open | Documentar todos los componentes con ejemplos HTML | Media |
+| FDS-005 | ✅ done | Documentar todos los componentes con ejemplos HTML | Media |
+| FDS-009 | ✅ done | Redisenar docs HTML con estetica profesional y code blocks mejorados | Alta |
 | FDS-006 | 🔵 open | Crear archivo .windpress exportable desde estado actual | Alta |
+| FDS-007 | 🔵 open | Corregir curso: errores criticos L3 y L4 (ver docs/curso/audit.html) | Alta |
+| FDS-008 | 🔵 open | Completar curso: contenido faltante en L2, L3 (spacing knobs, tokens) | Media |
+| FDS-010 | ✅ done | Mejorar shared.css de docs: hacer CSS reutilizable y pulir estetica dark mode | Alta |
 
 ### Pro Version (futuro)
 
@@ -26,6 +30,74 @@
 ---
 
 ## Session Log
+
+### Sesion 3 — 2026-03-17
+
+**What:** Mejoras iterativas a los docs HTML del FDS en múltiples rondas: barras de spacing a ancho fijo (200px, no proporcional), contraste light mode completo (badges, alerts, tips, text-secondary/tertiary), alineación del toggle dark mode con max-width 90rem, búsqueda ampliada a 28rem, fix de inline `style=""` que no podían ser sobreescritos por CSS, integración del logo SVG de Flowtitude en header y hero de los 6 HTMLs, creación de logo-icon.svg standalone, paleta amber actualizada al naranja de marca #ff9700 con variantes WCAG-AA para modo claro.
+
+**Why:** Los docs tenían problemas de contraste en light mode (amber-400 sobre crema ≈ 2:1), el toggle salía del área de 90rem, y los "FDS" text en el header no representaban la marca. El objetivo era que los docs fueran production-quality con identidad visual real.
+
+**Where:**
+- `docs/shared.css` — Paleta amber→#ff9700, max-width header, search width, light mode overrides completas, logo CSS classes, footer padding/width
+- `docs/tokens.html` — Barras spacing a 200px fijo, inline style→class="link-accent"
+- `docs/index.html` — Logo en header y hero, h1 reemplazado por logo, light mode local overrides
+- `docs/buttons.html`, `docs/typography.html`, `docs/layouts.html`, `docs/utilities.html` — Logo en header de cada uno, light mode overrides para labels/demo cells
+- `docs/logo-dark.svg` — Logo completo para fondos oscuros (texto blanco) [nuevo]
+- `docs/logo-light.svg` — Logo completo para fondos claros (texto oscuro) [nuevo]
+- `docs/logo-icon.svg` — Icono de marca standalone (cuadrado naranja con F) [nuevo]
+
+**Learned:**
+- Inline `style="color: var(--amber-400);"` tiene especificidad 1000 y NO puede ser sobreescrito por ningún selector CSS (ni `[data-theme="light"] a`). La única solución es reemplazar el inline style por una clase.
+- El naranja de marca #ff9700 tiene ratio ≈2:1 sobre fondos claros crema — inaceptable. Para WCAG AA se necesita amber-700 (#9a5200, 5.1:1) o amber-800 (#7a3f00, 6.9:1) en light mode.
+- El enfoque dos-SVG (dark-bg/light-bg) + toggle CSS `display: none/block` via `[data-theme="light"]` es la solución más limpia para logos adaptativos sin JS adicional.
+- Un layout con sidebar+content (ej. 16rem + 74rem = 90rem) necesita aplicar el `max-width: 90rem` a header, main Y footer simultáneamente para que queden alineados.
+
+### Sesion 2 — 2026-03-13
+
+**What:** Rediseno completo de los 8 docs HTML con estetica profesional unificada. Creado sistema compartido (shared.css + shared.js) con syntax highlighting, code groups con copy button, navegacion sticky con breadcrumbs, color swatches, spacing visualizations. Creados AGENTS.md symlinks en templates base/ y wordpress/.
+
+**Why:** Los docs originales eran funcionales pero basicos — no servian como referencia publica del curso. El rediseno unifica la estetica con flowtitude.com/usal.flowtitude.com y mejora significativamente los code blocks (JetBrains Mono, syntax highlighting Tokyo Night, code-group con header/lang/filename/copy).
+
+**Where:**
+- `docs/shared.css` — 400+ lineas de CSS compartido (nuevo): nav, code-groups, tables, cards, alerts, swatches, badges
+- `docs/shared.js` — Syntax highlighter CSS/HTML, copy to clipboard, tab system, nav highlight (nuevo)
+- `docs/index.html` — Hero con stats, card grid, architecture block
+- `docs/tokens.html` — Colores con swatches, spacing visual, knobs reference con syntax highlighting
+- `docs/buttons.html` — Ejemplos vivos + code con syntax highlight
+- `docs/typography.html` — Demos vivos de cada clase + tabla referencia + CSS implementation
+- `docs/layouts.html` — 9-point flex demo, grid proporcionales con demo cells
+- `docs/utilities.html` — Duration bars interactivas, flip demo, custom variants
+- `docs/curso/index.html` — 7 lecciones con issue banners preservados, code-groups con highlighting
+- `docs/curso/audit.html` — Summary cards, lesson audits, cross-reference table con doc-table
+- `templates/base/AGENTS.md` — Symlink a CLAUDE.md (nuevo)
+- `templates/wordpress/AGENTS.md` — Symlink a CLAUDE.md (nuevo)
+
+**Learned:**
+- Inter + JetBrains Mono via Google Fonts dan estetica developer profesional sin dependencias
+- El patron code-group (header + block) es mucho mas usable que code blocks planos
+- Las clases syn-* (keyword, string, comment, property, value, tag, attr) cubren el 95% del highlighting necesario
+- La navegacion con backdrop-filter: blur da sensacion de app moderna sin JS
+- Los AGENTS.md symlinks deben crearse en los templates, no solo en proyectos finales
+
+### Sesion 1 — 2026-03-13
+
+**What:** Auditoria completa del curso (7 lecciones) contra el codigo fuente real de FDS. Creados docs HTML interactivos: contenido del curso con alertas inline + auditoria con mapa de referencia cruzada archivo→leccion. Integrado en CLAUDE.md como regla de sesion.
+
+**Why:** El curso en fluencommunity tiene errores criticos (nombres de clases incorrectos, valores CSS erroneos, descripciones que no coinciden con el codigo) que confunden a los alumnos. Necesita correccion urgente.
+
+**Where:**
+- `docs/curso/index.html` — Contenido de las 7 lecciones con alertas de errores inline
+- `docs/curso/audit.html` — Auditoria completa: 3 errores criticos, 5 faltantes, 4 menores
+- `docs/index.html` — Card del curso anadida al indice
+- `CLAUDE.md` — Mapa curso↔codigo + regla de sesion para avisar al cambiar CSS
+- `.claude/backlog.md` — FDS-007 y FDS-008 creados
+
+**Learned:**
+- L3 dice `--ft-color-background: #fff` pero real es `#f9ecec`
+- L4 usa nombres de clases inventados (.text-lead, .text-caption, .text-body) — reales son .text-large, .text-medium, .text-small
+- L4 describe subheadings con uppercase y tracking amplio pero el codigo real no los tiene
+- L2 omite el layer custom, components/typography.css y wizard.css del listado de imports
+- L3 omite completamente los knobs de spacing (la mitad del archivo de configuracion)
 
 ### Sesion 0 — 2026-03-13
 
