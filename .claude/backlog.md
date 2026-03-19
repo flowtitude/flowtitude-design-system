@@ -31,6 +31,12 @@
 
 ## Session Log
 
+### Sesion 4 — 2026-03-19
+- **What**: Fix de links subrayados por regla Gutenberg. Añadido override fuera de `@layer` en `base/typography.css` para contrarrestar `a:where(:not(.wp-element-button)) { text-decoration: underline }` de WP core.
+- **Why**: La regla de Gutenberg vive fuera de cualquier CSS layer, por lo que siempre ganaba a la regla `a { no-underline }` dentro de `@layer base`. Los enlaces aparecían subrayados en todos los sitios WP con FDS.
+- **Where**: `base/typography.css` — añadido bloque fuera de `@layer base` (líneas 3-5)
+- **Learned**: Las reglas CSS fuera de `@layer` siempre ganan a las que están dentro de cualquier capa, sin importar especificidad. Para contrarrestar estilos de WP/Gutenberg que no usan layers, el override debe estar también fuera de `@layer`.
+
 ### Sesion 3 — 2026-03-17
 
 **What:** Mejoras iterativas a los docs HTML del FDS en múltiples rondas: barras de spacing a ancho fijo (200px, no proporcional), contraste light mode completo (badges, alerts, tips, text-secondary/tertiary), alineación del toggle dark mode con max-width 90rem, búsqueda ampliada a 28rem, fix de inline `style=""` que no podían ser sobreescritos por CSS, integración del logo SVG de Flowtitude en header y hero de los 6 HTMLs, creación de logo-icon.svg standalone, paleta amber actualizada al naranja de marca #ff9700 con variantes WCAG-AA para modo claro.

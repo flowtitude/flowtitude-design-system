@@ -1,5 +1,11 @@
 /* file: base/typography.css */
 
+/* Override Gutenberg's unlayered rule: a:where(:not(.wp-element-button)) { text-decoration: underline }
+   This must live OUTSIDE @layer to win the cascade against other unlayered styles. */
+a:where(:not(.wp-element-button)) {
+    text-decoration: none;
+}
+
 @layer base {
     h1, h2, h3, h4, h5, h6 {
         @apply break-words font-display font-bold text-balance tracking-tight;
