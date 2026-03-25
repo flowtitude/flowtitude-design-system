@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoria del Curso — FDS</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+    /* Summary cards grid */
+    .audit-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-3xl);
+    }
+    .audit-summary-card {
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .audit-summary-card .audit-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: var(--space-xs);
+    }
+    .audit-summary-card .audit-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .audit-summary-card.summary-critical .audit-num { color: #be123c; }
+    .audit-summary-card.summary-missing .audit-num { color: #854d0e; }
+    .audit-summary-card.summary-minor .audit-num { color: #64748b; }
+
+    /* Lesson audit cards */
+    .lesson-audit {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-xl);
+    }
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .lesson-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      background: var(--bg-inline-code);
+      color: var(--text-secondary);
+      padding: 0.175rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+    .lesson-title {
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--text-primary);
+    }
+    .lesson-status {
+      margin-left: auto;
+    }
+    .lesson-body {
+      padding: var(--space-md) var(--space-lg) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Issue items inside lesson cards */
+    .lesson-body .alert {
+      margin: 0;
+    }
+    .lesson-body .alert code {
+      font-size: 0.8125em;
+    }
+
+    /* Cross-reference section */
+    .xref-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: var(--space-lg);
+    }
+    .doc-table .lessons-col {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+
+    @media (max-width: 768px) {
+      .audit-summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="doc-nav">
+    <div class="doc-nav-inner">
+      <a href="../index.html" class="doc-logo">FDS</a>
+      <span class="doc-breadcrumb">Auditoria Curso</span>
+      <div class="doc-nav-links">
+        <a href="index.html">Curso</a>
+        <a href="../tokens.html">Tokens</a>
+        <a href="../layouts.html">Layouts</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="doc-main">
+
+    <!-- Header -->
+    <header class="doc-header">
+      <h1 class="doc-title">Auditoria del Curso vs Codigo FDS</h1>
+      <p class="doc-subtitle">Revision cruzada de las 7 lecciones contra el codigo fuente real del design system. Ultima revision: 2026-03-13.</p>
+    </header>
+
+    <!-- Summary cards -->
+    <section class="doc-section">
+      <div class="audit-summary-grid">
+        <div class="audit-summary-card summary-critical">
+          <div class="audit-num">3</div>
+          <div class="audit-label">Errores criticos</div>
+          <span class="badge badge-error" style="margin-top: 0.5rem">Critical</span>
+        </div>
+        <div class="audit-summary-card summary-missing">
+          <div class="audit-num">5</div>
+          <div class="audit-label">Contenido faltante</div>
+          <span class="badge badge-warning" style="margin-top: 0.5rem">Missing</span>
+        </div>
+        <div class="audit-summary-card summary-minor">
+          <div class="audit-num">4</div>
+          <div class="audit-label">Menores / mejoras</div>
+          <span class="badge badge-neutral" style="margin-top: 0.5rem">Minor</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lesson audits -->
+    <section class="doc-section">
+      <h2>Auditoria por Leccion</h2>
+
+      <!-- L1 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L1</span>
+          <span class="lesson-title">La filosofia Flowtitude</span>
+          <span class="lesson-status"><span class="badge badge-success">OK</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-success">
+            <strong>Sin problemas</strong>
+            Leccion conceptual sin referencias tecnicas al codigo. No requiere cambios.
+          </div>
+        </div>
+      </div>
+
+      <!-- L2 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L2</span>
+          <span class="lesson-title">Descarga e instalacion en WindPress</span>
+          <span class="lesson-status"><span class="badge badge-warning">4 issues</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Layer <code>custom</code> omitido</strong>
+            El curso muestra <code>@layer theme, base, layouts, components, utilities;</code> pero el codigo real tiene 6 layers: <code>@layer theme, base, layouts, components, utilities, custom;</code>
+          </div>
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Imports incompletos en main.css</strong>
+            Faltan en el listado: <code>components/typography.css</code> (clases .display, .heading, etc.), <code>components/custom.css</code> (.eyebrow) y <code>wizard.css</code>. El alumno no sabe que existen.
+          </div>
+          <div class="alert alert-info">
+            <strong><span class="badge badge-neutral">Menor</span> Custom variants no mencionadas</strong>
+            El main.css real incluye <code>@custom-variant parent</code>, <code>parent-hover</code> y <code>parent-focus-within</code> al final. Aunque se cubren en L6, el indice de main.css deberia mencionarlas.
+          </div>
+          <div class="alert alert-info">
+            <strong><span class="badge badge-neutral">Menor</span> Nombre del archivo de descarga</strong>
+            El curso dice <code>fds-core.windpress</code>. Verificar que el archivo real se llame exactamente asi.
+          </div>
+        </div>
+      </div>
+
+      <!-- L3 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L3</span>
+          <span class="lesson-title">El archivo de configuracion flowtitude.css</span>
+          <span class="lesson-status"><span class="badge badge-error">1 error + 3 faltantes</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-error">
+            <strong><span class="badge badge-error">Error</span> Valor de <code>--ft-color-background</code> incorrecto</strong>
+            El curso dice <code>--ft-color-background: #fff;</code> pero el codigo real tiene <code>--ft-color-background: #f9ecec;</code>. Contradice ademas la verificacion de L2 que dice "el fondo no es blanco puro".
+          </div>
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Knobs de spacing no documentados</strong>
+            La leccion omite completamente las variables de spacing: <code>--ft-space-min/max</code>, <code>--ft-space-step-min/max</code>, <code>--ft-space-factor</code> y los 7 multiplicadores semanticos (<code>--ft-space-factor-inner</code> a <code>--ft-space-factor-hero</code>). Estas son cruciales para entender el sistema.
+          </div>
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Tokens adicionales no mencionados</strong>
+            No se documentan: card widths (<code>--ft-card-xs</code> a <code>--ft-card-xl</code>), button variables (<code>--btn-py/px</code>, colores), leading, radius ni aspect ratios. El alumno no sabe que puede configurarlos.
+          </div>
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Factor global de escala</strong>
+            Menciona <code>--ft-space-factor</code> en L7 ("cambia de 1 a 0.8") pero nunca lo introduce en L3 junto al resto de knobs. Deberia presentarse aqui primero.
+          </div>
+        </div>
+      </div>
+
+      <!-- L4 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L4</span>
+          <span class="lesson-title">El sistema tipografico integral</span>
+          <span class="lesson-status"><span class="badge badge-error">2 errores + 1 faltante</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-error">
+            <strong><span class="badge badge-error">Error</span> Nombres de clases .text-* incorrectos</strong>
+            El curso dice <code>.text-lead</code>, <code>.text-caption</code> y <code>.text-body</code>. Estas clases NO existen en el codigo. Los nombres reales son: <code>.text-large</code> (lg), <code>.text-small</code> (sm) y <code>.text-medium</code> (base).
+          </div>
+          <div class="alert alert-error">
+            <strong><span class="badge badge-error">Error</span> Descripcion de subheadings incorrecta</strong>
+            El curso dice que los subheadings "suelen usar mayusculas (uppercase), tracking amplio y colores de acento". El codigo real aplica <code>font-semibold leading-none text-pretty</code> — sin uppercase, sin tracking especial, sin colores de acento.
+          </div>
+          <div class="alert alert-warning">
+            <strong><span class="badge badge-warning">Faltante</span> Alias <code>.display-single</code> y blockquote incompleto</strong>
+            No menciona el alias <code>.display-single</code> (= display-sm). El blockquote de .prose muestra solo 3 propiedades pero el real tambien tiene <code>text-secondary-700 my-4</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- L5 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L5</span>
+          <span class="lesson-title">Layout basico y estructural</span>
+          <span class="lesson-status"><span class="badge badge-success">OK</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-success">
+            <strong>Preciso y correcto</strong>
+            La logica de secciones (.has-background, .half-top/bottom, .block-bleed) coincide con el codigo. Content-flex con sus 9 posiciones es correcto. La tabla de clases es precisa.
+          </div>
+        </div>
+      </div>
+
+      <!-- L6 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L6</span>
+          <span class="lesson-title">Utilidades de grid avanzadas y la variacion parent</span>
+          <span class="lesson-status"><span class="badge badge-success">OK (2 menores)</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-success">
+            <strong>Contenido correcto</strong>
+            auto-fit/fill, card sizes y grids asimetricos coinciden con el codigo. Custom variants correctas.
+          </div>
+          <div class="alert alert-info">
+            <strong><span class="badge badge-neutral">Menor</span> Grids mostrados son un subconjunto</strong>
+            El codigo tiene 30+ utilidades de grid pero el curso solo muestra ~8. Aceptable para ensenanza, pero podria mencionarse que hay mas disponibles.
+          </div>
+          <div class="alert alert-info">
+            <strong><span class="badge badge-neutral">Menor</span> <code>parent-focus-within</code> sin ejemplo</strong>
+            Se explica <code>parent</code> y <code>parent-hover</code> pero <code>parent-focus-within</code> solo se menciona al pasar. Un ejemplo de uso en formularios seria util.
+          </div>
+        </div>
+      </div>
+
+      <!-- L7 -->
+      <div class="lesson-audit">
+        <div class="lesson-header">
+          <span class="lesson-num">L7</span>
+          <span class="lesson-title">Extendiendo el sistema</span>
+          <span class="lesson-status"><span class="badge badge-success">OK</span></span>
+        </div>
+        <div class="lesson-body">
+          <div class="alert alert-success">
+            <strong>Correcto</strong>
+            La metodologia de extension (crear archivo, importar en main.css, usar custom.css) es precisa. El ejemplo de <code>@apply</code> en componentes es valido.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-reference table -->
+    <section class="doc-section">
+      <h2>Mapa de referencia cruzada: Archivo FDS &rarr; Lecciones</h2>
+      <p class="xref-desc">Cuando modifiques un archivo de FDS, revisa las lecciones afectadas.</p>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Archivo FDS</th>
+            <th>Lecciones afectadas</th>
+            <th>Que revisar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>main.css</code></td>
+            <td class="lessons-col">L2, L6, L7</td>
+            <td>Layers, imports, custom variants, instrucciones de extension</td>
+          </tr>
+          <tr>
+            <td><code>theme/flowtitude.css</code></td>
+            <td class="lessons-col">L3, L4, L5, L6</td>
+            <td>Todos los knobs, escala tipografica, spacing, card widths, colores</td>
+          </tr>
+          <tr>
+            <td><code>base/base.css</code></td>
+            <td class="lessons-col">L2, L3</td>
+            <td>Verificacion de instalacion, color de fondo, reset</td>
+          </tr>
+          <tr>
+            <td><code>base/typography.css</code></td>
+            <td class="lessons-col">L4</td>
+            <td>Preflight h1-h6, .prose completo</td>
+          </tr>
+          <tr>
+            <td><code>components/typography.css</code></td>
+            <td class="lessons-col">L4</td>
+            <td>Clases .display, .heading, .subheading, .text-*</td>
+          </tr>
+          <tr>
+            <td><code>components/buttons.css</code></td>
+            <td class="lessons-col">L3 (variables)</td>
+            <td>Variables --btn-py/px, variantes de color/tamano</td>
+          </tr>
+          <tr>
+            <td><code>components/components.css</code></td>
+            <td class="lessons-col">(no cubierto)</td>
+            <td>.bg-image, .click-parent, .focus-from-child — considerar leccion dedicada</td>
+          </tr>
+          <tr>
+            <td><code>components/custom.css</code></td>
+            <td class="lessons-col">L7</td>
+            <td>.eyebrow, extension del sistema</td>
+          </tr>
+          <tr>
+            <td><code>layouts/section.css</code></td>
+            <td class="lessons-col">L5</td>
+            <td>Logica secciones, .has-background, .half-top/bottom, .block-bleed</td>
+          </tr>
+          <tr>
+            <td><code>layouts/content-flex.css</code></td>
+            <td class="lessons-col">L5</td>
+            <td>9 posiciones, gap, alineacion</td>
+          </tr>
+          <tr>
+            <td><code>utility/layout/grid-basic.css</code></td>
+            <td class="lessons-col">L6</td>
+            <td>Grids proporcionales, auto-fit/fill</td>
+          </tr>
+          <tr>
+            <td><code>utility/animations/durations.css</code></td>
+            <td class="lessons-col">(no cubierto)</td>
+            <td>duration-none a duration-slower — considerar mencion en curso</td>
+          </tr>
+          <tr>
+            <td><code>utility/core/utilities.css</code></td>
+            <td class="lessons-col">(no cubierto)</td>
+            <td>flip-w, flip-h — considerar mencion en curso</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="doc-footer">
+    <div class="doc-footer-inner">
+      <a href="../index.html">&larr; Volver a FDS Docs</a>
+      <a href="index.html">Ver contenido del curso</a>
+    </div>
+  </footer>
+
+  <script src="../shared.js"></script>
+</body>
+</html>

@@ -109,6 +109,12 @@ El sistema usa ~35 variables "knob" (editables) que generan 50+ variables deriva
 - Sincronizar cambios: copiar archivos a `/wp-content/uploads/windpress/data/`
 - Verificar en browser con WindPress activo
 
+## Business Context
+
+Este proyecto produce el design system para los streams de Flowtitude y Soluciones Abiertas.
+Consultar siempre `~/.claude/business-context.md` antes de proponer cambios de arquitectura o nuevos componentes.
+El design system de referencia es FDS (este proyecto). Cualquier cambio visual que afecte a otros proyectos debe validarse aqui primero.
+
 ## Project-Specific Rules
 
 1. **Tailwind v4 syntax**: Usar `@theme`, `@layer`, `@utility`, `@custom-variant`

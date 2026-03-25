@@ -123,19 +123,19 @@
       
       <nav class="doc-header-nav">
         <a href="tokens.html">Tokens</a>
-        <a href="buttons.html">Buttons</a>
-        <a href="typography.html">Typography</a>
+        <a href="buttons.html">Botones</a>
+        <a href="typography.html">Tipografía</a>
         <a href="layouts.html">Layouts</a>
         <a href="utilities.html">Utilities</a>
       </nav>
       <div class="doc-search">
         <svg class="doc-search-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"/></svg>
-        <input type="search" class="doc-search-input" placeholder="Buscar..." aria-label="Buscar en la documentacion">
+        <input type="search" class="doc-search-input" placeholder="Buscar..." aria-label="Buscar en la documentación">
         <span class="doc-search-kbd">/</span>
         <div class="doc-search-results"></div>
       </div>
       <div class="header-spacer"></div>
-      <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+      <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
         <svg class="icon-sun" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/></svg>
         <svg class="icon-moon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
       </button>
@@ -152,25 +152,25 @@
     <aside class="doc-sidebar">
       <nav>
         <div class="doc-sidebar-section">
-          <div class="doc-sidebar-title">Getting Started</div>
-          <a href="index.html">Overview</a>
+          <div class="doc-sidebar-title">Primeros Pasos</div>
+          <a href="index.html">Visión General</a>
         </div>
         <div class="doc-sidebar-section">
-          <div class="doc-sidebar-title">Foundation</div>
-          <a href="tokens.html">Design Tokens</a>
-          <a href="typography.html">Typography</a>
+          <div class="doc-sidebar-title">Fundamentos</div>
+          <a href="tokens.html">Tokens de Diseño</a>
+          <a href="typography.html">Tipografía</a>
         </div>
         <div class="doc-sidebar-section">
-          <div class="doc-sidebar-title">Components</div>
-          <a href="buttons.html">Buttons</a>
+          <div class="doc-sidebar-title">Componentes</div>
+          <a href="buttons.html">Botones</a>
         </div>
         <div class="doc-sidebar-section">
-          <div class="doc-sidebar-title">Layout</div>
-          <a href="layouts.html">Sections &amp; Grids</a>
+          <div class="doc-sidebar-title">Disposición</div>
+          <a href="layouts.html">Secciones y Grids</a>
         </div>
         <div class="doc-sidebar-section">
-          <div class="doc-sidebar-title">Utilities</div>
-          <a href="utilities.html">Utilities</a>
+          <div class="doc-sidebar-title">Utilidades</div>
+          <a href="utilities.html">Utilidades</a>
         </div>
       </nav>
     </aside>
@@ -180,13 +180,13 @@
 
       <!-- Page Header -->
       <header class="doc-page-header">
-        <h1 class="doc-page-title">Design Tokens</h1>
-        <p class="doc-page-subtitle">Variables CSS que controlan todo el sistema. ~35 knobs editables generan 50+ valores derivados via clamp().</p>
+        <h1 class="doc-page-title">Tokens de Diseño</h1>
+        <p class="doc-page-subtitle">Variables CSS que controlan todo el sistema. ~35 knobs editables generan 50+ valores derivados vía clamp().</p>
       </header>
 
       <!-- ===================== Colors ===================== -->
       <section class="doc-section" id="colors">
-        <h2>Colors (OKLCH)</h2>
+        <h2>Colores (OKLCH)</h2>
         <p>FDS usa el espacio de color <strong>OKLCH</strong> para todas sus paletas. OKLCH ofrece <strong>uniformidad perceptual</strong>: dos colores con el mismo valor de lightness se perciben igual de luminosos, algo que no ocurre con hex o RGB. Esto permite generar escalas de color consistentes cambiando solo el hue.</p>
         <p>Cada paleta tiene 11 pasos (50-950) que cubren desde fondos claros hasta textos oscuros. Los colores comparten la misma estructura de lightness y chroma, variando unicamente el angulo de hue.</p>
 
@@ -286,7 +286,7 @@
           </div>
         </div>
 
-        <h3>Definicion en CSS</h3>
+        <h3>Definición en CSS</h3>
         <div class="code-group">
           <div class="code-header">
             <span class="code-lang">CSS</span>
@@ -323,18 +323,18 @@
         </div>
 
         <h3>Personalizar colores</h3>
-        <p>Para cambiar la paleta primaria, modifica el valor de <strong>hue</strong> (tercer parametro de oklch). Los valores de lightness y chroma estan calibrados para que cualquier hue produzca una escala visualmente equilibrada. Por ejemplo, cambiar <code>27.19</code> a <code>210</code> convierte la paleta primaria de naranja a azul.</p>
+        <p>Para cambiar la paleta primaria, modifica el valor de <strong>hue</strong> (tercer parámetro de oklch). Los valores de lightness y chroma están calibrados para que cualquier hue produzca una escala visualmente equilibrada. Por ejemplo, cambiar <code>27.19</code> a <code>210</code> convierte la paleta primaria de naranja a azul.</p>
 
         <div class="tip tip-info">
           <span class="tip-icon">&#x1f4a1;</span>
-          <span>OKLCH usa tres ejes: <strong>L</strong> (lightness 0-1), <strong>C</strong> (chroma / saturacion) y <strong>H</strong> (hue 0-360). Puedes usar herramientas como <a href="https://oklch.com" target="_blank" rel="noopener" class="link-accent">oklch.com</a> para explorar el espacio de color.</span>
+          <span>OKLCH usa tres ejes: <strong>L</strong> (lightness 0-1), <strong>C</strong> (chroma / saturación) y <strong>H</strong> (hue 0-360). Puedes usar herramientas como <a href="https://oklch.com" target="_blank" rel="noopener" class="link-accent">oklch.com</a> para explorar el espacio de color.</span>
         </div>
       </section>
 
       <!-- ===================== Spacing ===================== -->
       <section class="doc-section" id="spacing">
-        <h2>Semantic Spacing</h2>
-        <p>FDS define 7 niveles de spacing semantico. Cada nivel tiene un proposito claro y un multiplicador fijo sobre la escala fluida base. Esto garantiza proporciones consistentes en cualquier viewport.</p>
+        <h2>Espaciado Semántico</h2>
+        <p>FDS define 7 niveles de spacing semántico. Cada nivel tiene un propósito claro y un multiplicador fijo sobre la escala fluida base. Esto garantiza proporciones consistentes en cualquier viewport.</p>
 
         <h3>Escala visual — tamaños reales</h3>
         <p style="font-size:0.875rem; color:var(--text-tertiary); margin-top:-0.5rem;">Las barras muestran la altura real del valor en desktop (viewport 1280px). Pasa el cursor para ver el tamaño exacto.</p>
@@ -376,8 +376,8 @@
           </div>
         </div>
 
-        <h3>Calculo fluido</h3>
-        <p>Todos los valores de spacing se calculan con <code>clamp()</code>, interpolando fluidamente entre el viewport minimo (410px) y el maximo (1280px). No se usan media queries.</p>
+        <h3>Cálculo fluido</h3>
+        <p>Todos los valores de spacing se calculan con <code>clamp()</code>, interpolando fluidamente entre el viewport mínimo (410px) y el máximo (1280px). No se usan media queries.</p>
         <p>La formula base es:</p>
 
         <div class="code-group">
@@ -427,12 +427,12 @@
             <tr>
               <td class="mono">--spacing-stack</td>
               <td class="mono">1x</td>
-              <td>Apilar elementos verticalmente (parrafos, listas)</td>
+              <td>Apilar elementos verticalmente (párrafos, listas)</td>
             </tr>
             <tr>
               <td class="mono">--spacing-block</td>
               <td class="mono">1x</td>
-              <td>Separacion entre bloques de contenido</td>
+              <td>Separación entre bloques de contenido</td>
             </tr>
             <tr>
               <td class="mono">--spacing-columns</td>
@@ -452,7 +452,7 @@
           </tbody>
         </table>
 
-        <h3>Definicion CSS</h3>
+        <h3>Definición CSS</h3>
         <div class="code-group">
           <div class="code-header">
             <span class="code-lang">CSS</span>
@@ -482,13 +482,13 @@
 
       <!-- ===================== Typography Scale ===================== -->
       <section class="doc-section" id="type-scale">
-        <h2>Typography Scale</h2>
-        <p>La escala tipografica de FDS es completamente fluida. Usa un <strong>step ratio</strong> que interpola entre <code>1.125</code> (Major Second, en mobile) y <code>1.2</code> (Minor Third, en desktop). Esto significa que la escala se comprime en pantallas pequenas y se expande en pantallas grandes, manteniendo siempre las proporciones correctas.</p>
+        <h2>Escala Tipográfica</h2>
+        <p>La escala tipográfica de FDS es completamente fluida. Usa un <strong>step ratio</strong> que interpola entre <code>1.125</code> (Major Second, en mobile) y <code>1.2</code> (Minor Third, en desktop). Esto significa que la escala se comprime en pantallas pequeñas y se expande en pantallas grandes, manteniendo siempre las proporciones correctas.</p>
 
-        <h3>Como funciona</h3>
-        <p>El sistema parte de un tamano base (<code>--text-base</code>) y multiplica o divide por el step ratio para generar cada nivel de la escala:</p>
+        <h3>Cómo funciona</h3>
+        <p>El sistema parte de un tamaño base (<code>--text-base</code>) y multiplica o divide por el step ratio para generar cada nivel de la escala:</p>
         <ul>
-          <li><strong>Hacia arriba</strong>: <code>--text-lg</code> = base * step, <code>--text-xl</code> = lg * step, y asi sucesivamente hasta <code>--text-9xl</code>.</li>
+          <li><strong>Hacia arriba</strong>: <code>--text-lg</code> = base * step, <code>--text-xl</code> = lg * step, y así sucesivamente hasta <code>--text-9xl</code>.</li>
           <li><strong>Hacia abajo</strong>: <code>--text-sm</code> = base / step, <code>--text-xs</code> = sm / step.</li>
         </ul>
 
@@ -531,7 +531,7 @@
         </div>
 
         <h3>Escala visual — tamaños reales en desktop</h3>
-        <p style="font-size:0.875rem; color:var(--text-tertiary); margin-top:-0.5rem;">El texto de muestra se renderiza al tamaño real de cada paso. La escala fluye entre mobile y desktop via <code>clamp()</code>.</p>
+        <p style="font-size:0.875rem; color:var(--text-tertiary); margin-top:-0.5rem;">El texto de muestra se renderiza al tamaño real de cada paso. La escala fluye entre mobile y desktop vía <code>clamp()</code>.</p>
         <div class="type-scale-demo">
           <div class="type-scale-row">
             <div class="type-scale-meta">
@@ -615,21 +615,21 @@
         <h3>Efecto del step ratio</h3>
         <p>Cambiar el step ratio afecta la <strong>diferencia entre niveles</strong> de la escala:</p>
         <ul>
-          <li><strong>Step mas bajo</strong> (ej. 1.1): la escala se comprime y los tamanos son mas uniformes. Ideal para interfaces densas.</li>
-          <li><strong>Step mas alto</strong> (ej. 1.25 o 1.333): la escala se expande y hay mas contraste entre niveles. Ideal para landing pages y contenido editorial.</li>
+          <li><strong>Step más bajo</strong> (ej. 1.1): la escala se comprime y los tamaños son más uniformes. Ideal para interfaces densas.</li>
+          <li><strong>Step más alto</strong> (ej. 1.25 o 1.333): la escala se expande y hay más contraste entre niveles. Ideal para landing pages y contenido editorial.</li>
         </ul>
-        <p>El default de FDS (<code>1.125</code> a <code>1.2</code>) ofrece un equilibrio entre legibilidad y jerarquia visual, con una progresion suave que se adapta al viewport.</p>
+        <p>El default de FDS (<code>1.125</code> a <code>1.2</code>) ofrece un equilibrio entre legibilidad y jerarquía visual, con una progresión suave que se adapta al viewport.</p>
 
         <div class="tip tip-warning">
           <span class="tip-icon">&#x26a0;&#xfe0f;</span>
-          <span>Cambiar <code>--ft-type-step-min</code> o <code>--ft-type-step-max</code> recalcula <strong>toda</strong> la escala tipografica. Verifica los tamanos resultantes en ambos extremos del viewport antes de hacer deploy.</span>
+          <span>Cambiar <code>--ft-type-step-min</code> o <code>--ft-type-step-max</code> recalcula <strong>toda</strong> la escala tipográfica. Verifica los tamaños resultantes en ambos extremos del viewport antes de hacer deploy.</span>
         </div>
       </section>
 
       <!-- ===================== Knobs Reference ===================== -->
       <section class="doc-section" id="knobs">
-        <h2>Knobs Reference</h2>
-        <p>Estos son los ~35 valores editables (knobs) que controlan todo el sistema. Modificar cualquiera de ellos recalcula automaticamente los valores derivados que dependen de el.</p>
+        <h2>Referencia de Knobs</h2>
+        <p>Estos son los ~35 valores editables (knobs) que controlan todo el sistema. Modificar cualquiera de ellos recalcula automáticamente los valores derivados que dependen de él.</p>
 
         <div class="code-group">
           <div class="code-header">
@@ -690,7 +690,7 @@
             <tr>
               <th>Grupo</th>
               <th>Knobs</th>
-              <th>Que controla</th>
+              <th>Qué controla</th>
             </tr>
           </thead>
           <tbody>
@@ -702,7 +702,7 @@
             <tr>
               <td><strong>Typography</strong></td>
               <td class="mono">--ft-text-min, --ft-text-max, --ft-type-step-min, --ft-type-step-max, --ft-text-factor</td>
-              <td>Tamano base, ratio de escala y multiplicador global de texto</td>
+              <td>Tamaño base, ratio de escala y multiplicador global de texto</td>
             </tr>
             <tr>
               <td><strong>Spacing</strong></td>
@@ -712,12 +712,12 @@
             <tr>
               <td><strong>Multipliers</strong></td>
               <td class="mono">--ft-space-factor-inner ... --ft-space-factor-hero</td>
-              <td>Proporcion de cada nivel semantico respecto a la escala base</td>
+              <td>Proporción de cada nivel semántico respecto a la escala base</td>
             </tr>
             <tr>
               <td><strong>Layout</strong></td>
               <td class="mono">--ft-container, --ft-padding-content-x, --ft-padding-content-y, --ft-gap-content</td>
-              <td>Ancho maximo del contenedor, padding y gap por defecto de secciones</td>
+              <td>Ancho máximo del contenedor, padding y gap por defecto de secciones</td>
             </tr>
             <tr>
               <td><strong>Colors</strong></td>
@@ -735,11 +735,11 @@
 
       <!-- ===================== Other Tokens ===================== -->
       <section class="doc-section" id="other">
-        <h2>Other Tokens</h2>
-        <p>Tokens adicionales que complementan la escala tipografica, de spacing y colores. Definidos en <code>@theme</code> para estar disponibles como utilidades de Tailwind.</p>
+        <h2>Otros Tokens</h2>
+        <p>Tokens adicionales que complementan la escala tipográfica, de spacing y colores. Definidos en <code>@theme</code> para estar disponibles como utilidades de Tailwind.</p>
 
         <h3>Leading (line-height)</h3>
-        <p>Seis niveles de interlineado semantico, de compacto a espacioso. Usables como <code>leading-tight</code>, <code>leading-normal</code>, etc. en Tailwind.</p>
+        <p>Seis niveles de interlineado semántico, de compacto a espacioso. Usables como <code>leading-tight</code>, <code>leading-normal</code>, etc. en Tailwind.</p>
 
         <div class="code-group">
           <div class="code-header">
@@ -766,17 +766,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="mono">--leading-none</td><td class="mono">1em</td><td>Display text, numeros grandes</td></tr>
+            <tr><td class="mono">--leading-none</td><td class="mono">1em</td><td>Display text, números grandes</td></tr>
             <tr><td class="mono">--leading-tight</td><td class="mono">1.2em</td><td>Titulares h1-h3</td></tr>
             <tr><td class="mono">--leading-snug</td><td class="mono">1.375em</td><td>Subtitulos, h4-h6</td></tr>
             <tr><td class="mono">--leading-normal</td><td class="mono">1.5em</td><td>Texto de cuerpo (default)</td></tr>
-            <tr><td class="mono">--leading-relaxed</td><td class="mono">1.625em</td><td>Prosa larga, articulos</td></tr>
+            <tr><td class="mono">--leading-relaxed</td><td class="mono">1.625em</td><td>Prosa larga, artículos</td></tr>
             <tr><td class="mono">--leading-loose</td><td class="mono">2em</td><td>Texto con mucho espacio, tooltips largos</td></tr>
           </tbody>
         </table>
 
         <h3>Border Radius</h3>
-        <p>Tres tokens de radio de borde semanticos que referencian los valores base de Tailwind (<code>--radius-sm</code>, <code>--radius-md</code>). Proporcionan consistencia al asignar radios a componentes concretos.</p>
+        <p>Tres tokens de radio de borde semánticos que referencian los valores base de Tailwind (<code>--radius-sm</code>, <code>--radius-md</code>). Proporcionan consistencia al asignar radios a componentes concretos.</p>
 
         <div class="code-group">
           <div class="code-header">
@@ -807,7 +807,7 @@
         </table>
 
         <h3>Aspect Ratios</h3>
-        <p>Ratios de aspecto predefinidos para imagenes, videos y contenedores. Usables con la utilidad <code>aspect-[token]</code> de Tailwind o directamente como valor de <code>aspect-ratio</code>.</p>
+        <p>Ratios de aspecto predefinidos para imágenes, videos y contenedores. Usables con la utilidad <code>aspect-[token]</code> de Tailwind o directamente como valor de <code>aspect-ratio</code>.</p>
 
         <div class="code-group">
           <div class="code-header">
@@ -835,8 +835,8 @@
           </thead>
           <tbody>
             <tr><td class="mono">--aspect-rrss</td><td class="mono">1.91 / 1</td><td>Open Graph, Twitter cards, previews de RRSS</td></tr>
-            <tr><td class="mono">--aspect-wide</td><td class="mono">18 / 8</td><td>Banners horizontales, imagenes de seccion</td></tr>
-            <tr><td class="mono">--aspect-ultrawide</td><td class="mono">18 / 5</td><td>Heroes full-width, sliders panoramicos</td></tr>
+            <tr><td class="mono">--aspect-wide</td><td class="mono">18 / 8</td><td>Banners horizontales, imágenes de sección</td></tr>
+            <tr><td class="mono">--aspect-ultrawide</td><td class="mono">18 / 5</td><td>Heroes full-width, sliders panorámicos</td></tr>
             <tr><td class="mono">--aspect-golden</td><td class="mono">1.618 / 1</td><td>Composiciones equilibradas, thumbnails</td></tr>
             <tr><td class="mono">--aspect-portrait</td><td class="mono">3 / 4</td><td>Fotos de personas, cards verticales</td></tr>
             <tr><td class="mono">--aspect-landscape</td><td class="mono">4 / 3</td><td>Fotos generales, previews de video</td></tr>
@@ -850,7 +850,7 @@
   <!-- Footer -->
   <footer class="doc-footer">
     <div class="doc-footer-inner">
-      <span>Flowtitude Design System &mdash; Free &amp; Open</span>
+      <span>Flowtitude Design System &mdash; Libre y Abierto</span>
       <a href="https://flowtitude.com" target="_blank" rel="noopener">flowtitude.com</a>
     </div>
   </footer>

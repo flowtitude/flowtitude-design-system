@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contenido del Curso — FDS</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+    /* ---- Course-specific styles ---- */
+
+    /* Table of Contents */
+    .toc {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg) var(--space-xl);
+      margin-bottom: var(--space-3xl);
+    }
+    .toc h2 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-md);
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .toc ol {
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .toc a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+    .toc .badge {
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+
+    /* Lesson card */
+    .lesson {
+      margin-bottom: var(--space-3xl);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .lesson-head {
+      padding: var(--space-lg) var(--space-xl);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .lesson-head .num {
+      background: var(--brand);
+      color: var(--text-inverse);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 0.25rem 0.625rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.02em;
+    }
+    .lesson-head .title {
+      font-size: 1.1875rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    /* Lesson content typography */
+    .lesson-content {
+      padding: var(--space-xl);
+    }
+    .lesson-content h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-sm);
+    }
+    .lesson-content h3:first-child {
+      margin-top: 0;
+    }
+    .lesson-content p {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 60rem;
+    }
+    .lesson-content ul,
+    .lesson-content ol {
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .lesson-content li {
+      margin-bottom: 0.3rem;
+      line-height: 1.65;
+    }
+    .lesson-content a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .lesson-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Tables inside lessons */
+    .lesson-content .table-wrap {
+      overflow-x: auto;
+      margin: var(--space-md) 0 var(--space-lg);
+    }
+    .lesson-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .lesson-content thead th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      padding: 0.625rem 0.75rem;
+      border-bottom: 2px solid var(--border);
+      background: var(--bg-page);
+    }
+    .lesson-content tbody td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .lesson-content tbody tr:hover {
+      background: rgba(0,0,0,0.01);
+    }
+
+    /* Issue banner (inline alerts inside lessons) */
+    .issue-banner {
+      margin: 0.75rem 0;
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--radius-md);
+      border-left: 4px solid;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+    .issue-banner.error {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+    .issue-banner.warn {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+    .issue-banner strong {
+      display: block;
+      margin-bottom: 0.125rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      font-size: 0.8125rem;
+      margin: 0.75rem 0;
+      line-height: 1.6;
+      color: #92400e;
+    }
+    .callout-red {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: #991b1b;
+    }
+    .callout strong {
+      display: block;
+      margin-bottom: 0.125rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .lesson-head {
+        padding: var(--space-md) var(--space-lg);
+      }
+      .lesson-content {
+        padding: var(--space-lg);
+      }
+      .lesson-head .title {
+        font-size: 1.0625rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="doc-nav">
+    <div class="doc-nav-inner">
+      <a href="../index.html" class="doc-logo">FDS</a>
+      <span class="doc-breadcrumb">Curso</span>
+      <div class="doc-nav-links">
+        <a href="audit.html">Auditoria</a>
+        <a href="../tokens.html">Tokens</a>
+        <a href="../layouts.html">Layouts</a>
+        <a href="../utilities.html">Utilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="doc-main">
+
+    <!-- Header -->
+    <header class="doc-header">
+      <h1 class="doc-title">Configuracion Flowtitude Design System</h1>
+      <p class="doc-subtitle">Contenido de las 7 lecciones del curso. Las alertas en rojo/amarillo indican discrepancias con el codigo actual.</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h2>Indice de lecciones</h2>
+      <ol>
+        <li><a href="#l1">La filosofia Flowtitude</a> <span class="badge badge-success">OK</span></li>
+        <li><a href="#l2">Descarga e instalacion en WindPress</a> <span class="badge badge-warning">4 issues</span></li>
+        <li><a href="#l3">El archivo de configuracion flowtitude.css</a> <span class="badge badge-error">1 error + 3 faltantes</span></li>
+        <li><a href="#l4">El sistema tipografico integral</a> <span class="badge badge-error">2 errores + 1 faltante</span></li>
+        <li><a href="#l5">Layout basico y estructural</a> <span class="badge badge-success">OK</span></li>
+        <li><a href="#l6">Utilidades de grid avanzadas y la variacion parent</a> <span class="badge badge-success">2 menores</span></li>
+        <li><a href="#l7">Extendiendo el sistema</a> <span class="badge badge-success">OK</span></li>
+      </ol>
+    </div>
+
+    <!-- ==================== L1 ==================== -->
+    <div class="lesson" id="l1">
+      <div class="lesson-head">
+        <span class="num">L1</span>
+        <span class="title">La filosofia Flowtitude</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. El Problema: La Fatiga de Decision</h3>
+        <p>Cada vez que inicias un proyecto desde cero, te enfrentas a un lienzo en blanco que exige cientos de micro-decisiones:</p>
+        <ul>
+          <li>Nomenclatura de clases de estructura</li>
+          <li>Escala tipografica</li>
+          <li>Gestion de espaciados en movil</li>
+        </ul>
+
+        <h3>2. El Objetivo: Estandarizacion y Paz Mental</h3>
+        <ul>
+          <li><strong>Centralizas el control</strong>: La configuracion siempre vive en <code>flowtitude.css</code></li>
+          <li><strong>Eliminas la duda</strong>: Arquitectura validada, sin inventar nombres</li>
+          <li><strong>Ganas seguridad</strong>: Cimientos matematicamente solidos</li>
+        </ul>
+
+        <h3>3. La Ventaja Competitiva</h3>
+        <ol>
+          <li><strong>Cura la "Panelitis"</strong>: Dejas de depender de pestanas y menus de Bricks</li>
+          <li><strong>Arranca mas rapido</strong>: Salta la configuracion</li>
+          <li><strong>Escala mejor</strong>: Cambios globales desde una variable</li>
+          <li><strong>Mantiene la calidad</strong>: Consistencia garantizada por el sistema</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ==================== L2 ==================== -->
+    <div class="lesson" id="l2">
+      <div class="lesson-head">
+        <span class="num">L2</span>
+        <span class="title">Descarga e instalacion en WindPress</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. Anatomia del Sistema</h3>
+        <p>El archivo principal (<code>main.css</code>) actua como indice:</p>
+
+        <div class="issue-banner warn">
+          <strong>FALTANTE:</strong> La declaracion de layers real tiene 6 capas (<code>custom</code> incluido), no 5. Ademas faltan <code>components/typography.css</code>, <code>components/custom.css</code> y <code>wizard.css</code> en el listado de imports.
+        </div>
+
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-filename">main.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">/* main.css - El cerebro de operaciones */
+@layer theme, base, layouts, components, utilities;
+
+/* 1. CONFIGURACION */
+@import './theme/flowtitude.css';
+
+/* 2. CIMIENTOS */
+@import './base/base.css';
+@import './base/typography.css';
+
+/* 3. ESTRUCTURA */
+@import './layouts/section.css';
+@import './layouts/content-flex.css';
+
+/* 4. ELEMENTOS UI */
+@import './components/buttons.css';
+@import './components/components.css';
+
+/* 5. UTILIDADES */
+@import './utility/core/utilities.css';
+@import './utility/animations/durations.css';
+@import './utility/layout/grid-basic.css';</pre>
+        </div>
+
+        <h3>2. Pasos de Instalacion</h3>
+        <ol>
+          <li><strong>Descarga</strong> el archivo <code>fds-core.windpress</code></li>
+          <li><strong>Importa</strong> en WordPress &gt; WindPress &gt; Import</li>
+          <li><strong>Verifica</strong>: Anade una Seccion en Bricks — debe tener padding automatico y fondo no blanco puro</li>
+        </ol>
+
+        <div class="callout callout-red">
+          <strong>ADVERTENCIA:</strong> La importacion recreara toda la estructura CSS en WindPress. En webs existentes, exporta tu configuracion antes de importar.
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== L3 ==================== -->
+    <div class="lesson" id="l3">
+      <div class="lesson-head">
+        <span class="num">L3</span>
+        <span class="title">El archivo de configuracion flowtitude.css</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. Viewport y texto base</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-filename">flowtitude.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">--viewport-min: 410px;
+--viewport-max: 1280px;
+
+--ft-text-min: 1rem;
+--ft-text-max: 1.125rem;
+--ft-type-step-min: 1.125;
+--ft-type-step-max: 1.2;</pre>
+        </div>
+
+        <h3>2. Configuracion global: fondo y texto</h3>
+        <div class="issue-banner error">
+          <strong>ERROR:</strong> El curso dice <code>--ft-color-background: #fff</code> pero el valor real en el codigo es <code>--ft-color-background: #f9ecec</code>. Corregir en el texto.
+        </div>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">--ft-color-text: #000;
+--ft-color-background: #fff;  /* ERROR: real = #f9ecec */</pre>
+        </div>
+
+        <p>Colores definidos en OKLCH. Recomendacion: usar <strong>tints.dev</strong> para generar escalas profesionales.</p>
+
+        <div class="issue-banner warn">
+          <strong>FALTANTE:</strong> La leccion omite los knobs de spacing (<code>--ft-space-min/max</code>, <code>--ft-space-step-min/max</code>, <code>--ft-space-factor</code>) y los 7 multiplicadores semanticos (<code>--ft-space-factor-inner</code> a <code>--ft-space-factor-hero</code>). Tambien faltan: card widths, button variables, leading, radius, aspect ratios.
+        </div>
+
+        <h3>3. Layout General</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">--ft-container: min(var(--container-7xl), 90%);
+--ft-padding-content-x: 1rem;
+--ft-padding-content-y: var(--spacing-section);
+--ft-gap-content: var(--spacing-block);</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== L4 ==================== -->
+    <div class="lesson" id="l4">
+      <div class="lesson-head">
+        <span class="num">L4</span>
+        <span class="title">El sistema tipografico integral</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. Preflight semantico (base/typography.css)</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-filename">base/typography.css</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">h1, h2, h3, h4, h5, h6 {
+  @apply break-words font-display font-bold text-balance tracking-tight;
+}
+
+h1 { @apply text-5xl leading-none tracking-wider; }
+/* h2: text-4xl, h3: text-3xl, h4: text-2xl, h5: text-xl, h6: text-lg */</pre>
+        </div>
+
+        <h3>2. El componente .prose</h3>
+        <p>Wrapper inteligente para contenido editorial. Gestiona ritmo vertical, selectores de adyacencia y elementos ricos automaticamente.</p>
+
+        <h3>3. Clases semanticas (components/typography.css)</h3>
+
+        <div class="issue-banner error">
+          <strong>ERROR:</strong> El curso menciona <code>.text-lead</code>, <code>.text-caption</code> y <code>.text-body</code>. Estas clases NO EXISTEN. Los nombres reales son: <code>.text-large</code>, <code>.text-small</code> y <code>.text-medium</code>.
+        </div>
+
+        <div class="issue-banner error">
+          <strong>ERROR:</strong> El curso describe los subheadings como "suelen usar mayusculas (uppercase), tracking amplio y colores de acento". El codigo real aplica <code>font-semibold leading-none text-pretty</code> — sin uppercase, sin tracking especial, sin colores.
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Categoria</th><th>Clase</th><th>Tamano real</th><th>Uso</th></tr></thead>
+            <tbody>
+              <tr><td>Display</td><td><code>.display-lg</code> / <code>.display</code></td><td>text-9xl</td><td>Hero, impacto</td></tr>
+              <tr><td>Display</td><td><code>.display-md</code></td><td>text-8xl</td><td>Display estandar</td></tr>
+              <tr><td>Display</td><td><code>.display-sm</code> / <code>.display-single</code></td><td>text-7xl</td><td>Display menor</td></tr>
+              <tr><td>Heading</td><td><code>.heading-lg</code></td><td>text-6xl</td><td>Titulos principales</td></tr>
+              <tr><td>Heading</td><td><code>.heading-md</code> / <code>.heading</code></td><td>text-5xl</td><td>Titulos estandar</td></tr>
+              <tr><td>Heading</td><td><code>.heading-sm</code></td><td>text-4xl</td><td>Subtitulos</td></tr>
+              <tr><td>Subheading</td><td><code>.subheading-lg</code></td><td>text-3xl</td><td>Puente heading-contenido</td></tr>
+              <tr><td>Subheading</td><td><code>.subheading-md</code> / <code>.subheading</code></td><td>text-2xl</td><td>Versatil</td></tr>
+              <tr><td>Subheading</td><td><code>.subheading-sm</code></td><td>text-xl</td><td>Sutil</td></tr>
+              <tr><td>Text</td><td><code>.text-large</code></td><td>text-lg</td><td>Texto destacado</td></tr>
+              <tr><td>Text</td><td><code>.text-medium</code></td><td>text-base</td><td>Cuerpo estandar</td></tr>
+              <tr><td>Text</td><td><code>.text-small</code></td><td>text-sm</td><td>Info de apoyo</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== L5 ==================== -->
+    <div class="lesson" id="l5">
+      <div class="lesson-head">
+        <span class="num">L5</span>
+        <span class="title">Layout basico y estructural</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. El patron "seccion inteligente" (section.css)</h3>
+        <ul>
+          <li><strong>Default</strong>: Medio padding (py / 2) — dos secciones apiladas suman 1 unidad completa</li>
+          <li><strong>.has-background</strong>: Padding completo + fuerza padding en secciones adyacentes</li>
+          <li><strong>.half-top / .half-bottom</strong>: Fuerza medio padding manual</li>
+          <li><strong>.block-bleed</strong>: Elemento hijo ocupa 100vw</li>
+        </ul>
+
+        <h3>2. Content-flex (content-flex.css)</h3>
+        <p>9 posiciones con una sola clase. Default: centrado. Gestiona flex, texto y margenes a la vez.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Clase</th><th>CSS aplicado</th></tr></thead>
+            <tbody>
+              <tr><td><code>.content-flex</code> (default)</td><td>justify-center items-center text-center mx-auto</td></tr>
+              <tr><td><code>.content-flex.left</code></td><td>justify-center items-start text-left mr-auto</td></tr>
+              <tr><td><code>.content-flex.right</code></td><td>justify-center items-end text-right ml-auto</td></tr>
+              <tr><td><code>.content-flex.top-left</code></td><td>justify-start items-start text-left mr-auto</td></tr>
+              <tr><td><code>.content-flex.top</code></td><td>justify-start items-center text-center mx-auto</td></tr>
+              <tr><td><code>.content-flex.top-right</code></td><td>justify-start items-end text-right ml-auto</td></tr>
+              <tr><td><code>.content-flex.bottom-left</code></td><td>justify-end items-start text-left mr-auto</td></tr>
+              <tr><td><code>.content-flex.bottom</code></td><td>justify-end items-center text-center mx-auto</td></tr>
+              <tr><td><code>.content-flex.bottom-right</code></td><td>justify-end items-end text-right ml-auto</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== L6 ==================== -->
+    <div class="lesson" id="l6">
+      <div class="lesson-head">
+        <span class="num">L6</span>
+        <span class="title">Utilidades de grid avanzadas y la variacion parent</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. Grids automaticos (auto-fit y auto-fill)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Clase</th><th>Min. tarjeta</th><th>Uso</th></tr></thead>
+            <tbody>
+              <tr><td><code>.grid-auto-fit-xs</code></td><td>12rem (192px)</td><td>Iconos, logos</td></tr>
+              <tr><td><code>.grid-auto-fit-sm</code></td><td>14rem (224px)</td><td>Listados densos</td></tr>
+              <tr><td><code>.grid-auto-fit-md</code></td><td>18rem (288px)</td><td>Blog, productos</td></tr>
+              <tr><td><code>.grid-auto-fit-lg</code></td><td>24rem (384px)</td><td>Tarjetas destacadas</td></tr>
+              <tr><td><code>.grid-auto-fit-xl</code></td><td>36rem (576px)</td><td>2 columnas grandes</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>2. Grids asimetricos</h3>
+        <p>La asimetria se define en el padre. Los hijos se colocan automaticamente.</p>
+        <ul>
+          <li><code>.grid-cols-1-2</code> / <code>.grid-cols-2-1</code> — 33%/67%</li>
+          <li><code>.grid-cols-1-3</code> / <code>.grid-cols-3-1</code> — 25%/75%</li>
+          <li><code>.grid-cols-1-2-1</code> — Centrado optico</li>
+          <li><code>.grid-cols-2-3</code> — 40%/60%</li>
+        </ul>
+        <p><em>El codigo incluye 30+ variaciones de grid. Consultar <a href="../layouts.html">docs/layouts</a> para la referencia completa.</em></p>
+
+        <h3>3. La variante parent</h3>
+        <div class="code-group">
+          <div class="code-header">
+            <span class="code-lang">CSS</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+          </div>
+          <pre class="code-block" data-lang="css">@custom-variant parent (*:has(> &amp;));
+@custom-variant parent-hover (*:hover > &amp;);
+@custom-variant parent-focus-within (*:focus-within > &amp;);</pre>
+        </div>
+        <p>Permite estilizar un hijo basandose en el estado del padre directo sin tocar el padre.</p>
+      </div>
+    </div>
+
+    <!-- ==================== L7 ==================== -->
+    <div class="lesson" id="l7">
+      <div class="lesson-head">
+        <span class="num">L7</span>
+        <span class="title">Extendiendo el sistema</span>
+      </div>
+      <div class="lesson-content">
+        <h3>1. Modificar Defaults</h3>
+        <p>Cambiar <code>--ft-space-factor</code> de 1 a 0.8 reduce todo el spacing proporcionalmente.</p>
+
+        <h3>2. Crear componentes propios</h3>
+        <ol>
+          <li>Crear archivo en <code>components/</code> (ej: <code>product-card.css</code>)</li>
+          <li>Definir con <code>@apply</code> para componer utilities</li>
+          <li>Importar en <code>main.css</code> en la seccion de componentes</li>
+        </ol>
+
+        <h3>3. custom.css para estilos rapidos</h3>
+        <p>Para clases pequenas que no merecen archivo propio.</p>
+
+        <h3>4. Actualizaciones</h3>
+        <p>Los cambios del sistema reemplazan archivos base. Tus personalizaciones (custom.css, archivos propios, flowtitude.css) se mantienen intactas.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="doc-footer">
+    <div class="doc-footer-inner">
+      <a href="../index.html">&larr; Volver a FDS Docs</a>
+      <a href="audit.html">Ver auditoria completa</a>
+    </div>
+  </footer>
+
+  <script src="../shared.js"></script>
+</body>
+</html>
