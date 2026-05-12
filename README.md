@@ -1,33 +1,22 @@
 # Flowtitude Design System
 
-Flowtitude Design System is the public distribution repository for Flowtitude `.windpress` packages.
+Este repositorio guarda la configuración fuente de Flowtitude para WindPress.
 
-The main purpose of this repository is to keep generated WindPress artifacts downloadable, versioned, and auditable for publication. The CSS files under `src/windpress/` are kept as a readable source snapshot so each package can be inspected and rebuilt, but the automation flow should treat the generated `.windpress` file as the release artifact.
+La fuente de verdad está en `src/windpress/`: esos CSS son los archivos que componen la configuración. El archivo importable `flowtitude-x.x.x.windpress` no se mantiene aquí como fuente principal; se debe generar bajo demanda en el flujo de publicación a partir de estos archivos, respetando el formato de exportación de WindPress.
 
-## Downloads
+## Estructura
 
-- Current package: `dist/fds-core-1.1.1.windpress`
-- Checksum: `dist/fds-core-1.1.1.sha256`
+- `src/windpress/main.css`: entrada principal y orden de imports.
+- `src/windpress/base/`: base y tipografía.
+- `src/windpress/theme/`: tokens y tema Flowtitude.
+- `src/windpress/layouts/`: layouts reutilizables.
+- `src/windpress/components/`: componentes.
+- `src/windpress/utility/`: utilidades.
+- `src/windpress/wizard.css`: configuración auxiliar.
 
-## Structure
+## Flujo Esperado
 
-- `dist/`: generated `.windpress` packages and checksums for download/publication.
-- `src/windpress/`: extracted WindPress Simple File System CSS entries for review and traceability.
-- `src/windpress.manifest.json`: package metadata and entry order used to rebuild the artifact.
-- `scripts/build-windpress.mjs`: rebuilds the `.windpress` artifact from the source snapshot.
-- `scripts/inspect-windpress.mjs`: decodes an artifact and prints its manifest.
-
-## Publication Flow
-
-1. Generate or export the updated `.windpress` package from the Flowtitude Design System workflow.
-2. Update the matching files under `src/windpress/` when source inspection or rebuildability is required.
-3. Update `src/windpress.manifest.json`, `CHANGELOG.md`, the `dist/*.windpress` artifact, and its checksum.
-4. Commit the package update to this repository.
-5. Use the committed artifact as the downloadable file for Flowtitude publication and community announcements.
-
-## Current Version
-
-- Package: `fds-core`
-- Version: `1.1.1`
-- WindPress source plugin version: `3.3.73`
-- WordPress source version: `6.9.4`
+1. Se modifican los CSS en el proyecto local `clientes/flowtitude/flowtitude-design-system`.
+2. El flujo sincroniza esos archivos en `src/windpress/`.
+3. El flujo genera `flowtitude-x.x.x.windpress` desde `src/windpress/` usando el formato WindPress SFS.
+4. El flujo publica el archivo generado donde corresponda: descarga, noticia, comunidad y documentación.
