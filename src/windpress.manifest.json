@@ -1,0 +1,105 @@
+{
+  "package": "fds-core",
+  "version": "1.1.1",
+  "description": "Flowtitude Design System core Simple File System volume for WindPress.",
+  "windpress": {
+    "type": "sfs",
+    "plugin_version": "3.3.73",
+    "wordpress_version": "6.9.4",
+    "source_timestamp": 1778509925718,
+    "source_uid": "zZrjCX7IDuY5ziFfxJ54e"
+  },
+  "artifact": "dist/fds-core-1.1.1.windpress",
+  "entries": [
+    {
+      "relative_path": "wizard.css",
+      "name": "wizard.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "main.css",
+      "name": "main.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "components/typography.css",
+      "name": "typography.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "components/custom.css",
+      "name": "custom.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "components/buttons.css",
+      "name": "buttons.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "components/cards.css",
+      "name": "cards.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "components/components.css",
+      "name": "components.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "layouts/section.css",
+      "name": "section.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "layouts/content-flex.css",
+      "name": "content-flex.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "theme/flowtitude.css",
+      "name": "flowtitude.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "base/typography.css",
+      "name": "typography.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "base/base.css",
+      "name": "base.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "utility/core/utilities.css",
+      "name": "utilities.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "utility/layout/grid-basic.css",
+      "name": "grid-basic.css",
+      "handler": "internal",
+      "readonly": false
+    },
+    {
+      "relative_path": "utility/animations/durations.css",
+      "name": "durations.css",
+      "handler": "internal",
+      "readonly": false
+    }
+  ]
+}

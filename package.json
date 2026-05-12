@@ -1,0 +1,14 @@
+{
+  "name": "@flowtitude/design-system",
+  "version": "1.1.1",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-windpress.mjs",
+    "inspect": "node scripts/inspect-windpress.mjs dist/fds-core-1.1.1.windpress",
+    "verify": "npm run build && npm run inspect"
+  },
+  "dependencies": {
+    "lz-string": "^1.5.0"
+  }
+}
