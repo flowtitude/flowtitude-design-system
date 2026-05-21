@@ -72,6 +72,134 @@
     --ft-type-step: var(--ft-type-step-min);
     --ft-space-value: var(--ft-space-min);
     --ft-space-step: var(--ft-space-step-min);
+
+    /* Runtime fallbacks consumed by the public @theme tokens. */
+    --ft-text-xs: 0.75rem;
+    --ft-text-sm: 0.875rem;
+    --ft-text-base: 1rem;
+    --ft-text-lg: 1.125rem;
+    --ft-text-xl: 1.25rem;
+    --ft-text-2xl: 1.5rem;
+    --ft-text-3xl: 1.875rem;
+    --ft-text-4xl: 2.25rem;
+    --ft-text-5xl: 3rem;
+    --ft-text-6xl: 3.75rem;
+    --ft-text-7xl: 4.5rem;
+    --ft-text-8xl: 6rem;
+    --ft-text-9xl: 8rem;
+
+    --ft-spacing-fluid-md: 0.5rem;
+    --ft-spacing-fluid-sm: 0.384615rem;
+    --ft-spacing-fluid-xs: 0.295858rem;
+    --ft-spacing-fluid-lg: 0.65rem;
+    --ft-spacing-fluid-xl: 0.845rem;
+    --ft-spacing-fluid-2xl: 1.0985rem;
+
+    --ft-spacing-inner: 0.147929rem;
+    --ft-spacing-content: 0.288462rem;
+    --ft-spacing-stack: 0.384615rem;
+    --ft-spacing-block: 0.5rem;
+    --ft-spacing-columns: 0.75rem;
+    --ft-spacing-section: 2.535rem;
+    --ft-spacing-hero: 4.94325rem;
+  }
+}
+
+@layer base {
+  /* Static desktop spacing fallback for browsers with weak CSS math support. */
+  @media (min-width: 1280px) {
+    :root {
+      --ft-spacing-fluid-md: 1.5rem;
+      --ft-spacing-fluid-sm: 1rem;
+      --ft-spacing-fluid-xs: 0.666667rem;
+      --ft-spacing-fluid-lg: 2.25rem;
+      --ft-spacing-fluid-xl: 3.375rem;
+      --ft-spacing-fluid-2xl: 5.0625rem;
+
+      --ft-spacing-inner: 0.333333rem;
+      --ft-spacing-content: 0.75rem;
+      --ft-spacing-stack: 1rem;
+      --ft-spacing-block: 1.5rem;
+      --ft-spacing-columns: 2.25rem;
+      --ft-spacing-section: 10.125rem;
+      --ft-spacing-hero: 22.78125rem;
+      --ft-padding-content-y-half: 5.0625rem;
+    }
+  }
+
+  /*
+    Fluid enhancement.
+    Public utility tokens stay in @theme; runtime values are recalculated here.
+  */
+  @supports (font-size: clamp(1rem, 2vw, 2rem)) and (font-size: calc(1rem * 1)) and (padding-top: calc(1rem / 2)) {
+    :root {
+      --ft-padding-content-y-half: calc(var(--ft-padding-content-y) / 2);
+
+      --ft-fluid-t: calc(
+        (100vw - var(--viewport-min)) /
+        (var(--viewport-max) - var(--viewport-min))
+      );
+
+      --ft-text-value: clamp(
+        var(--ft-text-min),
+        calc(var(--ft-text-min) + (var(--ft-text-max) - var(--ft-text-min)) * var(--ft-fluid-t)),
+        var(--ft-text-max)
+      );
+
+      --ft-type-step: clamp(
+        var(--ft-type-step-min),
+        calc(var(--ft-type-step-min) + (var(--ft-type-step-max) - var(--ft-type-step-min)) * var(--ft-fluid-t)),
+        var(--ft-type-step-max)
+      );
+
+      --ft-space-value: clamp(
+        var(--ft-space-min),
+        calc(var(--ft-space-min) + (var(--ft-space-max) - var(--ft-space-min)) * var(--ft-fluid-t)),
+        var(--ft-space-max)
+      );
+
+      --ft-space-step: clamp(
+        var(--ft-space-step-min),
+        calc(var(--ft-space-step-min) + (var(--ft-space-step-max) - var(--ft-space-step-min)) * var(--ft-fluid-t)),
+        var(--ft-space-step-max)
+      );
+
+      --ft-text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
+      --ft-text-sm: calc(var(--ft-text-base) / var(--ft-type-step));
+      --ft-text-xs: calc(var(--ft-text-sm) / var(--ft-type-step));
+      --ft-text-lg: calc(var(--ft-text-base) * var(--ft-type-step));
+      --ft-text-xl: calc(var(--ft-text-lg) * var(--ft-type-step));
+      --ft-text-2xl: calc(var(--ft-text-xl) * var(--ft-type-step));
+      --ft-text-3xl: calc(var(--ft-text-2xl) * var(--ft-type-step));
+      --ft-text-4xl: calc(var(--ft-text-3xl) * var(--ft-type-step));
+      --ft-text-5xl: calc(var(--ft-text-4xl) * var(--ft-type-step));
+      --ft-text-6xl: calc(var(--ft-text-5xl) * var(--ft-type-step));
+      --ft-text-7xl: calc(var(--ft-text-6xl) * var(--ft-type-step));
+      --ft-text-8xl: calc(var(--ft-text-7xl) * var(--ft-type-step));
+      --ft-text-9xl: calc(var(--ft-text-8xl) * var(--ft-type-step));
+
+      --ft-spacing-fluid-md: calc(var(--ft-space-value) * var(--ft-space-factor));
+      --ft-spacing-fluid-sm: calc(var(--ft-spacing-fluid-md) / var(--ft-space-step));
+      --ft-spacing-fluid-xs: calc(var(--ft-spacing-fluid-sm) / var(--ft-space-step));
+      --ft-spacing-fluid-lg: calc(var(--ft-spacing-fluid-md) * var(--ft-space-step));
+      --ft-spacing-fluid-xl: calc(var(--ft-spacing-fluid-lg) * var(--ft-space-step));
+      --ft-spacing-fluid-2xl: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-step));
+
+      --ft-spacing-inner: calc(var(--ft-spacing-fluid-xs) * var(--ft-space-factor-inner));
+      --ft-spacing-content: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-content));
+      --ft-spacing-stack: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-stack));
+      --ft-spacing-block: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-block));
+      --ft-spacing-columns: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-columns));
+      --ft-spacing-section: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-factor-section));
+      --ft-spacing-hero: calc(var(--ft-spacing-fluid-2xl) * var(--ft-space-factor-hero));
+    }
+  }
+
+  /* Re-enable the bounded container only where CSS min() is supported. */
+  @supports (width: min(100%, 1rem)) {
+    :root {
+      --ft-container: min(var(--container-7xl), 90%);
+    }
   }
 }
 
@@ -132,144 +260,44 @@
     --aspect-portrait: 3 / 4;
     --aspect-landscape: 4 / 3;
 
-    /* Typography scale (static fallback; fluid override below) */
-    --text-base: 1rem;
-    --text-sm: 0.888889rem;
-    --text-xs: 0.790123rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.265625rem;
-    --text-2xl: 1.423828rem;
-    --text-3xl: 1.601807rem;
-    --text-4xl: 1.802032rem;
-    --text-5xl: 2.027287rem;
-    --text-6xl: 2.280697rem;
-    --text-7xl: 2.565785rem;
-    --text-8xl: 2.886508rem;
-    --text-9xl: 3.247321rem;
+    /*
+      Typography scale.
+      These must live in @theme so Tailwind 4/WindPress generates text-* utilities.
+      Runtime values resolve through --ft-text-* fallbacks/fluid tokens.
+    */
+    --text-xs: var(--ft-text-xs);
+    --text-sm: var(--ft-text-sm);
+    --text-base: var(--ft-text-base);
+    --text-lg: var(--ft-text-lg);
+    --text-xl: var(--ft-text-xl);
+    --text-2xl: var(--ft-text-2xl);
+    --text-3xl: var(--ft-text-3xl);
+    --text-4xl: var(--ft-text-4xl);
+    --text-5xl: var(--ft-text-5xl);
+    --text-6xl: var(--ft-text-6xl);
+    --text-7xl: var(--ft-text-7xl);
+    --text-8xl: var(--ft-text-8xl);
+    --text-9xl: var(--ft-text-9xl);
 
-    /* Spacing scale (computed) */
+    /*
+      Spacing scale.
+      These must live in @theme so Tailwind 4/WindPress generates spacing utilities.
+    */
     --spacing: 0.25rem;
 
-    --spacing-fluid-md: 0.5rem;
-    --spacing-fluid-sm: 0.384615rem;
-    --spacing-fluid-xs: 0.295858rem;
-    --spacing-fluid-lg: 0.65rem;
-    --spacing-fluid-xl: 0.845rem;
-    --spacing-fluid-2xl: 1.0985rem;
+    --spacing-fluid-md: var(--ft-spacing-fluid-md);
+    --spacing-fluid-sm: var(--ft-spacing-fluid-sm);
+    --spacing-fluid-xs: var(--ft-spacing-fluid-xs);
+    --spacing-fluid-lg: var(--ft-spacing-fluid-lg);
+    --spacing-fluid-xl: var(--ft-spacing-fluid-xl);
+    --spacing-fluid-2xl: var(--ft-spacing-fluid-2xl);
 
-    /* Semantic spacing (static fallback; fluid override below) */
-    --spacing-inner: 0.147929rem;
-    --spacing-content: 0.288462rem;
-    --spacing-stack: 0.384615rem;
-    --spacing-block: 0.5rem;
-    --spacing-columns: 0.75rem;
-    --spacing-section: 2.535rem;
-    --spacing-hero: 4.94325rem;
-}
-
-@layer base {
-  /* Static desktop fallback for browsers with custom properties but weak CSS math support. */
-  @media (min-width: 1280px) {
-    :root {
-      --text-base: 1.125rem;
-      --text-sm: 0.9375rem;
-      --text-xs: 0.78125rem;
-      --text-lg: 1.35rem;
-      --text-xl: 1.62rem;
-      --text-2xl: 1.944rem;
-      --text-3xl: 2.3328rem;
-      --text-4xl: 2.79936rem;
-      --text-5xl: 3.359232rem;
-      --text-6xl: 4.031078rem;
-      --text-7xl: 4.837294rem;
-      --text-8xl: 5.804753rem;
-      --text-9xl: 6.965703rem;
-
-      --spacing-fluid-md: 1.5rem;
-      --spacing-fluid-sm: 1rem;
-      --spacing-fluid-xs: 0.666667rem;
-      --spacing-fluid-lg: 2.25rem;
-      --spacing-fluid-xl: 3.375rem;
-      --spacing-fluid-2xl: 5.0625rem;
-
-      --spacing-inner: 0.333333rem;
-      --spacing-content: 0.75rem;
-      --spacing-stack: 1rem;
-      --spacing-block: 1.5rem;
-      --spacing-columns: 2.25rem;
-      --spacing-section: 10.125rem;
-      --spacing-hero: 22.78125rem;
-      --ft-padding-content-y-half: 5.0625rem;
-    }
-  }
-
-  /*
-    Fluid enhancement.
-    Kept behind @supports so browsers that fail calc(), clamp(), division,
-    or nested math functions keep the static fallback tokens above.
-  */
-  @supports (font-size: calc(clamp(1rem, 2vw, 2rem) * 1)) and (padding-top: calc(1rem / 2)) and (width: min(100%, 1rem)) {
-    :root {
-      --ft-container: min(var(--container-7xl), 90%);
-      --ft-padding-content-y-half: calc(var(--ft-padding-content-y) / 2);
-
-      --ft-fluid-t: calc(
-        (100vw - var(--viewport-min)) /
-        (var(--viewport-max) - var(--viewport-min))
-      );
-
-      --ft-text-value: clamp(
-        var(--ft-text-min),
-        calc(var(--ft-text-min) + (var(--ft-text-max) - var(--ft-text-min)) * var(--ft-fluid-t)),
-        var(--ft-text-max)
-      );
-
-      --ft-type-step: clamp(
-        var(--ft-type-step-min),
-        calc(var(--ft-type-step-min) + (var(--ft-type-step-max) - var(--ft-type-step-min)) * var(--ft-fluid-t)),
-        var(--ft-type-step-max)
-      );
-
-      --ft-space-value: clamp(
-        var(--ft-space-min),
-        calc(var(--ft-space-min) + (var(--ft-space-max) - var(--ft-space-min)) * var(--ft-fluid-t)),
-        var(--ft-space-max)
-      );
-
-      --ft-space-step: clamp(
-        var(--ft-space-step-min),
-        calc(var(--ft-space-step-min) + (var(--ft-space-step-max) - var(--ft-space-step-min)) * var(--ft-fluid-t)),
-        var(--ft-space-step-max)
-      );
-
-      --text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
-      --text-sm: calc(var(--text-base) / var(--ft-type-step));
-      --text-xs: calc(var(--text-sm) / var(--ft-type-step));
-      --text-lg: calc(var(--text-base) * var(--ft-type-step));
-      --text-xl: calc(var(--text-lg) * var(--ft-type-step));
-      --text-2xl: calc(var(--text-xl) * var(--ft-type-step));
-      --text-3xl: calc(var(--text-2xl) * var(--ft-type-step));
-      --text-4xl: calc(var(--text-3xl) * var(--ft-type-step));
-      --text-5xl: calc(var(--text-4xl) * var(--ft-type-step));
-      --text-6xl: calc(var(--text-5xl) * var(--ft-type-step));
-      --text-7xl: calc(var(--text-6xl) * var(--ft-type-step));
-      --text-8xl: calc(var(--text-7xl) * var(--ft-type-step));
-      --text-9xl: calc(var(--text-8xl) * var(--ft-type-step));
-
-      --spacing-fluid-md: calc(var(--ft-space-value) * var(--ft-space-factor));
-      --spacing-fluid-sm: calc(var(--spacing-fluid-md) / var(--ft-space-step));
-      --spacing-fluid-xs: calc(var(--spacing-fluid-sm) / var(--ft-space-step));
-      --spacing-fluid-lg: calc(var(--spacing-fluid-md) * var(--ft-space-step));
-      --spacing-fluid-xl: calc(var(--spacing-fluid-lg) * var(--ft-space-step));
-      --spacing-fluid-2xl: calc(var(--spacing-fluid-xl) * var(--ft-space-step));
-
-      --spacing-inner: calc(var(--spacing-fluid-xs) * var(--ft-space-factor-inner));
-      --spacing-content: calc(var(--spacing-fluid-sm) * var(--ft-space-factor-content));
-      --spacing-stack: calc(var(--spacing-fluid-sm) * var(--ft-space-factor-stack));
-      --spacing-block: calc(var(--spacing-fluid-md) * var(--ft-space-factor-block));
-      --spacing-columns: calc(var(--spacing-fluid-md) * var(--ft-space-factor-columns));
-      --spacing-section: calc(var(--spacing-fluid-xl) * var(--ft-space-factor-section));
-      --spacing-hero: calc(var(--spacing-fluid-2xl) * var(--ft-space-factor-hero));
-    }
-  }
+    /* Semantic spacing */
+    --spacing-inner: var(--ft-spacing-inner);
+    --spacing-content: var(--ft-spacing-content);
+    --spacing-stack: var(--ft-spacing-stack);
+    --spacing-block: var(--ft-spacing-block);
+    --spacing-columns: var(--ft-spacing-columns);
+    --spacing-section: var(--ft-spacing-section);
+    --spacing-hero: var(--ft-spacing-hero);
 }
