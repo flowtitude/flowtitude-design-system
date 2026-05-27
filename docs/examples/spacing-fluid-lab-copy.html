@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Copiar HTML - FDS spacing Flowkit</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #0f172a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin-inline: auto;
+      padding-block: 3rem;
+    }
+
+    header {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    p {
+      max-width: 70ch;
+      margin: 0;
+      color: #64748b;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 1px solid #dbe3ee;
+      border-bottom: 0;
+      border-radius: 0.75rem 0.75rem 0 0;
+      background: #ffffff;
+      padding: 1rem;
+    }
+
+    .toolbar strong { font-size: 0.95rem; }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #f8b400;
+      background: #f8b400;
+      padding: 0.55rem 1rem;
+      color: #0f172a;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 72vh;
+      margin: 0;
+      resize: vertical;
+      overflow: auto;
+      border: 1px solid #dbe3ee;
+      border-radius: 0 0 0.75rem 0.75rem;
+      background: #020617;
+      padding: 1.25rem;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      tab-size: 2;
+      white-space: pre;
+    }
+
+    .status {
+      min-height: 1.5rem;
+      margin-top: 0.75rem;
+      color: #64748b;
+      font-size: 0.925rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>HTML del spacing lab para Flowkit</h1>
+      <p>
+        Este snippet usa solo clases de utilidad FDS. Esta seleccionado
+        automaticamente: pulsa Cmd+C o Ctrl+C directamente.
+      </p>
+    </header>
+
+    <div class="toolbar">
+      <strong>Snippet HTML limpio para pegar en una pagina con FDS cargado</strong>
+      <button id="copy" type="button">Copiar HTML</button>
+    </div>
+
+    <textarea id="code" readonly spellcheck="false" autofocus onclick="this.select()"><main class="grid gap-section">
+  <section>
+    <div>
+      <header class="content-flex top-left max-w-4xl">
+        <span class="eyebrow">Solo clases FDS</span>
+        <h1 class="display-sm">Laboratorio visual de spacing fluido</h1>
+        <p class="text-large">
+          Este HTML no declara valores ni estilos inline. Todo el espacio sale
+          de clases de utilidad generadas por FDS, asi que cualquier cambio en
+          la configuracion de Flowkit se refleja en la pagina.
+        </p>
+      </header>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <header class="content-flex top-left max-w-3xl">
+        <span class="eyebrow">Escala tecnica</span>
+        <h2 class="heading">Utilidades fluid-*</h2>
+        <p class="text-medium">
+          Usa estas clases cuando quieras inspeccionar directamente la escala
+          tecnica que alimenta los espacios semanticos.
+        </p>
+      </header>
+
+      <div class="grid gap-block">
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">Anchura: w-fluid-*</h3>
+
+          <div class="grid gap-inner">
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-xs</code>
+              <div class="h-4 w-fluid-xs min-w-px rounded-full bg-primary-500"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-sm</code>
+              <div class="h-4 w-fluid-sm min-w-px rounded-full bg-primary-500"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-md</code>
+              <div class="h-4 w-fluid-md min-w-px rounded-full bg-primary-500"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-lg</code>
+              <div class="h-4 w-fluid-lg min-w-px rounded-full bg-primary-500"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-xl</code>
+              <div class="h-4 w-fluid-xl min-w-px rounded-full bg-primary-500"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-content md:grid-cols-1-3">
+              <code class="text-small">w-fluid-2xl</code>
+              <div class="h-4 w-fluid-2xl min-w-px rounded-full bg-primary-500"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">Padding: p-fluid-*</h3>
+
+          <div class="grid grid-auto-fit-sm gap-content">
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-xs">
+              <code class="block rounded bg-white text-small">p-fluid-xs</code>
+            </div>
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-sm">
+              <code class="block rounded bg-white text-small">p-fluid-sm</code>
+            </div>
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-md">
+              <code class="block rounded bg-white text-small">p-fluid-md</code>
+            </div>
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-lg">
+              <code class="block rounded bg-white text-small">p-fluid-lg</code>
+            </div>
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-xl">
+              <code class="block rounded bg-white text-small">p-fluid-xl</code>
+            </div>
+            <div class="rounded-md border border-neutral-300 bg-primary-100 p-fluid-2xl">
+              <code class="block rounded bg-white text-small">p-fluid-2xl</code>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">Gap: gap-fluid-*</h3>
+
+          <div class="grid grid-auto-fit-sm gap-content">
+            <div class="grid grid-cols-3 gap-fluid-xs rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-fluid-sm rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-fluid-md rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-fluid-lg rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-fluid-xl rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-fluid-2xl rounded-md border border-neutral-300 p-content">
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+              <span class="h-8 rounded bg-primary-500"></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <header class="content-flex top-left max-w-3xl">
+        <span class="eyebrow">Semantica</span>
+        <h2 class="heading">Espacios semanticos</h2>
+        <p class="text-medium">
+          Estos nombres son los que conviene usar en composicion real: describen
+          intencion, no un tamano concreto.
+        </p>
+      </header>
+
+      <div class="grid grid-auto-fit-md gap-columns">
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">inner</h3>
+          <p class="text-small">
+            <code>p-inner</code>, <code>gap-inner</code>, <code>space-y-inner</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-inner">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+          <div class="flex gap-inner rounded-md border border-neutral-300 p-content">
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">content</h3>
+          <p class="text-small">
+            <code>p-content</code>, <code>gap-content</code>, <code>space-y-content</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-content">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+          <div class="flex gap-content rounded-md border border-neutral-300 p-content">
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">stack</h3>
+          <p class="text-small">
+            <code>p-stack</code>, <code>gap-stack</code>, <code>space-y-stack</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-stack">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+          <div class="space-y-stack rounded-md border border-neutral-300 p-content">
+            <span class="block h-8 rounded bg-primary-500"></span>
+            <span class="block h-8 rounded bg-primary-500"></span>
+            <span class="block h-8 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">block</h3>
+          <p class="text-small">
+            <code>p-block</code>, <code>gap-block</code>, <code>space-y-block</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-block">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+          <div class="space-y-block rounded-md border border-neutral-300 p-content">
+            <span class="block h-8 rounded bg-primary-500"></span>
+            <span class="block h-8 rounded bg-primary-500"></span>
+            <span class="block h-8 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">columns</h3>
+          <p class="text-small">
+            <code>p-columns</code>, <code>gap-columns</code>, <code>space-y-columns</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-columns">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+          <div class="flex gap-columns rounded-md border border-neutral-300 p-content">
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+            <span class="size-8 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">section</h3>
+          <p class="text-small">
+            <code>p-section</code>, <code>py-section</code>, <code>gap-section</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-section">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+        </article>
+
+        <article class="card card-outline grid gap-content">
+          <h3 class="subheading-sm">hero</h3>
+          <p class="text-small">
+            <code>p-hero</code>, <code>py-hero</code>, <code>gap-hero</code>
+          </p>
+          <div class="rounded-md border border-neutral-300 bg-primary-100 p-hero">
+            <div class="min-h-10 rounded bg-white"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <header class="content-flex top-left max-w-3xl">
+        <span class="eyebrow">Familias</span>
+        <h2 class="heading">Padding, margin, gap y stack</h2>
+        <p class="text-medium">
+          La misma escala genera muchas familias de utilidades. Aqui se ve el
+          patron sin escribir CSS a mano.
+        </p>
+      </header>
+
+      <div class="grid grid-auto-fit-md gap-columns">
+        <article class="card card-elevated p-block">
+          <h3 class="subheading-sm">Padding</h3>
+          <p class="text-small">
+            <code>p-block</code>, <code>px-block</code>, <code>py-block</code>,
+            <code>pt-block</code>, <code>pb-block</code>
+          </p>
+        </article>
+
+        <article class="card card-elevated">
+          <div class="grid gap-block">
+            <h3 class="subheading-sm">Gap por ejes</h3>
+            <p class="text-small">
+              <code>gap-block</code>, <code>gap-x-columns</code>, <code>gap-y-stack</code>
+            </p>
+            <div class="grid grid-cols-3 gap-x-columns gap-y-stack">
+              <span class="h-10 rounded bg-primary-500"></span>
+              <span class="h-10 rounded bg-primary-500"></span>
+              <span class="h-10 rounded bg-primary-500"></span>
+              <span class="h-10 rounded bg-primary-500"></span>
+              <span class="h-10 rounded bg-primary-500"></span>
+              <span class="h-10 rounded bg-primary-500"></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-elevated">
+          <div class="space-y-block">
+            <h3 class="subheading-sm">Stack vertical</h3>
+            <p class="text-small">
+              <code>space-y-block</code> separa hijos verticales sin tocar cada hijo.
+            </p>
+            <span class="block h-10 rounded bg-primary-500"></span>
+            <span class="block h-10 rounded bg-primary-500"></span>
+          </div>
+        </article>
+
+        <article class="card card-elevated">
+          <h3 class="subheading-sm mb-content">Margin</h3>
+          <p class="text-small mb-block">
+            <code>mb-content</code>, <code>mb-block</code>, <code>my-block</code>
+          </p>
+          <div class="my-block rounded bg-primary-500 p-content text-white">
+            Bloque con margen vertical semantico
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <header class="content-flex top-left max-w-3xl">
+        <span class="eyebrow">Secciones</span>
+        <h2 class="heading">Andamiaje de layout</h2>
+        <p class="text-medium">
+          Las secciones tambien responden a la configuracion global sin que el
+          HTML tenga que declarar medidas.
+        </p>
+      </header>
+    </div>
+  </section>
+
+  <section class="has-background bg-primary-500 text-white">
+    <div>
+      <div class="content-flex center max-w-3xl">
+        <span class="eyebrow">has-background</span>
+        <h2 class="heading">Padding vertical completo</h2>
+        <p class="text-large">
+          Una seccion con fondo respira mas para que no parezca una franja
+          pegada al contenido.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="half-top half-bottom">
+    <div>
+      <div class="content-flex top-left max-w-3xl">
+        <span class="eyebrow">half-top half-bottom</span>
+        <h2 class="heading-sm">Seccion compactada manualmente</h2>
+        <p class="text-medium">
+          Util para ajustar un caso concreto sin tocar la configuracion global.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+</textarea>
+    <p id="status" class="status" aria-live="polite"></p>
+  </main>
+
+  <script>
+    const code = document.querySelector("#code")
+    const status = document.querySelector("#status")
+    const copy = document.querySelector("#copy")
+
+    copy.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(code.value)
+      status.textContent = "HTML copiado."
+      window.setTimeout(() => {
+        status.textContent = ""
+      }, 1800)
+    })
+
+    window.addEventListener("load", () => {
+      code.focus()
+      code.select()
+      status.textContent = "HTML seleccionado. Pulsa Cmd+C o Ctrl+C."
+    })
+  </script>
+</body>
+</html>

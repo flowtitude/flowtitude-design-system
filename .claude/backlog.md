@@ -6,16 +6,17 @@
 
 | ID | Estado | Titulo | Prioridad |
 |---|---|---|---|
-| FDS-001 | 🔵 open | Mejorar preflight (reset mas robusto) | Alta |
-| FDS-002 | 🔵 open | Anadir componente cards (.card + variantes) | Alta |
-| FDS-003 | 🔵 open | Corregir typo: .eyebrown → .eyebrow | Media |
-| FDS-004 | 🔵 open | Revisar uso de @apply vs CSS directo en base | Media |
+| FDS-001 | ✅ done | Mejorar preflight (reset mas robusto) | Alta |
+| FDS-002 | ✅ done | Anadir componente cards (.card + variantes) | Alta |
+| FDS-003 | ✅ done | Corregir typo: .eyebrown → .eyebrow (ya estaba correcto) | Media |
+| FDS-004 | ✅ done | Revisar uso de @apply vs CSS directo en base | Media |
 | FDS-005 | ✅ done | Documentar todos los componentes con ejemplos HTML | Media |
 | FDS-009 | ✅ done | Redisenar docs HTML con estetica profesional y code blocks mejorados | Alta |
 | FDS-006 | 🔵 open | Crear archivo .windpress exportable desde estado actual | Alta |
-| FDS-007 | 🔵 open | Corregir curso: errores criticos L3 y L4 (ver docs/curso/audit.html) | Alta |
-| FDS-008 | 🔵 open | Completar curso: contenido faltante en L2, L3 (spacing knobs, tokens) | Media |
+| FDS-007 | 🟡 in-progress | Corregir curso: errores criticos L3 y L4 — correcciones redactadas en Vault SA/Proyectos/Flowtitude/correcciones-curso-fds.md, pendiente pegar en plataforma | Alta |
+| FDS-008 | 🟡 in-progress | Completar curso: contenido faltante en L2, L3 — contenido redactado en mismo archivo, pendiente pegar en plataforma | Media |
 | FDS-010 | ✅ done | Mejorar shared.css de docs: hacer CSS reutilizable y pulir estetica dark mode | Alta |
+| FDS-011 | ✅ done | Mejorar documentacion Syntax de tipografia y spacing fluido | Alta |
 
 ### Pro Version (futuro)
 
@@ -30,6 +31,20 @@
 ---
 
 ## Session Log
+
+### Sesion 5 — 2026-05-10
+- **Tiempo**: 0.75h
+- **What**: Mejorada la documentacion principal basada en Syntax/Next para tipografia, tokens tipograficos y spacing fluido. Se asimilo contenido util de la documentacion HTML antigua sin mantener dos fuentes en paralelo.
+- **Why**: La doc Syntax estaba demasiado resumida para explicar bien el componente tipografico, la configuracion fluida, el andamiaje de espacios semanticos, el papel de `.prose` y la forma de auditar visualmente cambios en variables.
+- **Where**:
+  - `docs/src/app/docs/componentes-tipografia/page.md` — aliases, referencia completa, `text-wrap`, relacion clase visual vs tag HTML, uso de `.prose` y ejemplo combinado.
+  - `docs/src/app/docs/tokens-spacing/page.md` — formula fluida, multiplicadores semanticos, valores aproximados, familias de clases Tailwind, uso directo con variables, que knob tocar, andamiaje de secciones, `.prose` y pagina de auditoria copiable.
+  - `docs/src/app/docs/tokens-tipografia/page.md` — modelo mental del step ratio y relacion directa con componentes.
+- **Verify**: `npm run build --prefix docs` compila correctamente.
+- **Learned**:
+  - La documentacion canonica actual es `docs/src` (plantilla Syntax/Next); los HTML antiguos quedan como fuente secundaria de contenido.
+  - La doc antigua tenia buenas explicaciones de aliases, `text-wrap`, `clamp()`, step ratio y uso directo de variables, pero algunos valores demo no coinciden con el CSS real actual y no se deben copiar literalmente.
+  - Para cambios de documentacion sin tocar CSS no aplica sincronizar WindPress; si se lleva al curso, las lecciones relacionadas son L4 (tipografia) y L5 (spacing).
 
 ### Sesion 4 — 2026-03-19
 - **What**: Fix de links subrayados por regla Gutenberg. Añadido override fuera de `@layer` en `base/typography.css` para contrarrestar `a:where(:not(.wp-element-button)) { text-decoration: underline }` de WP core.

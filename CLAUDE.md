@@ -117,14 +117,15 @@ El design system de referencia es FDS (este proyecto). Cualquier cambio visual q
 
 ## Project-Specific Rules
 
-1. **Tailwind v4 syntax**: Usar `@theme`, `@layer`, `@utility`, `@custom-variant`
-2. **No @apply en utilities**: Solo en components y base (donde tiene sentido semantico)
-3. **OKLCH para colores**: Mejor uniformidad perceptual que hex/RGB
-4. **clamp() para fluid**: Sin media queries para tipografia y spacing
-5. **Naming**: `.btn-*`, `.badge-*`, `.card-*` (prefijo por componente)
-6. **Custom properties con prefijo**: `--ft-*` para knobs, `--spacing-*` para semantico
-7. **Al modificar CSS**: Revisar mapa curso↔codigo y avisar que lecciones hay que actualizar
-8. Sincronizar cambios a dev-descubre-tailwind si aplica
+1. **Documentacion**: Al modificar CSS que afecte tokens, componentes, layouts o utilidades, actualizar la pagina correspondiente en `docs/src/app/docs/`. Ejecutar `npm run build --prefix docs` para verificar que compila.
+2. **Tailwind v4 syntax**: Usar `@theme`, `@layer`, `@utility`, `@custom-variant`
+3. **No @apply en utilities**: Solo en components y base (donde tiene sentido semantico)
+4. **OKLCH para colores**: Mejor uniformidad perceptual que hex/RGB
+5. **clamp() para fluid**: Sin media queries para tipografia y spacing
+6. **Naming**: `.btn-*`, `.badge-*`, `.card-*` (prefijo por componente)
+7. **Custom properties con prefijo**: `--ft-*` para knobs, `--spacing-*` para semantico
+8. **Al modificar CSS**: Revisar mapa curso↔codigo y avisar que lecciones hay que actualizar
+9. Sincronizar cambios a dev-descubre-tailwind si aplica
 
 ## Curso (fluencommunity/flowtitude.com)
 

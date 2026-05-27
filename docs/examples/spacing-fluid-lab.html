@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FDS - Laboratorio de spacing fluido</title>
+
+  <!--
+    Demo local:
+    este CSS se genera desde main.css para poder abrir este archivo en el navegador.
+
+    WordPress / Bricks / WindPress:
+    si pegas este HTML dentro de una pagina donde FDS ya esta cargado, puedes quitar este link.
+  -->
+  <link rel="stylesheet" href="../public/fds-preview.css" />
+
+  <style>
+    .fds-space-lab {
+      --demo-surface: oklch(99% 0 0);
+      --demo-surface-soft: oklch(96% 0.01 80);
+      --demo-border: oklch(88% 0 0);
+      --demo-ink-soft: oklch(42% 0 0);
+      background: white;
+      color: var(--ft-color-text);
+    }
+
+    .fds-space-lab * {
+      box-sizing: border-box;
+    }
+
+    .fds-space-shell {
+      width: min(1180px, calc(100% - 2rem));
+      margin-inline: auto;
+      padding-block: var(--spacing-section);
+    }
+
+    .fds-space-demo-panel {
+      border: 1px solid var(--demo-border);
+      border-radius: var(--radius-card);
+      background: var(--demo-surface);
+      padding: var(--spacing-block);
+    }
+
+    .fds-space-demo-panel.is-soft {
+      background: var(--demo-surface-soft);
+    }
+
+    .fds-space-demo-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--spacing-content);
+      margin-block-end: var(--spacing-block);
+    }
+
+    .fds-space-token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+      gap: var(--spacing-columns);
+    }
+
+    .fds-space-token-card {
+      display: grid;
+      gap: var(--spacing-content);
+      border: 1px solid var(--demo-border);
+      border-radius: var(--radius-card);
+      background: white;
+      padding: var(--spacing-block);
+    }
+
+    .fds-space-token-card code,
+    .fds-space-meter code,
+    .fds-space-control code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.875rem;
+      color: var(--color-primary-600);
+    }
+
+    .fds-space-swatch {
+      min-height: 3rem;
+      border-radius: var(--radius-card);
+      background:
+        repeating-linear-gradient(
+          45deg,
+          oklch(95% 0.02 27),
+          oklch(95% 0.02 27) 10px,
+          oklch(91% 0.04 27) 10px,
+          oklch(91% 0.04 27) 20px
+        );
+    }
+
+    .fds-space-swatch > div {
+      min-height: 2.5rem;
+      border-radius: calc(var(--radius-card) * 0.75);
+      background: white;
+      border: 1px solid var(--demo-border);
+    }
+
+    .fds-space-gap-demo,
+    .fds-space-stack-demo {
+      display: flex;
+      border: 1px dashed var(--demo-border);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-content);
+      background: white;
+    }
+
+    .fds-space-gap-demo {
+      align-items: center;
+    }
+
+    .fds-space-stack-demo {
+      flex-direction: column;
+    }
+
+    .fds-space-dot {
+      display: block;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary-500);
+    }
+
+    .fds-space-meter {
+      display: grid;
+      grid-template-columns: minmax(8rem, 12rem) 1fr;
+      align-items: center;
+      gap: var(--spacing-content);
+    }
+
+    .fds-space-bar {
+      height: 1rem;
+      width: var(--bar);
+      min-width: 1px;
+      border-radius: 999px;
+      background: var(--color-primary-500);
+    }
+
+    .fds-space-control-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+      gap: var(--spacing-block);
+    }
+
+    .fds-space-control {
+      display: grid;
+      gap: var(--spacing-content);
+      border: 1px solid var(--demo-border);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-block);
+      background: white;
+    }
+
+    .fds-space-control label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-content);
+      font-weight: 700;
+    }
+
+    .fds-space-control input {
+      width: 100%;
+    }
+
+    .fds-space-preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-content);
+    }
+
+    .fds-space-note {
+      color: var(--demo-ink-soft);
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    Cambia estos knobs en el atributo style o usa los controles.
+    Los tokens --spacing-* se recalculan porque heredan las formulas de FDS.
+  -->
+  <main
+    id="fds-space-lab"
+    class="fds-space-lab"
+    style="
+      --ft-space-min: 0.5rem;
+      --ft-space-max: 1.5rem;
+      --ft-space-step-min: 1.3;
+      --ft-space-step-max: 1.5;
+      --ft-space-factor: 1;
+      --ft-space-factor-inner: 0.5;
+      --ft-space-factor-content: 0.75;
+      --ft-space-factor-stack: 1;
+      --ft-space-factor-block: 1;
+      --ft-space-factor-columns: 1.5;
+      --ft-space-factor-section: 3;
+      --ft-space-factor-hero: 4.5;
+    "
+  >
+    <div class="fds-space-shell grid gap-section">
+      <header class="content-flex top-left max-w-4xl">
+        <span class="eyebrow">FDS spacing lab</span>
+        <h1 class="display-sm">Laboratorio visual de spacing fluido</h1>
+        <p class="text-large">
+          Cambia los knobs y revisa como responden los tokens fluidos,
+          los espacios semanticos y las utilidades de padding, gap y stack.
+        </p>
+      </header>
+
+      <section class="fds-space-demo-panel is-soft">
+        <div class="fds-space-demo-title">
+          <div>
+            <h2 class="heading-sm">1. Controles de variables</h2>
+            <p class="text-medium fds-space-note">
+              Estos controles modifican variables en el wrapper del laboratorio.
+              En produccion las cambiarias en <code>theme/flowtitude.css</code>.
+            </p>
+          </div>
+          <div class="fds-space-preset-row">
+            <button class="btn btn-outline btn-sm" type="button" data-preset="compact">Compacto</button>
+            <button class="btn btn-outline btn-sm" type="button" data-preset="default">Default</button>
+            <button class="btn btn-outline btn-sm" type="button" data-preset="editorial">Editorial</button>
+          </div>
+        </div>
+
+        <div class="fds-space-control-grid">
+          <div class="fds-space-control">
+            <label>
+              <span>Factor global</span>
+              <code id="read-factor">1</code>
+            </label>
+            <input data-var="--ft-space-factor" data-output="read-factor" type="range" min="0.7" max="1.4" step="0.05" value="1" />
+            <p class="text-small">Escala todos los espacios fluidos en bloque.</p>
+          </div>
+
+          <div class="fds-space-control">
+            <label>
+              <span>Step max</span>
+              <code id="read-step-max">1.5</code>
+            </label>
+            <input data-var="--ft-space-step-max" data-output="read-step-max" type="range" min="1.15" max="1.8" step="0.05" value="1.5" />
+            <p class="text-small">Abre o comprime la diferencia entre pasos en desktop.</p>
+          </div>
+
+          <div class="fds-space-control">
+            <label>
+              <span>Factor seccion</span>
+              <code id="read-section">3</code>
+            </label>
+            <input data-var="--ft-space-factor-section" data-output="read-section" type="range" min="1.5" max="5" step="0.1" value="3" />
+            <p class="text-small">Afecta a <code>--spacing-section</code> y clases como <code>py-section</code>.</p>
+          </div>
+
+          <div class="fds-space-control">
+            <label>
+              <span>Factor hero</span>
+              <code id="read-hero">4.5</code>
+            </label>
+            <input data-var="--ft-space-factor-hero" data-output="read-hero" type="range" min="2" max="7" step="0.1" value="4.5" />
+            <p class="text-small">Afecta a <code>--spacing-hero</code> y clases como <code>py-hero</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="fds-space-demo-panel">
+        <div class="fds-space-demo-title">
+          <div>
+            <h2 class="heading-sm">2. Escala fluida tecnica</h2>
+            <p class="text-medium fds-space-note">
+              Estos tokens son la escala base. Los espacios semanticos se derivan de ellos.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-block">
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-xs</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-xs)"></span>
+          </div>
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-sm</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-sm)"></span>
+          </div>
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-md</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-md)"></span>
+          </div>
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-lg</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-lg)"></span>
+          </div>
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-xl</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-xl)"></span>
+          </div>
+          <div class="fds-space-meter">
+            <code>--spacing-fluid-2xl</code>
+            <span class="fds-space-bar" style="--bar: var(--spacing-fluid-2xl)"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="fds-space-demo-panel">
+        <div class="fds-space-demo-title">
+          <div>
+            <h2 class="heading-sm">3. Espacios semanticos</h2>
+            <p class="text-medium fds-space-note">
+              La misma idea se puede usar como padding, gap, margin o space-y.
+            </p>
+          </div>
+        </div>
+
+        <div class="fds-space-token-grid">
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">inner</h3>
+            <code>p-inner / gap-inner / space-y-inner</code>
+            <div class="fds-space-swatch p-inner"><div></div></div>
+            <div class="fds-space-gap-demo gap-inner"><span class="fds-space-dot"></span><span class="fds-space-dot"></span><span class="fds-space-dot"></span></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">content</h3>
+            <code>p-content / gap-content / space-y-content</code>
+            <div class="fds-space-swatch p-content"><div></div></div>
+            <div class="fds-space-gap-demo gap-content"><span class="fds-space-dot"></span><span class="fds-space-dot"></span><span class="fds-space-dot"></span></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">stack</h3>
+            <code>p-stack / gap-stack / space-y-stack</code>
+            <div class="fds-space-swatch p-stack"><div></div></div>
+            <div class="fds-space-stack-demo space-y-stack"><span class="fds-space-dot"></span><span class="fds-space-dot"></span><span class="fds-space-dot"></span></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">block</h3>
+            <code>p-block / gap-block / space-y-block</code>
+            <div class="fds-space-swatch p-block"><div></div></div>
+            <div class="fds-space-stack-demo space-y-block"><span class="fds-space-dot"></span><span class="fds-space-dot"></span><span class="fds-space-dot"></span></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">columns</h3>
+            <code>p-columns / gap-columns / space-y-columns</code>
+            <div class="fds-space-swatch p-columns"><div></div></div>
+            <div class="fds-space-gap-demo gap-columns"><span class="fds-space-dot"></span><span class="fds-space-dot"></span><span class="fds-space-dot"></span></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">section</h3>
+            <code>p-section / py-section / gap-section</code>
+            <div class="fds-space-swatch p-section"><div></div></div>
+          </article>
+
+          <article class="fds-space-token-card">
+            <h3 class="subheading-sm">hero</h3>
+            <code>p-hero / py-hero / gap-hero</code>
+            <div class="fds-space-swatch p-hero"><div></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="fds-space-demo-panel">
+        <div class="fds-space-demo-title">
+          <div>
+            <h2 class="heading-sm">4. Clases por familia</h2>
+            <p class="text-medium fds-space-note">
+              El token es el mismo; cambia el prefijo de utilidad.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-auto-fit-md gap-columns">
+          <article class="card card-outline p-block">
+            <h3 class="subheading-sm">Padding</h3>
+            <p class="text-medium"><code>p-block</code>, <code>px-block</code>, <code>py-block</code>, <code>pt-block</code>, <code>pb-block</code></p>
+          </article>
+
+          <article class="card card-outline">
+            <div class="grid gap-block">
+              <h3 class="subheading-sm">Gap</h3>
+              <p class="text-medium"><code>gap-block</code>, <code>gap-x-columns</code>, <code>gap-y-stack</code></p>
+            </div>
+          </article>
+
+          <article class="card card-outline">
+            <div class="space-y-block">
+              <h3 class="subheading-sm">Stack</h3>
+              <p class="text-medium"><code>space-y-block</code> separa hijos verticales sin tocar cada hijo.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="fds-space-demo-panel">
+        <div class="fds-space-demo-title">
+          <div>
+            <h2 class="heading-sm">5. Secciones reales</h2>
+            <p class="text-medium fds-space-note">
+              Las secciones consumen <code>--ft-padding-content-y</code>,
+              <code>--ft-padding-content-y-half</code> y los tokens semanticos.
+            </p>
+          </div>
+        </div>
+
+        <main class="border border-neutral-300 rounded-lg overflow-hidden">
+          <section>
+            <div>
+              <div class="content-flex top-left max-w-3xl">
+                <span class="eyebrow">section normal</span>
+                <h3 class="heading-sm">Padding contextual por defecto</h3>
+                <p class="text-medium">La primera seccion de main recibe mas aire superior.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="has-background bg-primary-500 text-white">
+            <div>
+              <div class="content-flex center max-w-3xl">
+                <span class="eyebrow">has-background</span>
+                <h3 class="heading-sm">Padding vertical completo</h3>
+                <p class="text-medium">Una banda con fondo necesita respirar mas.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="half-top half-bottom">
+            <div>
+              <div class="content-flex top-left max-w-3xl">
+                <span class="eyebrow">half-top half-bottom</span>
+                <h3 class="heading-sm">Seccion compactada manualmente</h3>
+                <p class="text-medium">Util cuando el contexto necesita menos aire vertical.</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const lab = document.querySelector('#fds-space-lab')
+
+    const presets = {
+      compact: {
+        '--ft-space-factor': 0.85,
+        '--ft-space-step-max': 1.3,
+        '--ft-space-factor-section': 2.1,
+        '--ft-space-factor-hero': 3.2,
+      },
+      default: {
+        '--ft-space-factor': 1,
+        '--ft-space-step-max': 1.5,
+        '--ft-space-factor-section': 3,
+        '--ft-space-factor-hero': 4.5,
+      },
+      editorial: {
+        '--ft-space-factor': 1.12,
+        '--ft-space-step-max': 1.65,
+        '--ft-space-factor-section': 3.8,
+        '--ft-space-factor-hero': 5.6,
+      },
+    }
+
+    function setVar(name, value) {
+      lab.style.setProperty(name, value)
+    }
+
+    function syncControl(input) {
+      setVar(input.dataset.var, input.value)
+      document.getElementById(input.dataset.output).textContent = input.value
+    }
+
+    document.querySelectorAll('[data-var]').forEach((input) => {
+      input.addEventListener('input', () => syncControl(input))
+      syncControl(input)
+    })
+
+    document.querySelectorAll('[data-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const values = presets[button.dataset.preset]
+
+        Object.entries(values).forEach(([name, value]) => {
+          const input = document.querySelector(`[data-var="${name}"]`)
+          input.value = value
+          syncControl(input)
+        })
+      })
+    })
+  </script>
+</body>
+</html>

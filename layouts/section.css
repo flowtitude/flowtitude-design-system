@@ -3,7 +3,9 @@
 @layer layouts {
 
     section {
-        @apply @container w-full px-[var(--ft-padding-content-x)] py-[calc(var(--ft-padding-content-y)/2)];
+        @apply @container w-full px-[var(--ft-padding-content-x)];
+        padding-top: var(--ft-padding-content-y-half);
+        padding-bottom: var(--ft-padding-content-y-half);
     }
 
     section > div  {
@@ -51,12 +53,12 @@
   /* Half padding (safe: no :has() in selector lists) */
   section.half-top,
   section.half-top:first-of-type:not(.has-background) {
-    @apply pt-[calc(var(--ft-padding-content-y)/2)];
+    padding-top: var(--ft-padding-content-y-half);
   }
 
   section.half-bottom,
   section.half-bottom:last-of-type:not(.has-background) {
-    @apply pb-[calc(var(--ft-padding-content-y)/2)];
+    padding-bottom: var(--ft-padding-content-y-half);
   }
   
   .block-bleed {
