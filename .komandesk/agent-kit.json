@@ -8,6 +8,7 @@
   },
   "komandesk": {
     "base_url": "https://ops.solucionesabiertas.net",
+    "workspace_id": "13",
     "project_id": "29",
     "required_endpoints": [
       "GET /api/tasks/:id",
