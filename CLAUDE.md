@@ -146,3 +146,16 @@ Hay un curso de 7 lecciones. Los docs de referencia cruzada estan en `docs/curso
 | `layouts/section.css` | L5 (secciones) |
 | `layouts/content-flex.css` | L5 (content-flex) |
 | `utility/layout/grid-basic.css` | L6 (grids) |
+
+<!-- KOMANDESK:AGENT_KIT:START version=2026-06-11.v0 hash=a921cba651bb734ae66c5854fd5edc94a0c5e906cae3ffa3bea422e2eeeb9dcc -->
+## Komandesk Agent Kit
+
+- Version: 2026-06-11.v0
+- Project: Flowtitude Design System
+- Type: design-system
+- Source of truth: Komandesk (https://ops.solucionesabiertas.net).
+- Read first: `docs/komandesk-agent-kit.md`, `state.md` si existe.
+- Local kit role: bootstrap instructions, commands, skills, credentials references and project context.
+- Credentials: references only; never print or commit secret values.
+- Before closing: read `GET /api/tasks/:id/agent-work`.
+<!-- KOMANDESK:AGENT_KIT:END -->

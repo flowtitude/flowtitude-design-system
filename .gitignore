@@ -1,0 +1,5 @@
+# Komandesk Agent Kit local secrets
+.komandesk/secrets.local.env
+.komandesk/credentials.local.json
+.komandesk/*.secret
+.komandesk/*.secret.*
