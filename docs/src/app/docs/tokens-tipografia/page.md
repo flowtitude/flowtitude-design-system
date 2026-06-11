@@ -2,7 +2,7 @@
 title: Tipografia fluida
 ---
 
-FDS genera una escala tipografica completa (xs a 9xl) a partir de 4 knobs, usando `clamp()` para transiciones fluidas.
+FDS genera una escala tipografica completa (xs a 9xl) a partir de 4 knobs, usando `clamp()` para transiciones fluidas. Desde la migracion a formulas planas, cada token final tiene su propio `clamp()` y no depende del paso anterior.
 
 ---
 
@@ -19,15 +19,15 @@ En mobile, FDS usa una progresion mas contenida para que los displays no se disp
 
 ## Fallback de compatibilidad
 
-La tipografia fluida se activa solo cuando el navegador confirma soporte para `clamp()`, `calc()`, multiplicacion y division dentro de CSS math. En `@theme`, FDS declara siempre los tokens publicos `--text-*`, porque esos son los que Tailwind 4/WindPress usa para generar utilidades.
+La tipografia fluida se activa solo cuando el navegador confirma soporte para `clamp()` con un `calc()` simple. En `@theme`, FDS declara siempre los tokens publicos `--text-*`, porque esos son los que Tailwind 4/WindPress usa para generar utilidades.
 
-La diferencia es que `--text-*` no contiene directamente toda la formula: apunta a tokens internos `--ft-text-*`. Esos internos tienen fallback estatico y, en navegadores modernos, se recalculan desde los knobs.
+La diferencia es que `--text-*` no contiene directamente toda la formula: apunta a tokens internos `--ft-text-*`. Esos internos tienen fallback estatico y, en navegadores modernos, reciben una formula plana generada desde los knobs.
 
 | Nivel | Comportamiento |
 |---|---|
 | `@layer base` fallback | Declara `--ft-text-*` con valores estaticos seguros |
 | `@theme` publico | Declara `--text-*` como alias a `--ft-text-*` y genera utilidades |
-| `@supports` moderno | Recalcula `--ft-text-*` con la escala fluida derivada de los knobs FDS |
+| `@supports` moderno | Activa `--ft-text-*` con formulas `clamp()` independientes |
 
 Los componentes (`.display`, `.heading`, `.text-*`) no necesitan cambiar: siguen usando `text-*`. La diferencia es que los navegadores modernos reciben la escala fluida y los navegadores con CSS math limitado caen en la escala segura de Tailwind.
 
@@ -65,45 +65,37 @@ En `@theme`, los tokens publicos mantienen la API de Tailwind:
 --text-9xl: var(--ft-text-9xl);
 ```
 
-En el bloque moderno, cada paso se calcula multiplicando el anterior por el step ratio:
+En el bloque moderno, cada token se declara como formula independiente:
 
 ```css
---ft-text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
---ft-text-sm:   calc(var(--ft-text-base) / var(--ft-type-step));
---ft-text-xs:   calc(var(--ft-text-sm) / var(--ft-type-step));
---ft-text-lg:   calc(var(--ft-text-base) * var(--ft-type-step));
---ft-text-xl:   calc(var(--ft-text-lg) * var(--ft-type-step));
---ft-text-2xl:  calc(var(--ft-text-xl) * var(--ft-type-step));
---ft-text-3xl:  calc(var(--ft-text-2xl) * var(--ft-type-step));
---ft-text-4xl:  calc(var(--ft-text-3xl) * var(--ft-type-step));
---ft-text-5xl:  calc(var(--ft-text-4xl) * var(--ft-type-step));
---ft-text-6xl:  calc(var(--ft-text-5xl) * var(--ft-type-step));
---ft-text-7xl:  calc(var(--ft-text-6xl) * var(--ft-type-step));
---ft-text-8xl:  calc(var(--ft-text-7xl) * var(--ft-type-step));
---ft-text-9xl:  calc(var(--ft-text-8xl) * var(--ft-type-step));
+--ft-text-base: clamp(1rem, calc(0.941092rem + 0.229885vw), 1.125rem);
+--ft-text-xl:   clamp(1.265625rem, calc(1.098621rem + 0.651724vw), 1.62rem);
+--ft-text-2xl:  clamp(1.423828rem, calc(1.17869rem + 0.956638vw), 1.944rem);
 ```
+
+La formula sigue naciendo de `--ft-text-min`, `--ft-text-max`, `--ft-type-step-min` y `--ft-type-step-max`, pero el navegador ya no resuelve esa multiplicacion en cadena. El generador o personalizador debe escribir los valores finales cuando cambian los knobs.
 
 | Token | Tamano aprox. (1280px) |
 |---|---|
-| `text-xs` | ~12px |
-| `text-sm` | ~14px |
+| `text-xs` | ~12.5px |
+| `text-sm` | ~15px |
 | `text-base` | ~18px |
-| `text-lg` | ~21px |
-| `text-xl` | ~24px |
-| `text-2xl` | ~28px |
-| `text-3xl` | ~32px |
-| `text-4xl` | ~37px |
-| `text-5xl` | ~43px |
-| `text-6xl` | ~49px |
-| `text-7xl` | ~56px |
-| `text-8xl` | ~65px |
-| `text-9xl` | ~75px |
+| `text-lg` | ~21.6px |
+| `text-xl` | ~25.9px |
+| `text-2xl` | ~31.1px |
+| `text-3xl` | ~37.3px |
+| `text-4xl` | ~44.8px |
+| `text-5xl` | ~53.7px |
+| `text-6xl` | ~64.5px |
+| `text-7xl` | ~77.4px |
+| `text-8xl` | ~92.9px |
+| `text-9xl` | ~111.5px |
 
 ---
 
 ## Efecto del step ratio
 
-Cambiar `--ft-type-step-min` o `--ft-type-step-max` no cambia solo un tamano: recalcula toda la escala.
+Cambiar `--ft-type-step-min` o `--ft-type-step-max` no cambia solo un tamano: debe regenerar toda la escala. En FlowKit o en cualquier tooling de tokens, esos knobs son entradas; el CSS publicado contiene el resultado ya aplanado.
 
 | Cambio | Resultado |
 |---|---|
@@ -111,7 +103,7 @@ Cambiar `--ft-type-step-min` o `--ft-type-step-max` no cambia solo un tamano: re
 | Step mas alto, por ejemplo `1.25` | Escala mas expresiva, mas diferencia entre cuerpo y titulos |
 | Subir solo `--ft-type-step-min` | Mobile gana jerarquia, pero puede apretar headings largos |
 | Subir solo `--ft-type-step-max` | Desktop gana contraste, util en landings y paginas editoriales |
-| Cambiar `--ft-text-factor` | Todo el sistema tipografico sube o baja en bloque |
+| Cambiar `--ft-text-factor` | El generador debe recalcular todos los `--ft-text-*` |
 
 {% callout title="Verificar ambos extremos" %}
 Cuando cambies el step ratio, revisa mobile y desktop. Los titulos grandes son los primeros que revelan si la escala se ha abierto demasiado.
@@ -138,19 +130,16 @@ Los componentes tipograficos no tienen tamanos fijos. Usan los tokens de esta es
 | `.text-medium` | `text-base` |
 | `.text-small` | `text-sm` |
 
-Por eso un cambio en `--ft-text-min`, `--ft-text-max` o `--ft-type-step-*` afecta tambien a las clases semanticas de `components/typography.css`.
+Por eso un cambio generado desde `--ft-text-min`, `--ft-text-max` o `--ft-type-step-*` afecta tambien a las clases semanticas de `components/typography.css`.
 
 ---
 
 ## Rango de viewport
 
-La interpolacion ocurre entre `--viewport-min` (410px) y `--viewport-max` (1280px):
+La interpolacion se calcula para el rango entre `--viewport-min` (410px) y `--viewport-max` (1280px), pero el CSS runtime no conserva un token global de progreso fluido. Cada token final contiene su propia recta:
 
 ```css
---ft-fluid-t: calc(
-  (100vw - var(--viewport-min)) /
-  (var(--viewport-max) - var(--viewport-min))
-);
+clamp(valor-minimo, calc(intercepto + pendiente-vw), valor-maximo)
 ```
 
 Por debajo de 410px se usa el valor minimo. Por encima de 1280px, el maximo.

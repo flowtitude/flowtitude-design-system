@@ -8,9 +8,9 @@ Design system CSS gratuito sobre Tailwind CSS 4. Tokens fluidos, componentes y l
 
 {% quick-link title="Instalacion" icon="installation" href="/docs/instalacion/" description="Importar FDS via WindPress en WordPress o incluir los CSS directamente." /%}
 
-{% quick-link title="Arquitectura" icon="presets" href="/docs/arquitectura/" description="Layers CSS, tokens knob/derived, estructura de archivos." /%}
+{% quick-link title="Arquitectura" icon="presets" href="/docs/arquitectura/" description="Layers CSS, knobs, tokens runtime y estructura de archivos." /%}
 
-{% quick-link title="Tokens" icon="theming" href="/docs/tokens-knobs/" description="35 variables knob que generan 50+ valores derivados con clamp()." /%}
+{% quick-link title="Tokens" icon="theming" href="/docs/tokens-knobs/" description="35 variables knob que generan tokens runtime planos con clamp()." /%}
 
 {% quick-link title="Componentes" icon="plugins" href="/docs/componentes-botones/" description="Botones, tipografia, cards y utilidades CSS listas para usar." /%}
 
@@ -24,7 +24,7 @@ FDS extiende Tailwind CSS 4 con un sistema de tokens fluidos basado en `clamp()`
 
 ### Tokens de diseno fluidos
 
-El sistema usa ~35 variables "knob" (editables) que generan 50+ variables derivadas. Todo via `clamp()` para transiciones fluidas entre viewport minimo y maximo.
+El sistema usa ~35 variables "knob" como entrada de configuracion. A partir de ellas se generan tokens runtime planos con `clamp()` para transiciones fluidas entre viewport minimo y maximo.
 
 ```css
 /* Un solo knob controla toda la escala */

@@ -8,7 +8,7 @@ El sistema tiene 4 niveles:
 
 1. Rango de viewport.
 2. Knobs editables.
-3. Escala fluida derivada.
+3. Escala fluida generada.
 4. Tokens semanticos para usar en clases Tailwind.
 
 ---
@@ -22,16 +22,7 @@ La interpolacion ocurre entre `--viewport-min` y `--viewport-max`, definidos en 
 --viewport-max: 1280px;
 ```
 
-FDS calcula un progreso fluido (`--ft-fluid-t`) con el ancho real del viewport:
-
-```css
---ft-fluid-t: calc(
-  (100vw - var(--viewport-min)) /
-  (var(--viewport-max) - var(--viewport-min))
-);
-```
-
-Ese progreso alimenta los `clamp()` del espacio base y del ratio de escala:
+Los knobs de spacing definen la escala que se va a generar:
 
 ```css
 --ft-space-min: 0.5rem;      /* Espacio base en viewport minimo */
@@ -41,21 +32,7 @@ Ese progreso alimenta los `clamp()` del espacio base y del ratio de escala:
 --ft-space-factor: 1;        /* Multiplicador global */
 ```
 
-```css
---ft-space-value: clamp(
-  var(--ft-space-min),
-  calc(var(--ft-space-min) + (var(--ft-space-max) - var(--ft-space-min)) * var(--ft-fluid-t)),
-  var(--ft-space-max)
-);
-
---ft-space-step: clamp(
-  var(--ft-space-step-min),
-  calc(var(--ft-space-step-min) + (var(--ft-space-step-max) - var(--ft-space-step-min)) * var(--ft-fluid-t)),
-  var(--ft-space-step-max)
-);
-```
-
-Por debajo de `410px`, el sistema usa el minimo. Por encima de `1280px`, usa el maximo. Entre ambos, interpola de forma continua.
+Antes FDS calculaba un progreso fluido comun y de ahi derivaba toda la escala en cadena. Ahora el resultado se publica como formulas planas. Por debajo de `410px`, cada token usa su minimo. Por encima de `1280px`, usa su maximo. Entre ambos, interpola de forma continua.
 
 `clamp()` es la pieza importante: pone limite minimo, valor fluido intermedio y limite maximo en una sola declaracion. Por eso el sistema no necesita media queries para este comportamiento.
 
@@ -73,16 +50,14 @@ FDS no deja los tokens principales dependiendo solo de `calc()` o `clamp()`. La 
 |---|---|---|
 | Fallback base | Navegadores con variables CSS pero sin CSS math fiable | Valores estaticos mobile |
 | Fallback desktop | `@media (min-width: 1280px)` | Valores estaticos desktop |
-| Mejora fluida | `@supports` confirma `clamp()`, `calc()`, multiplicacion y division | Tokens internos fluidos completos |
+| Mejora fluida | `@supports` confirma `clamp()` con `calc()` simple | Tokens internos fluidos con formulas planas |
 
 Esto significa que navegadores antiguos no obtienen interpolacion fluida, pero si mantienen una escala valida de spacing. Los tokens publicos `--spacing-*` viven en `@theme` para generar utilidades; los valores reales se resuelven mediante internos `--ft-spacing-*`, que son los que pasan de fallback a fluido.
 
 ```css
-@supports (font-size: clamp(1rem, 2vw, 2rem)) and
-  (font-size: calc(1rem * 1)) and
-  (padding-top: calc(1rem / 2)) {
+@supports (font-size: clamp(1rem, calc(1rem + 1vw), 2rem)) {
   :root {
-    --ft-spacing-block: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-block));
+    --ft-spacing-block: clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
   }
 }
 ```
@@ -91,15 +66,12 @@ Esto significa que navegadores antiguos no obtienen interpolacion fluida, pero s
 
 ## Escala de spacing
 
-La escala `fluid-*` se deriva del espacio base (`--spacing-fluid-md`). Los pasos pequenos dividen por el ratio; los grandes multiplican por el ratio.
+La escala `fluid-*` se genera desde el espacio base y el ratio de escala, pero el CSS final no encadena operaciones. Cada paso tiene su propio `clamp()`:
 
 ```css
---ft-spacing-fluid-md:  calc(var(--ft-space-value) * var(--ft-space-factor));
---ft-spacing-fluid-sm:  calc(var(--ft-spacing-fluid-md) / var(--ft-space-step));
---ft-spacing-fluid-xs:  calc(var(--ft-spacing-fluid-sm) / var(--ft-space-step));
---ft-spacing-fluid-lg:  calc(var(--ft-spacing-fluid-md) * var(--ft-space-step));
---ft-spacing-fluid-xl:  calc(var(--ft-spacing-fluid-lg) * var(--ft-space-step));
---ft-spacing-fluid-2xl: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-step));
+--ft-spacing-fluid-md:  clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+--ft-spacing-fluid-xl:  clamp(0.845rem, calc(4.652874vw - 0.347299rem), 3.375rem);
+--ft-spacing-fluid-2xl: clamp(1.0985rem, calc(7.290115vw - 0.769592rem), 5.0625rem);
 ```
 
 | Token | Relacion | Uso directo |
@@ -114,7 +86,7 @@ La escala `fluid-*` se deriva del espacio base (`--spacing-fluid-md`). Los pasos
 Los tokens `fluid-*` son utiles cuando necesitas precision tecnica. Para construir paginas y secciones, normalmente conviene usar los tokens semanticos.
 
 {% callout title="Formula mental" %}
-`fluid-md` es el punto medio del sistema. Hacia abajo, FDS divide por `--ft-space-step`; hacia arriba, multiplica por `--ft-space-step`. El propio step tambien es fluido, asi que la escala se comprime en mobile y se abre en desktop.
+`fluid-md` sigue siendo el punto medio conceptual del sistema. Hacia abajo, el generador calcula valores mas pequenos; hacia arriba, valores mayores. La diferencia es que el navegador recibe el resultado ya plano.
 {% /callout %}
 
 ---
@@ -135,16 +107,12 @@ Los multiplicadores tambien son knobs editables:
 --ft-space-factor-hero: 4.5;
 ```
 
-Y generan los tokens finales:
+Y generan los tokens finales. En el CSS publicado, esos tokens tambien son planos:
 
 ```css
---ft-spacing-inner:   calc(var(--ft-spacing-fluid-xs) * var(--ft-space-factor-inner));
---ft-spacing-content: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-content));
---ft-spacing-stack:   calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-stack));
---ft-spacing-block:   calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-block));
---ft-spacing-columns: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-columns));
---ft-spacing-section: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-factor-section));
---ft-spacing-hero:    calc(var(--ft-spacing-fluid-2xl) * var(--ft-space-factor-hero));
+--ft-spacing-block:   clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+--ft-spacing-section: clamp(2.535rem, calc(13.958621vw - 1.041897rem), 10.125rem);
+--ft-spacing-hero:    clamp(4.94325rem, calc(32.805517vw - 3.463164rem), 22.78125rem);
 ```
 
 | Token | Factor inicial | Uso tipico |
@@ -173,7 +141,7 @@ Con la configuracion actual, estos son los rangos aproximados entre `410px` y `1
 | `section` | `2.54rem` | `10.13rem` | Padding vertical principal |
 | `hero` | `4.94rem` | `22.78rem` | Heroes y pantallas especiales |
 
-Si estos valores parecen demasiado comprimidos o demasiado amplios, normalmente se ajusta antes `--ft-space-min`, `--ft-space-max` o los multiplicadores semanticos que las clases en el markup.
+Si estos valores parecen demasiado comprimidos o demasiado amplios, normalmente se ajustan los knobs y se regeneran las formulas finales antes de cambiar clases en el markup.
 
 ---
 
@@ -243,7 +211,7 @@ En markup de WordPress o Bricks suele ser mas comodo usar clases (`p-block`, `ga
 | La escala entre pasos es demasiado plana o exagerada en mobile | `--ft-space-step-min` |
 | La escala entre pasos es demasiado plana o exagerada en desktop | `--ft-space-step-max` |
 | Solo un significado esta mal calibrado | `--ft-space-factor-inner` a `--ft-space-factor-hero` |
-| Las secciones deben respirar mas o menos | `--ft-padding-content-y`, `--ft-padding-content-y-half` o `--ft-space-factor-section` |
+| Las secciones deben respirar mas o menos | `--ft-padding-content-y`, `--ft-padding-content-y-half` o `--ft-space-factor-section` regenerado |
 | El gap interno del contenedor de seccion debe cambiar | `--ft-gap-content` |
 
 {% callout title="Orden recomendado" %}
@@ -258,7 +226,7 @@ Las secciones de FDS usan los tokens semanticos como configuracion por defecto:
 
 ```css
 --ft-padding-content-y: var(--spacing-section);
---ft-padding-content-y-half: 1.2675rem; /* fallback; en moderno se calcula desde --ft-padding-content-y */
+--ft-padding-content-y-half: 1.2675rem; /* fallback plano */
 --ft-gap-content: var(--spacing-block);
 ```
 
@@ -276,14 +244,12 @@ section > div {
 }
 ```
 
-En navegadores modernos, la media seccion exacta se activa dentro del mismo bloque de mejora fluida que exige `clamp()`, `calc()`, multiplicacion y division:
+En navegadores modernos, la media seccion se activa como token plano dentro del mismo bloque de mejora fluida:
 
 ```css
-@supports (font-size: clamp(1rem, 2vw, 2rem)) and
-  (font-size: calc(1rem * 1)) and
-  (padding-top: calc(1rem / 2)) {
+@supports (font-size: clamp(1rem, calc(1rem + 1vw), 2rem)) {
   :root {
-    --ft-padding-content-y-half: calc(var(--ft-padding-content-y) / 2);
+    --ft-padding-content-y-half: clamp(1.2675rem, calc(6.97931vw - 0.520948rem), 5.0625rem);
   }
 }
 ```
@@ -332,7 +298,7 @@ Copia este bloque en una pagina de prueba con FDS activo. Sirve para revisar de 
         <span class="eyebrow">Auditoria FDS</span>
         <h1 class="display-sm">Mapa visual del spacing fluido</h1>
         <p class="text-large">
-          Cambia los knobs de spacing y revisa como se recalculan las barras,
+          Cambia los tokens de spacing y revisa como responden las barras,
           paddings, gaps, secciones y contenido editorial.
         </p>
       </header>

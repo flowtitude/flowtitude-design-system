@@ -6,8 +6,15 @@
 @layer base {
   :root {
     /* ============================================================
-       1) RANGES / KNOBS (configuration only)
+       1) RANGES / KNOBS (generator inputs)
        ============================================================ */
+
+    /*
+      These knobs describe the source scale. The runtime tokens below are a
+      generated, flattened snapshot so browsers do not need to resolve chained
+      CSS math. If a tool changes the knobs, it must regenerate the final
+      --ft-text-* and --ft-spacing-* formulas too.
+    */
 
     /* Viewport range */
     --viewport-min: 410px;
@@ -64,16 +71,13 @@
     --btn-px: 1.75em;
 
     /* ============================================================
-       2) DERIVED VALUE FALLBACKS (no calc/clamp required)
+       2) RUNTIME TOKEN FALLBACKS (no calc/clamp required)
        ============================================================ */
 
-    --ft-fluid-t: 0;
-    --ft-text-value: var(--ft-text-min);
-    --ft-type-step: var(--ft-type-step-min);
-    --ft-space-value: var(--ft-space-min);
-    --ft-space-step: var(--ft-space-step-min);
-
-    /* Runtime fallbacks consumed by the public @theme tokens. */
+    /*
+      Text fallbacks mirror Tailwind's default scale. If clamp() is not
+      supported, typography behaves like standard Tailwind.
+    */
     --ft-text-xs: 0.75rem;
     --ft-text-sm: 0.875rem;
     --ft-text-base: 1rem;
@@ -129,69 +133,41 @@
 
   /*
     Fluid enhancement.
-    Public utility tokens stay in @theme; runtime values are recalculated here.
+    Public utility tokens stay in @theme; runtime values are flattened here.
+    Each token has its own clamp() formula and does not depend on a previous
+    scale token, avoiding long var()/calc() dependency chains.
   */
-  @supports (font-size: clamp(1rem, 2vw, 2rem)) and (font-size: calc(1rem * 1)) and (padding-top: calc(1rem / 2)) {
+  @supports (font-size: clamp(1rem, calc(1rem + 1vw), 2rem)) {
     :root {
-      --ft-padding-content-y-half: calc(var(--ft-padding-content-y) / 2);
+      --ft-text-xs: clamp(0.78125rem, calc(0.794305rem - 0.016319vw), 0.790123rem);
+      --ft-text-sm: clamp(0.888889rem, calc(0.86598rem + 0.0894vw), 0.9375rem);
+      --ft-text-base: clamp(1rem, calc(0.941092rem + 0.229885vw), 1.125rem);
+      --ft-text-lg: clamp(1.125rem, calc(1.018966rem + 0.413793vw), 1.35rem);
+      --ft-text-xl: clamp(1.265625rem, calc(1.098621rem + 0.651724vw), 1.62rem);
+      --ft-text-2xl: clamp(1.423828rem, calc(1.17869rem + 0.956638vw), 1.944rem);
+      --ft-text-3xl: clamp(1.601807rem, calc(1.257316rem + 1.344356vw), 2.3328rem);
+      --ft-text-4xl: clamp(1.802032rem, calc(1.332028rem + 1.834166vw), 2.79936rem);
+      --ft-text-5xl: clamp(2.027287rem, calc(1.399588rem + 2.449555vw), 3.359232rem);
+      --ft-text-6xl: clamp(2.280697rem, calc(1.455805rem + 3.219092vw), 4.031078rem);
+      --ft-text-7xl: clamp(2.565785rem, calc(1.495303rem + 4.177489vw), 4.837294rem);
+      --ft-text-8xl: clamp(2.886508rem, calc(1.511243rem + 5.366888vw), 5.804753rem);
+      --ft-text-9xl: clamp(3.247321rem, calc(1.49498rem + 6.838405vw), 6.965703rem);
 
-      --ft-fluid-t: calc(
-        (100vw - var(--viewport-min)) /
-        (var(--viewport-max) - var(--viewport-min))
-      );
+      --ft-spacing-fluid-md: clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+      --ft-spacing-fluid-sm: clamp(0.384615rem, calc(0.094607rem + 1.131742vw), 1rem);
+      --ft-spacing-fluid-xs: clamp(0.295858rem, calc(0.121109rem + 0.681947vw), 0.666667rem);
+      --ft-spacing-fluid-lg: clamp(0.65rem, calc(2.942529vw - 0.104023rem), 2.25rem);
+      --ft-spacing-fluid-xl: clamp(0.845rem, calc(4.652874vw - 0.347299rem), 3.375rem);
+      --ft-spacing-fluid-2xl: clamp(1.0985rem, calc(7.290115vw - 0.769592rem), 5.0625rem);
 
-      --ft-text-value: clamp(
-        var(--ft-text-min),
-        calc(var(--ft-text-min) + (var(--ft-text-max) - var(--ft-text-min)) * var(--ft-fluid-t)),
-        var(--ft-text-max)
-      );
-
-      --ft-type-step: clamp(
-        var(--ft-type-step-min),
-        calc(var(--ft-type-step-min) + (var(--ft-type-step-max) - var(--ft-type-step-min)) * var(--ft-fluid-t)),
-        var(--ft-type-step-max)
-      );
-
-      --ft-space-value: clamp(
-        var(--ft-space-min),
-        calc(var(--ft-space-min) + (var(--ft-space-max) - var(--ft-space-min)) * var(--ft-fluid-t)),
-        var(--ft-space-max)
-      );
-
-      --ft-space-step: clamp(
-        var(--ft-space-step-min),
-        calc(var(--ft-space-step-min) + (var(--ft-space-step-max) - var(--ft-space-step-min)) * var(--ft-fluid-t)),
-        var(--ft-space-step-max)
-      );
-
-      --ft-text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
-      --ft-text-sm: calc(var(--ft-text-base) / var(--ft-type-step));
-      --ft-text-xs: calc(var(--ft-text-sm) / var(--ft-type-step));
-      --ft-text-lg: calc(var(--ft-text-base) * var(--ft-type-step));
-      --ft-text-xl: calc(var(--ft-text-lg) * var(--ft-type-step));
-      --ft-text-2xl: calc(var(--ft-text-xl) * var(--ft-type-step));
-      --ft-text-3xl: calc(var(--ft-text-2xl) * var(--ft-type-step));
-      --ft-text-4xl: calc(var(--ft-text-3xl) * var(--ft-type-step));
-      --ft-text-5xl: calc(var(--ft-text-4xl) * var(--ft-type-step));
-      --ft-text-6xl: calc(var(--ft-text-5xl) * var(--ft-type-step));
-      --ft-text-7xl: calc(var(--ft-text-6xl) * var(--ft-type-step));
-      --ft-text-8xl: calc(var(--ft-text-7xl) * var(--ft-type-step));
-      --ft-text-9xl: calc(var(--ft-text-8xl) * var(--ft-type-step));
-
-      --ft-spacing-fluid-md: calc(var(--ft-space-value) * var(--ft-space-factor));
-      --ft-spacing-fluid-sm: calc(var(--ft-spacing-fluid-md) / var(--ft-space-step));
-      --ft-spacing-fluid-xs: calc(var(--ft-spacing-fluid-sm) / var(--ft-space-step));
-      --ft-spacing-fluid-lg: calc(var(--ft-spacing-fluid-md) * var(--ft-space-step));
-      --ft-spacing-fluid-xl: calc(var(--ft-spacing-fluid-lg) * var(--ft-space-step));
-      --ft-spacing-fluid-2xl: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-step));
-
-      --ft-spacing-inner: calc(var(--ft-spacing-fluid-xs) * var(--ft-space-factor-inner));
-      --ft-spacing-content: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-content));
-      --ft-spacing-stack: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-stack));
-      --ft-spacing-block: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-block));
-      --ft-spacing-columns: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-columns));
-      --ft-spacing-section: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-factor-section));
-      --ft-spacing-hero: calc(var(--ft-spacing-fluid-2xl) * var(--ft-space-factor-hero));
+      --ft-spacing-inner: clamp(0.147929rem, calc(0.060555rem + 0.340973vw), 0.333333rem);
+      --ft-spacing-content: clamp(0.288462rem, calc(0.070955rem + 0.848806vw), 0.75rem);
+      --ft-spacing-stack: clamp(0.384615rem, calc(0.094607rem + 1.131742vw), 1rem);
+      --ft-spacing-block: clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+      --ft-spacing-columns: clamp(0.75rem, calc(0.043103rem + 2.758621vw), 2.25rem);
+      --ft-spacing-section: clamp(2.535rem, calc(13.958621vw - 1.041897rem), 10.125rem);
+      --ft-spacing-hero: clamp(4.94325rem, calc(32.805517vw - 3.463164rem), 22.78125rem);
+      --ft-padding-content-y-half: clamp(1.2675rem, calc(6.97931vw - 0.520948rem), 5.0625rem);
     }
   }
 

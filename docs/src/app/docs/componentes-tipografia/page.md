@@ -4,7 +4,7 @@ title: Tipografia (componentes)
 
 FDS separa la semantica HTML de la apariencia visual. Los tags (`h1`, `h2`, `p`, `blockquote`, `ul`) siguen describiendo la estructura del contenido; las clases tipograficas (`.display`, `.heading`, `.subheading`, `.text-*`) deciden como se ve ese contenido dentro de una composicion.
 
-Estas clases viven en `components/typography.css` y usan la escala fluida definida en `theme/flowtitude.css`. Si cambias los knobs de tipografia, todos los componentes se recalculan sin tocar el markup.
+Estas clases viven en `components/typography.css` y usan la escala fluida definida en `theme/flowtitude.css`. Si cambias los knobs de tipografia desde el generador/personalizador, todos los componentes reciben los nuevos tokens sin tocar el markup.
 
 ---
 

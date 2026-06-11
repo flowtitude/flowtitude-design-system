@@ -7,7 +7,7 @@ Guia para actualizar FDS con fallbacks de tipografia y spacing sin perder cambio
 Esta migracion separa dos cosas que antes estaban mezcladas:
 
 - Los knobs que cada proyecto puede personalizar: `--ft-text-*`, `--ft-space-*`, colores, botones, cards, container.
-- Los valores derivados que FDS genera desde esos knobs: `--text-*`, `--spacing-*`, `--spacing-section`, `--spacing-hero`.
+- Los tokens runtime que FDS genera desde esos knobs: `--ft-text-*`, `--ft-spacing-*` y sus alias publicos `--text-*`, `--spacing-*`.
 
 La regla importante: no reemplaces todo `theme/flowtitude.css` si tu proyecto ya tiene tokens personalizados. Migra solo los bloques indicados.
 
@@ -57,7 +57,7 @@ Despues identifica si tu proyecto modifico alguno de estos knobs:
 --ft-space-factor-hero
 ```
 
-Si no tocaste esos knobs, puedes usar los fallbacks estaticos por defecto. Si los tocaste, conserva tus knobs y recalcula los fallbacks para que los navegadores antiguos se parezcan mas a tu configuracion.
+Si no tocaste esos knobs, puedes usar las formulas planas por defecto. Si los tocaste, conserva tus knobs y regenera tambien los tokens finales para que navegadores modernos y antiguos sigan la misma configuracion.
 
 ---
 
@@ -167,16 +167,9 @@ En el primer `:root`, sustituye el bloque antiguo `DERIVED VALUES` por este:
 
 ```css
 /* ============================================================
-   2) DERIVED VALUE FALLBACKS (no calc/clamp required)
+   2) RUNTIME TOKEN FALLBACKS (no calc/clamp required)
    ============================================================ */
 
---ft-fluid-t: 0;
---ft-text-value: var(--ft-text-min);
---ft-type-step: var(--ft-type-step-min);
---ft-space-value: var(--ft-space-min);
---ft-space-step: var(--ft-space-step-min);
-
-/* Runtime fallbacks consumed by the public @theme tokens. */
 --ft-text-xs: 0.75rem;
 --ft-text-sm: 0.875rem;
 --ft-text-base: 1rem;
@@ -207,7 +200,7 @@ En el primer `:root`, sustituye el bloque antiguo `DERIVED VALUES` por este:
 --ft-spacing-hero: 4.94325rem;
 ```
 
-Esto permite que los navegadores que no entienden los calculos fluidos sigan teniendo valores validos.
+Esto permite que los navegadores que no entienden los calculos fluidos sigan teniendo valores validos. La tipografia cae a la escala estandar de Tailwind.
 
 ---
 
@@ -277,15 +270,15 @@ Nuevo bloque por defecto:
 --spacing-hero: var(--ft-spacing-hero);
 ```
 
-Estos son los tokens publicos que generan utilidades. No los sobrescribas fuera de `@theme`: en navegadores modernos, el bloque `@supports` recalcula los internos `--ft-text-*` y `--ft-spacing-*`.
+Estos son los tokens publicos que generan utilidades. No los sobrescribas fuera de `@theme`: en navegadores modernos, el bloque `@supports` activa los internos `--ft-text-*` y `--ft-spacing-*` con formulas planas.
 
-El personalizador o cualquier sistema de preservacion de tokens debe guardar knobs (`--ft-text-min`, `--ft-space-max`, etc.) e internos `--ft-*`, pero no debe inyectar `--text-*` ni `--spacing-*` como valores calculados.
+El personalizador o cualquier sistema de preservacion de tokens debe guardar knobs (`--ft-text-min`, `--ft-space-max`, etc.) y regenerar los internos `--ft-*`, pero no debe inyectar `--text-*` ni `--spacing-*` como valores calculados fuera de `@theme`.
 
 ---
 
 ## Paso 6: anadir desktop fallback y mejora fluida interna
 
-Justo despues de cerrar `@theme`, anade este bloque completo:
+Justo despues del primer bloque de fallbacks, anade esta estructura. El archivo real debe incluir todos los `--ft-text-*` y `--ft-spacing-*`; aqui se muestra el patron para no alargar la guia:
 
 ```css
 @layer base {
@@ -312,69 +305,19 @@ Justo despues de cerrar `@theme`, anade este bloque completo:
 
   /*
     Fluid enhancement.
-    Public utility tokens stay in @theme; runtime values are recalculated here.
+    Public utility tokens stay in @theme; runtime values are flattened here.
   */
-  @supports (font-size: clamp(1rem, 2vw, 2rem)) and (font-size: calc(1rem * 1)) and (padding-top: calc(1rem / 2)) {
+  @supports (font-size: clamp(1rem, calc(1rem + 1vw), 2rem)) {
     :root {
-      --ft-padding-content-y-half: calc(var(--ft-padding-content-y) / 2);
+      --ft-text-base: clamp(1rem, calc(0.941092rem + 0.229885vw), 1.125rem);
+      --ft-text-xl: clamp(1.265625rem, calc(1.098621rem + 0.651724vw), 1.62rem);
+      --ft-text-2xl: clamp(1.423828rem, calc(1.17869rem + 0.956638vw), 1.944rem);
 
-      --ft-fluid-t: calc(
-        (100vw - var(--viewport-min)) /
-        (var(--viewport-max) - var(--viewport-min))
-      );
-
-      --ft-text-value: clamp(
-        var(--ft-text-min),
-        calc(var(--ft-text-min) + (var(--ft-text-max) - var(--ft-text-min)) * var(--ft-fluid-t)),
-        var(--ft-text-max)
-      );
-
-      --ft-type-step: clamp(
-        var(--ft-type-step-min),
-        calc(var(--ft-type-step-min) + (var(--ft-type-step-max) - var(--ft-type-step-min)) * var(--ft-fluid-t)),
-        var(--ft-type-step-max)
-      );
-
-      --ft-space-value: clamp(
-        var(--ft-space-min),
-        calc(var(--ft-space-min) + (var(--ft-space-max) - var(--ft-space-min)) * var(--ft-fluid-t)),
-        var(--ft-space-max)
-      );
-
-      --ft-space-step: clamp(
-        var(--ft-space-step-min),
-        calc(var(--ft-space-step-min) + (var(--ft-space-step-max) - var(--ft-space-step-min)) * var(--ft-fluid-t)),
-        var(--ft-space-step-max)
-      );
-
-      --ft-text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
-      --ft-text-sm: calc(var(--ft-text-base) / var(--ft-type-step));
-      --ft-text-xs: calc(var(--ft-text-sm) / var(--ft-type-step));
-      --ft-text-lg: calc(var(--ft-text-base) * var(--ft-type-step));
-      --ft-text-xl: calc(var(--ft-text-lg) * var(--ft-type-step));
-      --ft-text-2xl: calc(var(--ft-text-xl) * var(--ft-type-step));
-      --ft-text-3xl: calc(var(--ft-text-2xl) * var(--ft-type-step));
-      --ft-text-4xl: calc(var(--ft-text-3xl) * var(--ft-type-step));
-      --ft-text-5xl: calc(var(--ft-text-4xl) * var(--ft-type-step));
-      --ft-text-6xl: calc(var(--ft-text-5xl) * var(--ft-type-step));
-      --ft-text-7xl: calc(var(--ft-text-6xl) * var(--ft-type-step));
-      --ft-text-8xl: calc(var(--ft-text-7xl) * var(--ft-type-step));
-      --ft-text-9xl: calc(var(--ft-text-8xl) * var(--ft-type-step));
-
-      --ft-spacing-fluid-md: calc(var(--ft-space-value) * var(--ft-space-factor));
-      --ft-spacing-fluid-sm: calc(var(--ft-spacing-fluid-md) / var(--ft-space-step));
-      --ft-spacing-fluid-xs: calc(var(--ft-spacing-fluid-sm) / var(--ft-space-step));
-      --ft-spacing-fluid-lg: calc(var(--ft-spacing-fluid-md) * var(--ft-space-step));
-      --ft-spacing-fluid-xl: calc(var(--ft-spacing-fluid-lg) * var(--ft-space-step));
-      --ft-spacing-fluid-2xl: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-step));
-
-      --ft-spacing-inner: calc(var(--ft-spacing-fluid-xs) * var(--ft-space-factor-inner));
-      --ft-spacing-content: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-content));
-      --ft-spacing-stack: calc(var(--ft-spacing-fluid-sm) * var(--ft-space-factor-stack));
-      --ft-spacing-block: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-block));
-      --ft-spacing-columns: calc(var(--ft-spacing-fluid-md) * var(--ft-space-factor-columns));
-      --ft-spacing-section: calc(var(--ft-spacing-fluid-xl) * var(--ft-space-factor-section));
-      --ft-spacing-hero: calc(var(--ft-spacing-fluid-2xl) * var(--ft-space-factor-hero));
+      --ft-spacing-fluid-md: clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+      --ft-spacing-block: clamp(0.5rem, calc(0.028736rem + 1.83908vw), 1.5rem);
+      --ft-spacing-section: clamp(2.535rem, calc(13.958621vw - 1.041897rem), 10.125rem);
+      --ft-spacing-hero: clamp(4.94325rem, calc(32.805517vw - 3.463164rem), 22.78125rem);
+      --ft-padding-content-y-half: clamp(1.2675rem, calc(6.97931vw - 0.520948rem), 5.0625rem);
     }
   }
 
@@ -397,11 +340,16 @@ Si personalizaste `--ft-container`, cambia solo esta linea dentro del bloque `@s
 
 ## Si tus knobs son personalizados
 
-Los navegadores modernos usaran tus knobs porque el bloque `@supports` vuelve a calcular tipografia y spacing con `calc()` y `clamp()`.
+Los knobs ya no se recalculan en cadena dentro del navegador. Son entradas de generacion. Si tu proyecto cambio `--ft-text-min`, `--ft-type-step-max`, `--ft-space-max` o cualquier multiplicador semantico, debes regenerar tambien:
 
-Los navegadores con soporte limitado usaran los alias `--text-*` y `--spacing-*` declarados en `@theme`, resueltos contra los fallbacks internos `--ft-text-*` y `--ft-spacing-*`. Para que esos fallbacks reflejen tu escala personalizada, recalcula los valores base y desktop con las mismas formulas.
+- los fallbacks estaticos;
+- las formulas planas `clamp()` de `--ft-text-*`;
+- las formulas planas `clamp()` de `--ft-spacing-*`;
+- `--ft-padding-content-y-half`.
 
-### Formulas mobile/base
+Los navegadores con soporte limitado usaran los alias `--text-*` y `--spacing-*` declarados en `@theme`, resueltos contra los fallbacks internos. Los navegadores modernos usaran los mismos internos cuando el bloque `@supports` active las formulas planas.
+
+### Formulas mobile/base para fallbacks
 
 ```text
 spacing-fluid-md  = ft-space-min * ft-space-factor
@@ -497,6 +445,14 @@ for (const [label, values] of Object.entries({ base: scale('base'), desktop: sca
   console.log(`--ft-padding-content-y-half: ${rem(values.half)};`)
 }
 ```
+
+Para generar las formulas planas `clamp()`, usa los valores mobile/base y desktop como extremos del rango `410px -> 1280px` y calcula una recta por token:
+
+```text
+token = clamp(min-rem, calc(intercept-rem + slope-vw), max-rem)
+```
+
+La parte importante es que cada token final tenga su propia formula. No vuelvas a generar `section` desde `fluid-xl` ni `2xl` desde `xl` en runtime.
 
 ---
 

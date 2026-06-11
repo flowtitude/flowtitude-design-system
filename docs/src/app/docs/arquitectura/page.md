@@ -2,7 +2,7 @@
 title: Arquitectura
 ---
 
-FDS se organiza en layers CSS con una separacion clara entre tokens editables (knobs) y valores derivados.
+FDS se organiza en layers CSS con una separacion clara entre tokens editables (knobs) y tokens runtime generados.
 
 ---
 
@@ -32,7 +32,7 @@ flowtitude-design-system/
   main.css                    # Entry point
   wizard.css                  # Custom properties del wizard
   theme/
-    flowtitude.css             # Knobs + derived values
+    flowtitude.css             # Knobs + tokens runtime planos
   base/
     base.css                   # Reset, body, skip-link
     typography.css             # h1-h6, links, .prose
@@ -53,21 +53,21 @@ flowtitude-design-system/
 
 ---
 
-## Knobs y derivados
+## Knobs y tokens runtime
 
-El patron central de FDS: variables "knob" que el usuario puede editar, y variables "derived" que se computan automaticamente.
+El patron central de FDS: variables "knob" que describen la configuracion y variables runtime que Tailwind/WindPress consumen para generar utilidades.
 
 ```css
-/* KNOB — el usuario edita esto */
+/* KNOB - entrada de configuracion */
 --ft-text-min: 1rem;
 --ft-text-max: 1.125rem;
 
-/* DERIVED — se calcula solo */
---ft-text-base: calc(var(--ft-text-value) * var(--ft-text-factor));
---ft-text-lg: calc(var(--ft-text-base) * var(--ft-type-step));
+/* RUNTIME - formula plana generada */
+--ft-text-base: clamp(1rem, calc(0.941092rem + 0.229885vw), 1.125rem);
+--ft-text-lg: clamp(1.125rem, calc(1.018966rem + 0.413793vw), 1.35rem);
 ```
 
-Esto permite que un cambio en un knob propague a toda la escala tipografica o de spacing en navegadores modernos. Antes de esos derivados, FDS declara fallbacks estaticos para que navegadores con soporte incompleto de CSS math mantengan tamanos y espacios validos. Los tokens publicos de utilidades (`--text-*`, `--spacing-*`) viven en `@theme`; los calculos runtime viven en internos `--ft-text-*` y `--ft-spacing-*`.
+Esto evita que el navegador tenga que resolver cadenas largas de `var()` y `calc()`. Si cambia un knob, el generador o personalizador debe actualizar la instantanea plana de `--ft-text-*` y `--ft-spacing-*`. Antes de esas formulas, FDS declara fallbacks estaticos para que navegadores con soporte incompleto de CSS math mantengan tamanos y espacios validos. Los tokens publicos de utilidades (`--text-*`, `--spacing-*`) viven en `@theme`; las formulas runtime viven en internos `--ft-text-*` y `--ft-spacing-*`.
 
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: Knobs y derivados
+title: Knobs y runtime tokens
 ---
 
-El sistema de tokens de FDS se divide en dos categorias: knobs (editables) y derived (computados automaticamente).
+El sistema de tokens de FDS se divide en dos categorias: knobs (entradas editables) y tokens runtime generados. Los knobs describen la escala; los tokens runtime contienen los valores finales que consume Tailwind/WindPress.
 
 ---
 
@@ -49,7 +49,7 @@ El sistema de tokens de FDS se divide en dos categorias: knobs (editables) y der
 --ft-gap-content: var(--spacing-block);
 ```
 
-En navegadores modernos, `--ft-container` se mejora dentro de `@supports` a `min(var(--container-7xl), 90%)`, y `--ft-padding-content-y-half` pasa a `calc(var(--ft-padding-content-y) / 2)`. Los derivados fluidos se recalculan en variables internas `--ft-text-*` y `--ft-spacing-*`; los tokens publicos `--text-*` y `--spacing-*` permanecen en `@theme`.
+En navegadores modernos, `--ft-container` se mejora dentro de `@supports` a `min(var(--container-7xl), 90%)`. `--ft-padding-content-y-half` pasa a una formula plana `clamp()`. Los tokens publicos `--text-*` y `--spacing-*` permanecen en `@theme`, pero apuntan a internos `--ft-text-*` y `--ft-spacing-*`.
 
 ---
 
@@ -72,31 +72,24 @@ En navegadores modernos, `--ft-container` se mejora dentro de `@supports` a `min
 
 ---
 
-## Como funciona la derivacion
+## Como funciona la generacion
 
-FDS declara primero valores estaticos seguros para tipografia y spacing. Despues, si el navegador supera el bloque `@supports`, activa los valores derivados fluidos internos.
+FDS declara primero valores estaticos seguros para tipografia y spacing. Despues, si el navegador supera el bloque `@supports`, activa formulas fluidas internas.
 
-El valor fluido intermedio (`--ft-fluid-t`) interpola linealmente entre 0 y 1:
-
-```css
---ft-fluid-t: calc(
-  (100vw - var(--viewport-min)) /
-  (var(--viewport-max) - var(--viewport-min))
-);
-```
-
-Cada token derivado usa `clamp()` para mantenerse dentro de sus limites:
+La regla nueva es que las formulas runtime estan aplanadas. En vez de exponer una cadena como `base -> lg -> xl -> 2xl`, cada token recibe su propia recta:
 
 ```css
---ft-text-value: clamp(
-  var(--ft-text-min),
-  calc(var(--ft-text-min) + (var(--ft-text-max) - var(--ft-text-min)) * var(--ft-fluid-t)),
-  var(--ft-text-max)
-);
+--ft-text-xl: clamp(1.265625rem, calc(1.098621rem + 0.651724vw), 1.62rem);
 ```
 
-{% callout title="Editar solo los knobs" %}
-Nunca modifiques las variables derivadas fluidas directamente. Cambia los knobs y el sistema recalcula todo automaticamente en navegadores modernos. Si cambias los defaults de los knobs, revisa tambien los fallbacks estaticos para navegadores sin CSS math completo.
+Y lo mismo ocurre con spacing:
+
+```css
+--ft-spacing-section: clamp(2.535rem, calc(13.958621vw - 1.041897rem), 10.125rem);
+```
+
+{% callout title="Knobs como entrada de generacion" %}
+Si editas los knobs manualmente dentro del CSS, debes regenerar tambien los tokens finales `--ft-text-*` y `--ft-spacing-*`. En FlowKit, el personalizador deberia tratar los knobs como entrada y escribir la instantanea plana completa.
 {% /callout %}
 
 ---
@@ -158,4 +151,4 @@ Util si las cards contienen parrafos, imagenes o varios CTA.
 3. Revisa un grid `grid-auto-fill-md`.
 4. Revisa una seccion `.has-background`.
 5. Revisa un bloque `.prose`.
-6. Si cambiaste fallbacks, revisa tambien el bloque de migracion CSS math.
+6. Si cambiaste formulas planas o fallbacks, revisa tambien el bloque de migracion CSS math.

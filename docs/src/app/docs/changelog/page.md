@@ -6,11 +6,12 @@ Historial de cambios del Flowtitude Design System.
 
 ---
 
-## v1.0.1 — Fallbacks CSS math
+## v1.1.3 — Fallbacks CSS math
 
 ### Compatibilidad
-- Tipografia y spacing fluidos mantienen fallbacks estaticos cuando el navegador no soporta CSS math avanzado.
-- El calculo fluido queda protegido dentro de `@supports` y se resuelve en tokens internos `--ft-text-*` / `--ft-spacing-*`; los tokens publicos `--text-*` y `--spacing-*` siguen dentro de `@theme`.
+- Tipografia y spacing fluidos mantienen fallbacks estaticos cuando el navegador no soporta `clamp()`.
+- El calculo fluido queda protegido dentro de `@supports` y se publica como formulas planas en tokens internos `--ft-text-*` / `--ft-spacing-*`; los tokens publicos `--text-*` y `--spacing-*` siguen dentro de `@theme`.
+- La escala ya no encadena `2xl -> xl -> lg` ni `hero -> fluid-2xl -> fluid-xl`; cada token final tiene su propio `clamp()`.
 - `sections.css` consume `--ft-padding-content-y-half` en lugar de calcular media seccion directamente.
 
 ### Migracion
@@ -27,7 +28,7 @@ Historial de cambios del Flowtitude Design System.
 - Spacing fluido con 7 tokens semanticos (inner, content, stack, block, columns, section, hero)
 - Fallbacks estaticos para tipografia y spacing cuando el navegador no soporta CSS math avanzado
 - Paletas primary y secondary en OKLCH (11 pasos)
-- ~35 knobs editables que generan 50+ valores derivados
+- ~35 knobs editables que generan 50+ tokens runtime
 
 ### Base
 - Reset CSS con soporte para box-sizing, imagenes responsive
