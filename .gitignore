@@ -3,3 +3,6 @@
 .komandesk/credentials.local.json
 .komandesk/*.secret
 .komandesk/*.secret.*
+docs/.next/
+docs/node_modules/
+docs/out/
