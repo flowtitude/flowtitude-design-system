@@ -3,7 +3,7 @@
 > Tipo: sistema de diseño con cuatro salidas — WindPress/Tailwind (principal), Bricks nativo, Elementor, Gutenberg
 > Layers: fluent-boards
 > Version: **gratuita, sin version Pro**
-> Distribucion: **plugin FDS** (repo `flowkit-plugin`, pendiente de renombrar). El `.windpress` manual queda como fallback
+> Distribucion: **plugin FDS** (repo `projects/flowtitude-fds`). El `.windpress` manual queda como fallback
 > Ultima actualizacion: 2026-07-25 (decision `vault/decisiones/flowtitude/2026-07-25-fds-plugin-perimetro-y-nombres.md`)
 
 ## Que es FDS

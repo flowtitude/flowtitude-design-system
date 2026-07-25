@@ -14,9 +14,9 @@ proximo_paso: Renombrar components/custom.css (libera la capa `custom` como espa
 
 ## Propósito
 
-El sistema de diseño de Flowtitude. **Gratis, y es el lead magnet** (decisión 2026-07-25). Deja de significar "Tailwind": es un modelo de tokens con cuatro salidas — WindPress/Tailwind (la principal), Bricks nativo, Elementor y Gutenberg. Lo entrega y gestiona el **plugin FDS** (repo `flowkit-plugin`, pendiente de renombrar), para que el usuario ya no importe el `.windpress` a mano.
+El sistema de diseño de Flowtitude. **Gratis, y es el lead magnet** (decisión 2026-07-25). Deja de significar "Tailwind": es un modelo de tokens con cuatro salidas — WindPress/Tailwind (la principal), Bricks nativo, Elementor y Gutenberg. Lo entrega y gestiona el **plugin FDS** (repo `projects/flowtitude-fds`), para que el usuario ya no importe el `.windpress` a mano.
 
-**No hay versión Pro.** La tabla Free/Pro de `CLAUDE.md` está obsoleta.
+**No hay versión Pro.**
 
 ## Estado actual
 
