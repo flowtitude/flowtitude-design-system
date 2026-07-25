@@ -3,31 +3,31 @@ proyecto: flowtitude-design-system
 categoria: product
 estado: active
 rama: main
-actualizado: 2026-06-08
-proximo_paso: (pendiente de completar)
+actualizado: 2026-07-25
+proximo_paso: Renombrar components/custom.css (libera la capa `custom` como espacio del usuario) y partir la distribución en fds-core/ gestionado + fds-project.css del usuario. Después, retomar el fluid token refactor
 ---
 
 # Estado — Flowtitude Design System (FDS)
 
 > Estado vivo del proyecto. Se actualiza al cierre de cada sesión.
-> Stub inicial generado el 2026-06-08 (esquema estandarizado). Completar próximo_paso y detalle.
 > Nota: el repo vive en `Desarrollo/clientes/flowtitude/flowtitude-design-system` (referenciado por symlink desde sa-workspace/projects/).
 
 ## Propósito
 
-Sistema de diseño de Flowtitude (FDS): tokens CSS y base de diseño (`flowtitude.css`) compartida por los productos Flowtitude (FlowKit, etc.).
+El sistema de diseño de Flowtitude. **Gratis, y es el lead magnet** (decisión 2026-07-25). Deja de significar "Tailwind": es un modelo de tokens con cuatro salidas — WindPress/Tailwind (la principal), Bricks nativo, Elementor y Gutenberg. Lo entrega y gestiona el **plugin FDS** (repo `flowkit-plugin`, pendiente de renombrar), para que el usuario ya no importe el `.windpress` a mano.
+
+**No hay versión Pro.** La tabla Free/Pro de `CLAUDE.md` está obsoleta.
 
 ## Estado actual
 
-Rama `main`. Último commit: `fee720a` (chore: save current FDS work before fluid token refactor). En proceso de refactor a fluid tokens.
+Rama `main`. En proceso de refactor a fluid tokens (`fee720a`, previo al refactor). La arquitectura de ~35 knobs → 50+ derivadas por `clamp()` es la que sostiene la decisión de producto: cubre ~95% de la personalización real editando un solo fichero.
 
-## Hecho reciente
+## Cambios que exige la decisión del 2026-07-25
 
-- Guardado de trabajo previo al refactor de fluid tokens (`fee720a`)
-
-## Próximo paso
-
-- (pendiente de completar — retomar el fluid token refactor)
+- **Renombrar `components/custom.css`.** Hoy `custom` es a la vez capa de FDS y última de la cascada. Tiene que significar sin ambigüedad **espacio del usuario**, o el primer update del plugin le borra su CSS.
+- **Partir la distribución en dos zonas de propiedad**: `fds-core/` (del plugin, se reemplaza entero en cada update) y `fds-project.css` con los knobs (del usuario, nunca se reescribe). El `dist/fds-core.windpress` que ya se genera encaja sin cambio conceptual.
+- **Documentar el límite de WindPress**: compila Tailwind en el navegador, no desde PHP. El plugin escribe los ficheros, pero recompilar exige que el usuario abra WindPress o el editor.
+- **Curso**: el de 7 lecciones es Tailwind → pasa al track avanzado de pago. El curso gratis nuevo es "FDS con tu constructor".
 
 ## Bloqueos
 

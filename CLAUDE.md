@@ -1,10 +1,10 @@
 # Flowtitude Design System (FDS)
 
-> Tipo: CSS Design System sobre Tailwind CSS 4
+> Tipo: sistema de diseño con cuatro salidas — WindPress/Tailwind (principal), Bricks nativo, Elementor, Gutenberg
 > Layers: fluent-boards
-> Version: Free (gratuita)
-> Distribucion: Archivo .windpress (importar/exportar via WindPress)
-> Ultima actualizacion: 2026-03-15
+> Version: **gratuita, sin version Pro**
+> Distribucion: **plugin FDS** (repo `flowkit-plugin`, pendiente de renombrar). El `.windpress` manual queda como fallback
+> Ultima actualizacion: 2026-07-25 (decision `vault/decisiones/flowtitude/2026-07-25-fds-plugin-perimetro-y-nombres.md`)
 
 ## Que es FDS
 
@@ -91,17 +91,16 @@ El sistema usa ~35 variables "knob" (editables) que generan 50+ variables deriva
 
 ## Versiones
 
-| Version | Contenido | Estado |
-|---|---|---|
-| **Free** | Tokens + base + layouts + buttons + typography + grids + utilities | Activa |
-| **Pro** | Free + cards + accordion + forms + animations avanzadas + mas componentes | Futuro |
+**No hay version Pro** (decision 2026-07-25). FDS es gratis entero y es el lead magnet.
 
 ## Integracion con WordPress
 
-- Se instala via **WindPress** (plugin WP que compila Tailwind)
-- Importar/exportar como archivo `.windpress` unico
-- El tema `flowtitude-child` tiene **TDSM** (panel admin visual para editar tokens)
-- El archivo `theme/flowtitude.css` es la fuente de verdad (file-based, no DB)
+- Se instala via el **plugin FDS**, que escribe los ficheros en el volumen de WindPress. La importacion manual del `.windpress` queda como fallback.
+- **El sistema es ABIERTO en Tailwind**, y no por preferencia: WindPress compila en el navegador, no desde PHP, y las utilities exigen compilar desde fuente. El plugin escribe los ficheros; recompilar exige que el usuario abra WindPress o el editor.
+- **Tres zonas de propiedad** — `fds-core/` (del plugin, se reemplaza en cada update), `fds-project.css` con los knobs (del usuario, nunca se reescribe), capa `custom` (del usuario).
+- ⚠️ **`components/custom.css` hay que renombrarlo.** Hoy `custom` es a la vez capa de FDS y ultima de la cascada; tiene que significar solo "espacio del usuario" o el primer update borra el CSS del usuario.
+- La gestion de tokens sale del tema `flowtitude-child` (TDSM) y pasa al plugin. Del tema **solo sale el FDS**: AI Copilot, WooCommerce, capas CSS, elementos y seguridad se quedan alli.
+- El archivo `theme/flowtitude.css` es la fuente de verdad (file-based, no DB). En el target Tailwind manda **el fichero**, no un `model.json` del plugin.
 
 ## Testing
 
