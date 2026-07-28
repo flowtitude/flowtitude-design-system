@@ -30,7 +30,7 @@ wp-content/uploads/windpress/data/
   components/typography.css
   components/cards.css
   components/components.css
-  components/custom.css
+  components/extras.css
   utility/core/utilities.css
   utility/layout/grid-basic.css
   utility/animations/durations.css

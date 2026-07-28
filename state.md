@@ -4,7 +4,7 @@ categoria: product
 estado: active
 rama: main
 actualizado: 2026-07-25
-proximo_paso: Renombrar components/custom.css (libera la capa `custom` como espacio del usuario) y partir la distribución en fds-core/ gestionado + fds-project.css del usuario. Después, retomar el fluid token refactor
+proximo_paso: Partir la distribución en fds-core/ gestionado + fds-project.css del usuario (lo consume el plugin FDS). Después, retomar el fluid token refactor
 ---
 
 # Estado — Flowtitude Design System (FDS)
@@ -24,7 +24,7 @@ Rama `main`. En proceso de refactor a fluid tokens (`fee720a`, previo al refacto
 
 ## Cambios que exige la decisión del 2026-07-25
 
-- **Renombrar `components/custom.css`.** Hoy `custom` es a la vez capa de FDS y última de la cascada. Tiene que significar sin ambigüedad **espacio del usuario**, o el primer update del plugin le borra su CSS.
+- ✅ **`components/custom.css` renombrado a `components/extras.css`** (2026-07-28). La capa `custom` significa ya solo **espacio del usuario**: el plugin FDS la crea vacía y no la reescribe jamás. Antes `custom` era a la vez capa del FDS y última de la cascada, así que el primer update del plugin habría borrado el CSS del usuario.
 - **Partir la distribución en dos zonas de propiedad**: `fds-core/` (del plugin, se reemplaza entero en cada update) y `fds-project.css` con los knobs (del usuario, nunca se reescribe). El `dist/fds-core.windpress` que ya se genera encaja sin cambio conceptual.
 - **Documentar el límite de WindPress**: compila Tailwind en el navegador, no desde PHP. El plugin escribe los ficheros, pero recompilar exige que el usuario abra WindPress o el editor.
 - **Curso**: el de 7 lecciones es Tailwind → pasa al track avanzado de pago. El curso gratis nuevo es "FDS con tu constructor".

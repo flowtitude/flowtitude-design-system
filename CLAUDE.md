@@ -98,7 +98,7 @@ El sistema usa ~35 variables "knob" (editables) que generan 50+ variables deriva
 - Se instala via el **plugin FDS**, que escribe los ficheros en el volumen de WindPress. La importacion manual del `.windpress` queda como fallback.
 - **El sistema es ABIERTO en Tailwind**, y no por preferencia: WindPress compila en el navegador, no desde PHP, y las utilities exigen compilar desde fuente. El plugin escribe los ficheros; recompilar exige que el usuario abra WindPress o el editor.
 - **Tres zonas de propiedad** — `fds-core/` (del plugin, se reemplaza en cada update), `fds-project.css` con los knobs (del usuario, nunca se reescribe), capa `custom` (del usuario).
-- ⚠️ **`components/custom.css` hay que renombrarlo.** Hoy `custom` es a la vez capa de FDS y ultima de la cascada; tiene que significar solo "espacio del usuario" o el primer update borra el CSS del usuario.
+- ✅ **`components/custom.css` renombrado a `components/extras.css`** (2026-07-28). La capa `custom` significa ya solo "espacio del usuario": el plugin FDS la crea vacía y no la reescribe jamás.
 - La gestion de tokens sale del tema `flowtitude-child` (TDSM) y pasa al plugin. Del tema **solo sale el FDS**: AI Copilot, WooCommerce, capas CSS, elementos y seguridad se quedan alli.
 - El archivo `theme/flowtitude.css` es la fuente de verdad (file-based, no DB). En el target Tailwind manda **el fichero**, no un `model.json` del plugin.
 

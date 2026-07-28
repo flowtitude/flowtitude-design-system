@@ -37,7 +37,7 @@ Seguramente en tu proyecto necesites algo que el Core no trae, por ejemplo: una 
 
 ```css
 @import './components/buttons.css';
-@import './components/custom.css';
+@import './components/extras.css';
 @import './components/product-card.css'; /* <-- Tu nuevo archivo */
 ```
 
@@ -45,7 +45,7 @@ Al hacer esto, tu nueva clase .card-product estará disponible en el autocomplet
 
 ## 3. El Archivo custom.css (Para cosas rápidas)
 
-Si solo vas a añadir una clase pequeña (como .tag o .badge) y no merece la pena crear un archivo nuevo, usa components/custom.css. Este archivo está pensado como un "cajón de sastre" ordenado para estilos específicos del proyecto actual.
+Si solo vas a añadir una clase pequeña (como .tag o .badge) y no merece la pena crear un archivo nuevo, usa components/extras.css. Este archivo está pensado como un "cajón de sastre" ordenado para estilos específicos del proyecto actual.
 
 ## 4. Actualizaciones del Sistema
 

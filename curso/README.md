@@ -12,7 +12,7 @@ Contenido completo de las 7 lecciones del curso, almacenado para cross-referenci
 | `lessons/L4-tipografia.md` | El sistema tipográfico integral | `base/typography.css`, `components/typography.css` |
 | `lessons/L5-spacing-layouts.md` | Layout básico y estructural | `layouts/section.css`, `layouts/content-flex.css` |
 | `lessons/L6-componentes.md` | Utilidades de grid avanzadas y variante parent | `utility/layout/grid-basic.css`, `main.css` |
-| `lessons/L7-extension.md` | Extendiendo el sistema | `main.css`, `theme/flowtitude.css`, `components/custom.css` |
+| `lessons/L7-extension.md` | Extendiendo el sistema | `main.css`, `theme/flowtitude.css`, `components/extras.css` |
 
 ## Uso
 

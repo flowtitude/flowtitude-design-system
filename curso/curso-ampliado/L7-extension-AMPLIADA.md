@@ -26,13 +26,13 @@ No sobrescribas clases: ve a la fuente.
 3. Conéctalo al cerebro en `main.css` (sección componentes):
 ```css
 @import './components/buttons.css';
-@import './components/custom.css';
+@import './components/extras.css';
 @import './components/testimonial.css'; /* <-- tu nuevo archivo */
 ```
 Resultado: `.card-testimonial` aparece en el **autocompletado de Bricks** y se compila optimizada con el resto.
 
 ### 3. `custom.css` (el cajón de sastre ordenado)
-Para clases pequeñas (`.tag`, `.badge`) que no merecen archivo propio, usa `components/custom.css`.
+Para clases pequeñas (`.tag`, `.badge`) que no merecen archivo propio, usa `components/extras.css`.
 
 ### 4. Actualizaciones sin miedo
 Si sale una v1.2 del Core, puedes reemplazar `layout/grid-basic.css` (u otros) **sin perder lo tuyo**, porque tu configuración vive en `flowtitude.css` y tus estilos en `custom.css`/tus componentes.
