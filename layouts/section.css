@@ -1,76 +1,108 @@
-/* file: layouts/section.css */
+/* file: layouts/section.css
+ *
+ * El ritmo vertical de la página: cuánto respira cada sección y cómo se
+ * comporta cuando la de al lado tiene fondo.
+ *
+ * Funciona sobre el elemento `<section>` porque en un constructor eso es lo
+ * que se emite, y así el usuario no tiene que acordarse de poner una clase.
+ * `.section` y `.container` existen para cuando el marcado no lo permite —
+ * hacen exactamente lo mismo, así que poner las dos no duplica nada.
+ *
+ * Convertido a CSS plano: sirve igual dentro del panel del plugin y en un
+ * sitio sin WindPress, donde no hay nada que compile `@apply`.
+ */
 
 @layer layouts {
 
-    section {
-        @apply @container w-full px-[var(--ft-padding-content-x)];
-        padding-top: var(--ft-padding-content-y-half);
-        padding-bottom: var(--ft-padding-content-y-half);
-    }
-
-    section > div  {
-        @apply mx-auto w-full max-w-[var(--ft-container)] flex flex-col gap-[var(--ft-gap-content)];
-    }
-
-    section > div > div {
-        @apply w-full;
-    }
-
-    main > section:first-child:not(.has-background) {
-    @apply pt-[var(--ft-padding-content-y)];
+  section,
+  .section {
+    container-type: inline-size;
+    inline-size: 100%;
+    padding-inline: var(--ft-padding-content-x);
+    padding-block: var(--ft-padding-content-y-half);
   }
 
-  main > section:last-child:not(.has-background) {
-    @apply pb-[var(--ft-padding-content-y)];
+  /* El contenedor interior: ancho máximo, centrado y ritmo entre bloques. */
+  section > div,
+  .section > div,
+  .container {
+    margin-inline: auto;
+    inline-size: 100%;
+    max-inline-size: var(--ft-container);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ft-gap-content);
   }
 
-  section:first-of-type:not(.has-background) {
-    @apply pt-[var(--ft-padding-content-y)];
+  section > div > div,
+  .section > div > div {
+    inline-size: 100%;
   }
 
+  /* ─── Ritmo entre secciones ─────────────────────────────────────────
+     La primera y la última respiran entero contra el borde de la página;
+     entre ellas, media ración arriba y abajo suma una entera. Una sección
+     con fondo siempre lleva la entera: su color necesita el aire. */
+
+  main > section:first-child:not(.has-background),
+  section:first-of-type:not(.has-background),
+  header + section:not(.has-background):not(.half-top) {
+    padding-block-start: var(--ft-padding-content-y);
+  }
+
+  main > section:last-child:not(.has-background),
   section:last-of-type:not(.has-background) {
-    @apply pb-[var(--ft-padding-content-y)];
+    padding-block-end: var(--ft-padding-content-y);
   }
 
-  section.has-background {
-    @apply py-[var(--ft-padding-content-y)];
+  section.has-background,
+  .section.has-background {
+    padding-block: var(--ft-padding-content-y);
   }
 
   section.has-background + section:not(.half-top) {
-    @apply pt-[var(--ft-padding-content-y)];
+    padding-block-start: var(--ft-padding-content-y);
   }
 
-  /* NOTE: :has() may not be supported everywhere. If unsupported, this rule is ignored. */
+  /* Si no hay soporte de :has(), la regla se ignora y no rompe nada. */
   section:not(.half-bottom):has(+ section.has-background) {
-    @apply pb-[var(--ft-padding-content-y)];
+    padding-block-end: var(--ft-padding-content-y);
   }
 
-  /* Prevent this rule from overriding half-top */
-  header + section:not(.has-background):not(.half-top) {
-    @apply pt-[var(--ft-padding-content-y)];
-  }
-
-  /* Half padding (safe: no :has() in selector lists) */
+  /* Media ración explícita, para pegar dos secciones que van juntas. */
   section.half-top,
+  .section.half-top,
   section.half-top:first-of-type:not(.has-background) {
-    padding-top: var(--ft-padding-content-y-half);
+    padding-block-start: var(--ft-padding-content-y-half);
   }
 
   section.half-bottom,
+  .section.half-bottom,
   section.half-bottom:last-of-type:not(.has-background) {
-    padding-bottom: var(--ft-padding-content-y-half);
-  }
-  
-  .block-bleed {
-    @apply w-screen max-w-none relative left-1/2 -translate-x-1/2 flex-none;
+    padding-block-end: var(--ft-padding-content-y-half);
   }
 
+  /* ─── Escapes ───────────────────────────────────────────────────────── */
+
+  /* Romper el contenedor y ocupar el ancho de la ventana. */
+  .block-bleed {
+    inline-size: 100vw;
+    max-inline-size: none;
+    position: relative;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    flex: none;
+  }
+
+  /* Bricks envuelve el contenido en este id. */
   #brx-content {
-    @apply w-full flex flex-col;
+    inline-size: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .single-product .product {
-    @apply flex-nowrap;
+    flex-wrap: nowrap;
   }
 
 }

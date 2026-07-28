@@ -1,0 +1,123 @@
+/* file: layouts/primitives.css
+ *
+ * Las primitivas de layout: seis formas que resuelven casi cualquier
+ * composición sin escribir una media query.
+ *
+ * Cada una trae su espaciado semántico por defecto y se ajusta con un
+ * modificador, así que el caso normal no necesita añadir nada. Cuando hace
+ * falta salirse, están las utilidades de `utility/spacing.css`.
+ *
+ *   stack     flujo vertical con ritmo constante
+ *   cluster   elementos en fila que envuelven solos
+ *   grid      columnas que se calculan solas, sin breakpoints
+ *   sidebar   contenido principal + lateral, que apila cuando no cabe
+ *   center    contenido con ancho máximo y centrado
+ *   box       caja con fondo, borde y su propio padding
+ *
+ * Nombres de Every Layout, que es de donde vienen. CSS plano y solo tokens:
+ * sirve igual en el sitio, en el panel del plugin y sin WindPress.
+ */
+
+@layer layouts {
+
+  /* ─── stack: lo de arriba y lo de abajo, con el mismo aire ────────── */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ft-spacing-stack);
+  }
+  .stack-content { gap: var(--ft-spacing-content); }
+  .stack-block   { gap: var(--ft-spacing-block); }
+  .stack-section { gap: var(--ft-spacing-section); }
+
+  /* ─── cluster: en fila, y si no caben, envuelven ──────────────────── */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ft-spacing-content);
+  }
+  .cluster-inner { gap: var(--ft-spacing-inner); }
+  .cluster-stack { gap: var(--ft-spacing-stack); }
+  .cluster-between { justify-content: space-between; }
+  .cluster-center  { justify-content: center; }
+  .cluster-end     { justify-content: flex-end; }
+  .cluster-top     { align-items: flex-start; }
+  .cluster-bottom  { align-items: flex-end; }
+
+  /* ─── grid: columnas intrínsecas ──────────────────────────────────── */
+  /* `auto-fit` reparte el espacio sobrante; el mínimo decide cuántas caben.
+     Sin media queries: el propio contenido dice cuándo cambiar. */
+  .grid {
+    display: grid;
+    gap: var(--ft-spacing-columns);
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--ft-card-md), 100%), 1fr));
+  }
+  .grid-xs { grid-template-columns: repeat(auto-fit, minmax(min(var(--ft-card-xs), 100%), 1fr)); }
+  .grid-sm { grid-template-columns: repeat(auto-fit, minmax(min(var(--ft-card-sm), 100%), 1fr)); }
+  .grid-lg { grid-template-columns: repeat(auto-fit, minmax(min(var(--ft-card-lg), 100%), 1fr)); }
+  .grid-xl { grid-template-columns: repeat(auto-fit, minmax(min(var(--ft-card-xl), 100%), 1fr)); }
+
+  /* Cuando el número de columnas SÍ es una decisión y no una consecuencia.
+     `auto-fill` mantiene los huecos aunque falten elementos. */
+  .grid-2 { grid-template-columns: repeat(auto-fill, minmax(min(calc(50% - var(--ft-spacing-columns)), 100%), 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fill, minmax(min(calc(33.333% - var(--ft-spacing-columns)), 100%), 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fill, minmax(min(calc(25% - var(--ft-spacing-columns)), 100%), 1fr)); }
+
+  /* ─── sidebar: principal + lateral, que apila cuando no cabe ──────── */
+  .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ft-spacing-columns);
+  }
+  .sidebar > :first-child {
+    flex-basis: var(--ft-card-md);
+    flex-grow: 1;
+  }
+  /* El principal se lleva el resto y no baja de la mitad: por debajo, apila. */
+  .sidebar > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
+  }
+  /* Lateral a la derecha: se invierte quién manda. */
+  .sidebar-end > :first-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
+  }
+  .sidebar-end > :last-child {
+    flex-basis: var(--ft-card-md);
+    flex-grow: 1;
+  }
+
+  /* ─── center: ancho máximo y centrado ─────────────────────────────── */
+  .center {
+    box-sizing: content-box;
+    margin-inline: auto;
+    max-inline-size: var(--ft-container);
+    padding-inline: var(--ft-padding-content-x);
+  }
+  .center-narrow { max-inline-size: 45rem; }
+  .center-wide   { max-inline-size: 100%; }
+  /* Centrar también lo de dentro, no solo la caja. */
+  .center-text {
+    text-align: center;
+    align-items: center;
+  }
+
+  /* ─── box: la caja con fondo propio ───────────────────────────────── */
+  .box {
+    padding: var(--ft-spacing-block);
+    border-radius: var(--radius-card);
+    background: var(--ft-color-background);
+    color: var(--ft-color-text);
+  }
+  .box-outline {
+    border: 1px solid var(--color-neutral-300);
+    background: transparent;
+  }
+  .box-tight { padding: var(--ft-spacing-content); }
+  .box-loose { padding: var(--ft-spacing-columns); }
+
+}

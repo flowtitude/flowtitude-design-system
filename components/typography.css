@@ -1,68 +1,128 @@
-/* file: components/typography.css */
+/* file: components/typography.css
+ *
+ * La escala tipográfica como clases. Tres familias y un tamaño por defecto en
+ * cada una, para que el caso normal sea escribir una sola palabra:
+ *
+ *   display      lo que manda en la página
+ *   heading      la estructura del contenido
+ *   subheading   el puente entre título y cuerpo
+ *   text-*       el cuerpo
+ *
+ * Los tamaños salen de `--ft-text-*`, que se recalculan solos desde los knobs:
+ * cambiar la razón de la escala mueve toda la jerarquía a la vez y las
+ * proporciones aguantan.
+ *
+ * Convertido de `@apply` a CSS plano sin cambiar lo que se ve. Hacía falta
+ * porque la tipografía es cimiento: tiene que funcionar también dentro del
+ * panel del plugin y en sitios sin WindPress, donde no hay Tailwind.
+ */
 
 @layer components {
-    .display,
-    .display-lg {
-        @apply text-9xl font-display font-medium leading-none tracking-tight text-balance;
-        /* ~65px/75px - Tamaño heroico para impacto máximo */
-    }
 
-    .display-md {
-        @apply text-8xl font-display font-medium leading-none tracking-tight text-balance;
-        /* ~56px/65px - Estándar para displays, equilibrio perfecto */
-    }
+  /* ─── Display: impacto ──────────────────────────────── */
+  .display,
+  .display-lg {
+    font-size: var(--ft-text-9xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .display-single,
-    .display-sm {
-        @apply text-7xl font-display font-medium leading-none tracking-tight text-balance;
-        /* ~49px/56px - Impacto controlado para contextos menores */
-    }
+  .display-md {
+    font-size: var(--ft-text-8xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .heading-lg {
-        @apply text-6xl font-display font-medium leading-none tracking-tight text-balance;
-        /* ~43px/49px - Para estructurar contenido principal */
-    }
-    
-    .heading, 
-    .heading-md {
-        @apply text-5xl font-display font-medium leading-tight tracking-tight text-balance;
-        /* ~37px/43px - El comodín para la mayoría de títulos */
-    }
+  .display-single,
+  .display-sm {
+    font-size: var(--ft-text-7xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .heading-sm {
-        @apply text-4xl font-display font-medium leading-none tracking-tight text-balance;
-        /* ~32px/37px - Para crear subdivisiones claras */
-    }
+  /* ─── Heading: estructura ───────────────────────────── */
+  .heading-lg {
+    font-size: var(--ft-text-6xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .subheading-lg {
-        @apply text-3xl font-display font-semibold leading-none tracking-tight text-pretty;
-        /* ~28px/32px - Puente entre heading y contenido */
-    }
+  .heading,
+  .heading-md {
+    font-size: var(--ft-text-5xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-tight);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .subheading, 
-    .subheading-md {
-        @apply text-2xl font-display font-semibold leading-none text-pretty;
-        /* ~24px/28px - Versátil para múltiples contextos */
-    }
+  .heading-sm {
+    font-size: var(--ft-text-4xl);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
 
-    .subheading-sm {
-        @apply text-xl font-display font-semibold leading-none text-pretty;
-        /* ~21px/24px - Sutil pero efectivo */
-    }
+  /* ─── Subheading: el puente ─────────────────────────── */
+  .subheading-lg {
+    font-size: var(--ft-text-3xl);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--leading-none);
+    letter-spacing: -0.025em;
+    text-wrap: pretty;
+  }
 
-    .text-large {
-        @apply text-lg leading-snug text-pretty;
-        /* ~18px/21px - Para texto que debe destacar del cuerpo principal */
-    }
+  .subheading,
+  .subheading-md {
+    font-size: var(--ft-text-2xl);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--leading-none);
+    text-wrap: pretty;
+  }
 
-    .text-medium {
-        @apply text-base font-body leading-normal text-pretty;
-        /* ~16px/18px - Base para la mayoría del contenido */
-    }
+  .subheading-sm {
+    font-size: var(--ft-text-xl);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--leading-none);
+    text-wrap: pretty;
+  }
 
-    .text-small {
-        @apply text-sm font-body leading-relaxed;
-        /* ~14px/16px - Para información de apoyo */
-    }
+  /* ─── Cuerpo ────────────────────────────────────────── */
+  .text-large {
+    font-size: var(--ft-text-lg);
+    line-height: var(--leading-snug);
+    text-wrap: pretty;
+  }
+
+  .text-medium {
+    font-size: var(--ft-text-base);
+    font-family: var(--font-body);
+    line-height: var(--leading-normal);
+    text-wrap: pretty;
+  }
+
+  .text-small {
+    font-size: var(--ft-text-sm);
+    font-family: var(--font-body);
+    line-height: var(--leading-relaxed);
+  }
 
 }

@@ -1,0 +1,80 @@
+/* file: utility/spacing.css
+ *
+ * Espaciado semántico como clases.
+ *
+ * Los tokens ya existían (`--ft-spacing-inner` … `--ft-spacing-hero`), pero no
+ * había forma de usarlos sin escribir CSS a mano. Esta capa los expone.
+ *
+ * La escala no es de tamaños sino de RELACIONES: `inner` es lo que separa las
+ * partes de un mismo elemento y `hero` lo que separa un bloque del resto de la
+ * página. Elegir por relación —y no por «cuántos píxeles»— es lo que hace que
+ * el ritmo aguante cuando se cambia un knob, porque todos se recalculan juntos.
+ *
+ *   inner    dentro de un elemento (icono y su texto)
+ *   content  entre líneas de contenido relacionado
+ *   stack    entre elementos de una misma pila
+ *   block    entre bloques distintos
+ *   columns  entre columnas
+ *   section  entre secciones
+ *   hero     respiración de una pieza que manda en la página
+ *
+ * CSS plano a propósito: sin `@apply` funciona igual en el sitio, dentro del
+ * panel del plugin y en una instalación sin WindPress, sin compilar nada.
+ */
+
+@layer utilities {
+
+  /* ─── gap ───────────────────────────────────────────── */
+  .gap-inner    { gap: var(--ft-spacing-inner); }
+  .gap-content  { gap: var(--ft-spacing-content); }
+  .gap-stack    { gap: var(--ft-spacing-stack); }
+  .gap-block    { gap: var(--ft-spacing-block); }
+  .gap-columns  { gap: var(--ft-spacing-columns); }
+  .gap-section  { gap: var(--ft-spacing-section); }
+  .gap-hero     { gap: var(--ft-spacing-hero); }
+  .gap-none     { gap: 0; }
+
+  /* ─── padding ───────────────────────────────────────── */
+  .p-inner      { padding: var(--ft-spacing-inner); }
+  .p-content    { padding: var(--ft-spacing-content); }
+  .p-stack      { padding: var(--ft-spacing-stack); }
+  .p-block      { padding: var(--ft-spacing-block); }
+  .p-columns    { padding: var(--ft-spacing-columns); }
+  .p-section    { padding: var(--ft-spacing-section); }
+  .p-none       { padding: 0; }
+
+  .py-inner     { padding-block: var(--ft-spacing-inner); }
+  .py-content   { padding-block: var(--ft-spacing-content); }
+  .py-stack     { padding-block: var(--ft-spacing-stack); }
+  .py-block     { padding-block: var(--ft-spacing-block); }
+  .py-columns   { padding-block: var(--ft-spacing-columns); }
+  .py-section   { padding-block: var(--ft-spacing-section); }
+  .py-hero      { padding-block: var(--ft-spacing-hero); }
+  .py-none      { padding-block: 0; }
+
+  .px-inner     { padding-inline: var(--ft-spacing-inner); }
+  .px-content   { padding-inline: var(--ft-spacing-content); }
+  .px-stack     { padding-inline: var(--ft-spacing-stack); }
+  .px-block     { padding-inline: var(--ft-spacing-block); }
+  .px-columns   { padding-inline: var(--ft-spacing-columns); }
+  .px-section   { padding-inline: var(--ft-spacing-section); }
+  .px-none      { padding-inline: 0; }
+
+  /* ─── margin ────────────────────────────────────────── */
+  /* Solo bloque: el margen horizontal en un sistema con contenedor es casi
+     siempre `auto`, y para eso está `.center`. */
+  .mt-content   { margin-block-start: var(--ft-spacing-content); }
+  .mt-stack     { margin-block-start: var(--ft-spacing-stack); }
+  .mt-block     { margin-block-start: var(--ft-spacing-block); }
+  .mt-section   { margin-block-start: var(--ft-spacing-section); }
+  .mt-hero      { margin-block-start: var(--ft-spacing-hero); }
+  .mt-none      { margin-block-start: 0; }
+
+  .mb-content   { margin-block-end: var(--ft-spacing-content); }
+  .mb-stack     { margin-block-end: var(--ft-spacing-stack); }
+  .mb-block     { margin-block-end: var(--ft-spacing-block); }
+  .mb-section   { margin-block-end: var(--ft-spacing-section); }
+  .mb-hero      { margin-block-end: var(--ft-spacing-hero); }
+  .mb-none      { margin-block-end: 0; }
+
+}

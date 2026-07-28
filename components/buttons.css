@@ -1,86 +1,148 @@
-/* file: buttons.css */
+/* file: components/buttons.css
+ *
+ * Botones: una base y variantes de color, forma y tamaño que se combinan.
+ *
+ *   <a class="btn btn-primary btn-lg">Enviar</a>
+ *
+ * Convertido de `@apply` a CSS plano sin cambiar lo que se ve: mismos tokens,
+ * mismos valores. El motivo es que ahora tienen que funcionar también dentro
+ * del panel del plugin y en sitios sin WindPress, donde no hay nada que
+ * compile Tailwind.
+ */
 
 @layer components {
 
   /* ─── Base ─────────────────────────────────────────── */
   .btn {
-    @apply flex overflow-hidden relative items-center justify-center
-           font-semibold rounded-button transition min-w-fit gap-2 duration-normal
-           py-[var(--btn-py)] px-[var(--btn-px)];
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ft-spacing-inner, 0.5rem);
+    min-inline-size: fit-content;
+    padding-block: var(--btn-py);
+    padding-inline: var(--btn-px);
+    font-weight: 600;
+    border-radius: var(--radius-button);
+    transition: all 300ms;
+    cursor: pointer;
   }
 
   .btn:focus {
-    @apply outline-none;
+    outline: none;
   }
 
+  /* El foco de teclado sí se ve: quitarlo del todo deja el botón inservible
+     para quien no usa ratón. */
   .btn:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-500;
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 
   .btn:hover {
-    @apply scale-105;
+    transform: scale(1.05);
+  }
+
+  /* Quien haya pedido menos movimiento, no lo tiene. */
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    .btn:hover {
+      transform: none;
+    }
   }
 
   /* ─── Variantes de color ────────────────────────────── */
   .btn-light {
-    @apply bg-neutral-100 text-neutral-800 border border-neutral-100;
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-100);
   }
 
   .btn-dark {
-    @apply bg-neutral-700 text-neutral-100 border border-neutral-700;
+    background-color: var(--color-neutral-700);
+    color: var(--color-neutral-100);
+    border: 1px solid var(--color-neutral-700);
   }
 
   .btn-primary {
-    @apply bg-primary-500 border border-primary-500 text-[var(--btn-primary-color)];
+    background-color: var(--color-primary-500);
+    border: 1px solid var(--color-primary-500);
+    color: var(--btn-primary-color);
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 border border-secondary-500 text-[var(--btn-secondary-color)];
+    background-color: var(--color-secondary-500);
+    border: 1px solid var(--color-secondary-500);
+    color: var(--btn-secondary-color);
   }
 
   .btn-outline {
-    @apply bg-[var(--btn-outline-bg)] border border-[var(--btn-outline-border)] text-[var(--btn-outline-color)];
+    background-color: var(--btn-outline-bg);
+    border: 1px solid var(--btn-outline-border);
+    color: var(--btn-outline-color);
   }
 
   .btn-outline:hover {
-    @apply duration-500 shadow-lg;
+    transition-duration: 500ms;
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1));
   }
 
   .btn-link {
-    @apply bg-transparent text-neutral-800 border-0 pl-0;
+    background-color: transparent;
+    color: var(--color-neutral-800);
+    border: 0;
+    padding-inline-start: 0;
   }
 
   /* ─── Variantes de forma ────────────────────────────── */
   .btn-rounded {
-    @apply rounded-full;
-  }
-
-  /* ─── Variantes de tamaño ───────────────────────────── */
-  .btn-xs { @apply text-xs; }
-  .btn-sm { @apply text-sm; }
-  .btn-lg { @apply text-lg; }
-  .btn-xl { @apply text-xl; }
-
-  /* ─── Otras variaciones ─────────────────────────────── */
-  .btn-wide {
-    @apply px-[calc(var(--btn-px)*1.5)];
-  }
-
-  .btn-block {
-    @apply w-full;
+    border-radius: 9999px;
   }
 
   .btn-circle {
-    @apply rounded-full aspect-square p-[var(--btn-py)];
+    border-radius: 9999px;
+    aspect-ratio: 1;
+    padding: var(--btn-py);
+  }
+
+  /* ─── Variantes de tamaño ───────────────────────────── */
+  .btn-xs { font-size: var(--ft-text-xs); }
+  .btn-sm { font-size: var(--ft-text-sm); }
+  .btn-lg { font-size: var(--ft-text-lg); }
+  .btn-xl { font-size: var(--ft-text-xl); }
+
+  /* ─── Otras variaciones ─────────────────────────────── */
+  .btn-wide {
+    padding-inline: calc(var(--btn-px) * 1.5);
+  }
+
+  .btn-block {
+    inline-size: 100%;
   }
 
   /* ─── Botones de formulario ─────────────────────────── */
+  /* Un submit sin clase se ve como un botón del sistema, no como el botón
+     por defecto del navegador. */
   button[type="submit"] {
-    @apply flex overflow-hidden relative items-center justify-center
-           font-normal rounded-button transition min-w-fit gap-2
-           bg-primary-500 border border-primary-500
-           py-[var(--btn-py)] px-[var(--btn-px)]
-           text-[var(--btn-primary-color)];
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ft-spacing-inner, 0.5rem);
+    min-inline-size: fit-content;
+    padding-block: var(--btn-py);
+    padding-inline: var(--btn-px);
+    font-weight: 400;
+    border-radius: var(--radius-button);
+    transition: all 300ms;
+    background-color: var(--color-primary-500);
+    border: 1px solid var(--color-primary-500);
+    color: var(--btn-primary-color);
+    cursor: pointer;
   }
 
 }

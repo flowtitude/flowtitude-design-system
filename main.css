@@ -9,6 +9,7 @@
 @import './base/base.css';
 @import './base/typography.css';
 
+@import './layouts/primitives.css';
 @import './layouts/section.css';
 @import './layouts/content-flex.css';
 
@@ -18,6 +19,7 @@
 @import './components/cards.css';
 @import './components/extras.css';
 
+@import './utility/spacing.css';
 @import './utility/core/utilities.css';
 
 @import './utility/animations/durations.css';

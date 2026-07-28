@@ -1,55 +1,67 @@
-/* file: layouts/content-flex.css */
+/* file: layouts/content-flex.css
+ *
+ * Colocar el contenido dentro de su caja: nueve posiciones, la rejilla de
+ * siempre. Se usa cuando el bloque es más alto que su contenido y hay que
+ * decidir dónde se apoya.
+ *
+ * La alineación del texto acompaña a la posición, porque casi nunca se quiere
+ * un texto centrado dentro de un bloque alineado a la izquierda.
+ *
+ * CSS plano, sin `@apply`.
+ */
 
 @layer layouts {
 
-    .content-flex {
-        @apply flex flex-col gap-content space-y-0;
-        @apply justify-center items-center ;
-    }
+  .content-flex {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ft-gap-content);
+    justify-content: center;
+    align-items: center;
+  }
 
-    .content-flex.top-left {
-        @apply justify-start items-start;
-        @apply text-left mr-auto;
-    }
+  /* ─── Eje horizontal: alineación, texto y a qué lado se pega ──────── */
+  .content-flex.top-left,
+  .content-flex.left,
+  .content-flex.bottom-left {
+    align-items: flex-start;
+    text-align: start;
+    margin-inline-end: auto;
+  }
 
-    .content-flex.top {
-        @apply justify-start items-center;
-        @apply text-center mx-auto;
-    }
+  .content-flex.top,
+  .content-flex.center,
+  .content-flex.bottom {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
 
-    .content-flex.top-right {
-        @apply justify-start items-end;
-        @apply text-right ml-auto;
-    }
+  .content-flex.top-right,
+  .content-flex.right,
+  .content-flex.bottom-right {
+    align-items: flex-end;
+    text-align: end;
+    margin-inline-start: auto;
+  }
 
-    .content-flex.left {
-        @apply justify-center items-start;
-        @apply text-left mr-auto;
-    }
+  /* ─── Eje vertical ────────────────────────────────────────────────── */
+  .content-flex.top-left,
+  .content-flex.top,
+  .content-flex.top-right {
+    justify-content: flex-start;
+  }
 
-    .content-flex.center {
-        @apply justify-center items-center;
-        @apply text-center mx-auto;
-    }
+  .content-flex.left,
+  .content-flex.center,
+  .content-flex.right {
+    justify-content: center;
+  }
 
-    .content-flex.right {
-        @apply justify-center items-end;
-        @apply text-right ml-auto;
-    }
-
-    .content-flex.bottom-left {
-        @apply justify-end items-start;
-        @apply text-left mr-auto;
-    }
-
-    .content-flex.bottom {
-        @apply justify-end items-center;
-        @apply text-center mx-auto;
-    }
-
-    .content-flex.bottom-right {
-        @apply justify-end items-end;
-        @apply text-right ml-auto;
-    }
+  .content-flex.bottom-left,
+  .content-flex.bottom,
+  .content-flex.bottom-right {
+    justify-content: flex-end;
+  }
 
 }
