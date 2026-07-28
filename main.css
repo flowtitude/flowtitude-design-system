@@ -6,6 +6,7 @@
 
 @import './theme/flowtitude.css';
 
+@import './base/primitives.css';
 @import './base/base.css';
 @import './base/typography.css';
 

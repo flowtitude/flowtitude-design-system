@@ -224,9 +224,16 @@
     --leading-loose: 2em;
 
     /* Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
     --radius-button: var(--radius-sm);
     --radius-card: var(--radius-md);
     --radius-section: var(--radius-md);
+
+    /* Sombra */
+    --shadow-card: var(--shadow-md);
+    --shadow-raised: var(--shadow-lg);
 
     /* Aspect ratios */
     --aspect-rrss: 1.91 / 1;
