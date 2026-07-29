@@ -22,107 +22,114 @@
   /* ─── Display: impacto ──────────────────────────────── */
   .display,
   .display-lg {
-    font-size: var(--ft-text-9xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--display-lg);
+    font-family: var(--display-font);
+    font-weight: var(--display-weight);
+    line-height: var(--display-lg-leading);
+    letter-spacing: var(--display-lg-tracking);
+    text-wrap: var(--display-wrap);
   }
 
   .display-md {
-    font-size: var(--ft-text-8xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--display-md);
+    font-family: var(--display-font);
+    font-weight: var(--display-weight);
+    line-height: var(--display-md-leading);
+    letter-spacing: var(--display-md-tracking);
+    text-wrap: var(--display-wrap);
   }
 
   .display-single,
   .display-sm {
-    font-size: var(--ft-text-7xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--display-sm);
+    font-family: var(--display-font);
+    font-weight: var(--display-weight);
+    line-height: var(--display-sm-leading);
+    letter-spacing: var(--display-sm-tracking);
+    text-wrap: var(--display-wrap);
   }
 
   /* ─── Heading: estructura ───────────────────────────── */
   .heading-lg {
-    font-size: var(--ft-text-6xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--heading-lg);
+    font-family: var(--heading-font);
+    font-weight: var(--heading-weight);
+    line-height: var(--heading-lg-leading);
+    letter-spacing: var(--heading-lg-tracking);
+    text-wrap: var(--heading-wrap);
   }
 
   .heading,
   .heading-md {
-    font-size: var(--ft-text-5xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-tight);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--heading-md);
+    font-family: var(--heading-font);
+    font-weight: var(--heading-weight);
+    line-height: var(--heading-md-leading);
+    letter-spacing: var(--heading-md-tracking);
+    text-wrap: var(--heading-wrap);
   }
 
   .heading-sm {
-    font-size: var(--ft-text-4xl);
-    font-family: var(--font-display);
-    font-weight: 500;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: balance;
+    font-size: var(--heading-sm);
+    font-family: var(--heading-font);
+    font-weight: var(--heading-weight);
+    line-height: var(--heading-sm-leading);
+    letter-spacing: var(--heading-sm-tracking);
+    text-wrap: var(--heading-wrap);
   }
 
   /* ─── Subheading: el puente ─────────────────────────── */
   .subheading-lg {
-    font-size: var(--ft-text-3xl);
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: var(--leading-none);
-    letter-spacing: -0.025em;
-    text-wrap: pretty;
+    font-size: var(--subheading-lg);
+    font-family: var(--subheading-font);
+    font-weight: var(--subheading-weight);
+    line-height: var(--subheading-lg-leading);
+    letter-spacing: var(--subheading-lg-tracking);
+    text-wrap: var(--subheading-wrap);
   }
 
   .subheading,
   .subheading-md {
-    font-size: var(--ft-text-2xl);
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: var(--leading-none);
-    text-wrap: pretty;
+    font-size: var(--subheading-md);
+    font-family: var(--subheading-font);
+    font-weight: var(--subheading-weight);
+    line-height: var(--subheading-md-leading);
+    letter-spacing: var(--subheading-md-tracking);
+    text-wrap: var(--subheading-wrap);
   }
 
   .subheading-sm {
-    font-size: var(--ft-text-xl);
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: var(--leading-none);
-    text-wrap: pretty;
+    font-size: var(--subheading-sm);
+    font-family: var(--subheading-font);
+    font-weight: var(--subheading-weight);
+    line-height: var(--subheading-sm-leading);
+    letter-spacing: var(--subheading-sm-tracking);
+    text-wrap: var(--subheading-wrap);
   }
 
   /* ─── Cuerpo ────────────────────────────────────────── */
   .text-large {
-    font-size: var(--ft-text-lg);
-    line-height: var(--leading-snug);
-    text-wrap: pretty;
+    font-size: var(--text-large);
+    font-family: var(--text-font);
+    line-height: var(--text-large-leading);
+    letter-spacing: var(--text-large-tracking);
+    text-wrap: var(--text-wrap);
   }
 
   .text-medium {
-    font-size: var(--ft-text-base);
-    font-family: var(--font-body);
-    line-height: var(--leading-normal);
-    text-wrap: pretty;
+    font-size: var(--text-medium);
+    font-family: var(--text-font);
+    line-height: var(--text-medium-leading);
+    letter-spacing: var(--text-medium-tracking);
+    text-wrap: var(--text-wrap);
   }
 
   .text-small {
-    font-size: var(--ft-text-sm);
-    font-family: var(--font-body);
-    line-height: var(--leading-relaxed);
+    font-size: var(--text-small);
+    font-family: var(--text-font);
+    line-height: var(--text-small-leading);
+    letter-spacing: var(--text-small-tracking);
+    text-wrap: var(--text-wrap);
   }
 
 }

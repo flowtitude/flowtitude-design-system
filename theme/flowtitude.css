@@ -50,9 +50,84 @@
     --ft-padding-content-y-half: 1.3rem;
     --ft-gap-content: var(--spacing-block);
 
-    /* Base colors */
-    --ft-color-text: #000;
-    --ft-color-background: #f9ecec;
+    /* Semantic colors */
+    /*
+      Los cinco papeles que cubre cualquier pantalla. No son colores nuevos:
+      son referencias a la paleta, y decirlo por su papel —superficie, texto,
+      apagado, borde, marca— es lo que permite cambiar la paleta sin repasar
+      el sitio entero.
+    */
+    --ft-color-surface: var(--color-secondary-50);
+    --ft-color-text: var(--color-secondary-950);
+    --ft-color-muted: var(--color-secondary-600);
+    --ft-color-border: var(--color-secondary-200);
+    --ft-color-brand: var(--color-primary-500);
+
+    /* Semantic colors */
+    /* --ft-color-background era el nombre anterior de la superficie. */
+    --ft-color-background: var(--ft-color-surface);
+
+    /* Semantic typography */
+    /*
+      Las cuatro familias de texto del sistema. La fuente y el balanceo de
+      línea son de la familia entera; el tamaño, el interlineado y el tracking
+      son de cada valor, porque un display grande no respira como uno pequeño.
+    */
+
+    /* Display: impacto */
+    --display-font: var(--font-display);
+    --display-weight: 500;
+    --display-wrap: balance;
+    --display-lg: var(--ft-text-9xl);
+    --display-lg-leading: var(--leading-none);
+    --display-lg-tracking: var(--tracking-tight);
+    --display-md: var(--ft-text-8xl);
+    --display-md-leading: var(--leading-none);
+    --display-md-tracking: var(--tracking-tight);
+    --display-sm: var(--ft-text-7xl);
+    --display-sm-leading: var(--leading-none);
+    --display-sm-tracking: var(--tracking-tight);
+
+    /* Heading: estructura */
+    --heading-font: var(--font-display);
+    --heading-weight: 500;
+    --heading-wrap: balance;
+    --heading-lg: var(--ft-text-6xl);
+    --heading-lg-leading: var(--leading-none);
+    --heading-lg-tracking: var(--tracking-tight);
+    --heading-md: var(--ft-text-5xl);
+    --heading-md-leading: var(--leading-none);
+    --heading-md-tracking: var(--tracking-tight);
+    --heading-sm: var(--ft-text-4xl);
+    --heading-sm-leading: var(--leading-none);
+    --heading-sm-tracking: var(--tracking-tight);
+
+    /* Subheading: el puente */
+    --subheading-font: var(--font-display);
+    --subheading-weight: 600;
+    --subheading-wrap: pretty;
+    --subheading-lg: var(--ft-text-3xl);
+    --subheading-lg-leading: var(--leading-tight);
+    --subheading-lg-tracking: var(--tracking-normal);
+    --subheading-md: var(--ft-text-2xl);
+    --subheading-md-leading: var(--leading-tight);
+    --subheading-md-tracking: var(--tracking-normal);
+    --subheading-sm: var(--ft-text-xl);
+    --subheading-sm-leading: var(--leading-tight);
+    --subheading-sm-tracking: var(--tracking-normal);
+
+    /* Cuerpo */
+    --text-font: var(--font-body);
+    --text-wrap: pretty;
+    --text-large: var(--ft-text-lg);
+    --text-large-leading: var(--leading-snug);
+    --text-large-tracking: var(--tracking-normal);
+    --text-medium: var(--ft-text-base);
+    --text-medium-leading: var(--leading-normal);
+    --text-medium-tracking: var(--tracking-normal);
+    --text-small: var(--ft-text-sm);
+    --text-small-leading: var(--leading-relaxed);
+    --text-small-tracking: var(--tracking-normal);
 
     /* Card widths */
     --ft-card-xs: 12rem;
@@ -113,6 +188,20 @@
   /* Static desktop spacing fallback for browsers with weak CSS math support. */
   @media (min-width: 1280px) {
     :root {
+      --ft-text-xs: 0.79rem;
+      --ft-text-sm: 0.938rem;
+      --ft-text-base: 1.125rem;
+      --ft-text-lg: 1.35rem;
+      --ft-text-xl: 1.62rem;
+      --ft-text-2xl: 1.944rem;
+      --ft-text-3xl: 2.333rem;
+      --ft-text-4xl: 2.799rem;
+      --ft-text-5xl: 3.359rem;
+      --ft-text-6xl: 4.031rem;
+      --ft-text-7xl: 4.837rem;
+      --ft-text-8xl: 5.805rem;
+      --ft-text-9xl: 6.966rem;
+
       --ft-spacing-fluid-md: 1.5rem;
       --ft-spacing-fluid-sm: 1rem;
       --ft-spacing-fluid-xs: 0.65rem;
@@ -179,11 +268,59 @@
   }
 }
 
+@layer base {
+  /*
+    Tema oscuro.
+
+    Todo lo que es semántica tiene su valor en los dos temas: un papel que solo
+    existe en claro obliga a resolverlo a mano en cada componente. Los tokens
+    de la capa de abajo —la paleta, las escalas— no cambian: lo que cambia es
+    qué color de la paleta cumple cada papel.
+  */
+  :root[data-theme="dark"] {
+    --ft-color-surface: var(--color-secondary-950);
+    --ft-color-text: var(--color-secondary-50);
+    --ft-color-muted: var(--color-secondary-400);
+    --ft-color-border: var(--color-secondary-800);
+    --ft-color-brand: var(--color-primary-400);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ft-color-surface: var(--color-secondary-950);
+      --ft-color-text: var(--color-secondary-50);
+      --ft-color-muted: var(--color-secondary-400);
+      --ft-color-border: var(--color-secondary-800);
+      --ft-color-brand: var(--color-primary-400);
+    }
+  }
+}
+
 @theme {
 
     /* Fonts */
     --font-body: Arial, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, sans-serif;
     --font-display: var(--font-body);
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    /* Palette - Neutral */
+    /*
+      El sistema la USA —botones, tarjetas, bordes— pero no la definía: con
+      WindPress compilando, Tailwind la ponía por su cuenta y no se notaba;
+      sin WindPress, esos colores no resolvían y el botón se quedaba sin su
+      color de texto. Los valores son los de Tailwind.
+    */
+    --color-neutral-50: oklch(98.5% 0 0);
+    --color-neutral-100: oklch(97% 0 0);
+    --color-neutral-200: oklch(92.2% 0 0);
+    --color-neutral-300: oklch(87% 0 0);
+    --color-neutral-400: oklch(70.8% 0 0);
+    --color-neutral-500: oklch(55.6% 0 0);
+    --color-neutral-600: oklch(43.9% 0 0);
+    --color-neutral-700: oklch(37.1% 0 0);
+    --color-neutral-800: oklch(26.9% 0 0);
+    --color-neutral-900: oklch(20.5% 0 0);
+    --color-neutral-950: oklch(14.5% 0 0);
 
     /* Palette - Secondary */
     --color-secondary-50: oklch(0.969 0.002 18.01);
@@ -217,25 +354,66 @@
 
     /* Leading */
     --leading-none: 1em;
-    --leading-tight: 1.2em;
+    --leading-tight: 1.25em;
     --leading-snug: 1.375em;
     --leading-normal: 1.5em;
     --leading-relaxed: 1.625em;
     --leading-loose: 2em;
 
+    /* Tracking */
+    /*
+      Tailwind's own values and names, so tracking-* utilities come out of
+      these and a project can use them without learning ours.
+    */
+    --tracking-tighter: -0.05em;
+    --tracking-tight: -0.025em;
+    --tracking-normal: 0em;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+
     /* Radius */
+    --radius-none: 0px;
+    --radius-xs: 0.125rem;
     --radius-sm: 0.25rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --radius-4xl: 2rem;
+    --radius-full: calc(infinity * 1px);
+
+    /* Radius roles */
     --radius-button: var(--radius-sm);
-    --radius-card: var(--radius-md);
-    --radius-section: var(--radius-md);
+    --radius-card: var(--radius-lg);
+    --radius-section: var(--radius-lg);
 
     /* Sombra */
+    --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+    /* Text shadow */
+  --text-shadow-2xs: 0px 1px 0px rgb(0 0 0 / 0.15);
+  --text-shadow-xs: 0px 1px 1px rgb(0 0 0 / 0.2);
+  --text-shadow-sm:
+  0px 1px 0px rgb(0 0 0 / 0.075), 0px 1px 1px rgb(0 0 0 / 0.075), 0px 2px 2px rgb(0 0 0 / 0.075);
+  --text-shadow-md:
+  0px 1px 1px rgb(0 0 0 / 0.1), 0px 1px 2px rgb(0 0 0 / 0.1), 0px 2px 4px rgb(0 0 0 / 0.1);
+  --text-shadow-lg:
+  0px 1px 2px rgb(0 0 0 / 0.1), 0px 3px 2px rgb(0 0 0 / 0.1), 0px 4px 8px rgb(0 0 0 / 0.1);
+
+    /* Shadow roles */
     --shadow-card: var(--shadow-md);
     --shadow-raised: var(--shadow-lg);
 
     /* Aspect ratios */
+    --aspect-video: 16 / 9;
     --aspect-rrss: 1.91 / 1;
     --aspect-wide: 18 / 8;
     --aspect-ultrawide: 18 / 5;
@@ -243,8 +421,8 @@
     --aspect-portrait: 3 / 4;
     --aspect-landscape: 4 / 3;
 
+    /* Typography scale */
     /*
-      Typography scale.
       These must live in @theme so Tailwind 4/WindPress generates text-* utilities.
       Runtime values resolve through --ft-text-* fallbacks/fluid tokens.
     */
@@ -262,8 +440,42 @@
     --text-8xl: var(--ft-text-8xl);
     --text-9xl: var(--ft-text-9xl);
 
+    /* Pairs */
     /*
-      Spacing scale.
+      Cada tamaño lleva su interlineado y su tracking, como en Tailwind 4:
+      un titular a 4xl no puede respirar como un párrafo, y a partir de xl
+      el texto pide tracking negativo. Van pegados al tamaño, así que
+      `text-4xl` ya sale bien sin acordarse de añadir nada.
+    */
+    --text-xs--line-height: 1.5;
+    --text-xs--letter-spacing: 0em;
+    --text-sm--line-height: 1.5;
+    --text-sm--letter-spacing: 0em;
+    --text-base--line-height: 1.5;
+    --text-base--letter-spacing: 0em;
+    --text-lg--line-height: 1.45;
+    --text-lg--letter-spacing: 0em;
+    --text-xl--line-height: 1.4;
+    --text-xl--letter-spacing: -0.0125em;
+    --text-2xl--line-height: 1.35;
+    --text-2xl--letter-spacing: -0.0175em;
+    --text-3xl--line-height: 1.25;
+    --text-3xl--letter-spacing: -0.02em;
+    --text-4xl--line-height: 1.2;
+    --text-4xl--letter-spacing: -0.022em;
+    --text-5xl--line-height: 1.15;
+    --text-5xl--letter-spacing: -0.025em;
+    --text-6xl--line-height: 1.1;
+    --text-6xl--letter-spacing: -0.025em;
+    --text-7xl--line-height: 1.05;
+    --text-7xl--letter-spacing: -0.03em;
+    --text-8xl--line-height: 1;
+    --text-8xl--letter-spacing: -0.03em;
+    --text-9xl--line-height: 1;
+    --text-9xl--letter-spacing: -0.035em;
+
+    /* Spacing scale */
+    /*
       These must live in @theme so Tailwind 4/WindPress generates spacing utilities.
     */
     --spacing: 0.25rem;
