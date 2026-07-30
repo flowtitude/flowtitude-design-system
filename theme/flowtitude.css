@@ -167,6 +167,7 @@
     --ft-text-8xl: 2.887rem;
     --ft-text-9xl: 3.247rem;
 
+    --ft-spacing-fluid-2xs: 0.25rem;
     --ft-spacing-fluid-md: 0.5rem;
     --ft-spacing-fluid-sm: 0.4rem;
     --ft-spacing-fluid-xs: 0.3rem;
@@ -202,6 +203,7 @@
       --ft-text-8xl: 5.805rem;
       --ft-text-9xl: 6.966rem;
 
+      --ft-spacing-fluid-2xs: 0.45rem;
       --ft-spacing-fluid-md: 1.5rem;
       --ft-spacing-fluid-sm: 1rem;
       --ft-spacing-fluid-xs: 0.65rem;
@@ -242,6 +244,7 @@
       --ft-text-8xl: clamp(2.887rem, calc(1.512rem + 5.366vw), 5.805rem);
       --ft-text-9xl: clamp(3.247rem, calc(1.494rem + 6.84vw), 6.966rem);
 
+      --ft-spacing-fluid-2xs: clamp(0.25rem, calc(0.156rem + 0.368vw), 0.45rem);
       --ft-spacing-fluid-md: clamp(0.5rem, calc(0.029rem + 1.839vw), 1.5rem);
       --ft-spacing-fluid-sm: clamp(0.4rem, calc(0.117rem + 1.103vw), 1rem);
       --ft-spacing-fluid-xs: clamp(0.3rem, calc(0.135rem + 0.644vw), 0.65rem);
@@ -480,6 +483,7 @@
     */
     --spacing: 0.25rem;
 
+    --spacing-fluid-2xs: var(--ft-spacing-fluid-2xs);
     --spacing-fluid-md: var(--ft-spacing-fluid-md);
     --spacing-fluid-sm: var(--ft-spacing-fluid-sm);
     --spacing-fluid-xs: var(--ft-spacing-fluid-xs);
