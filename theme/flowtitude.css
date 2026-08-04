@@ -52,16 +52,59 @@
 
     /* Semantic colors */
     /*
-      Los cinco papeles que cubre cualquier pantalla. No son colores nuevos:
-      son referencias a la paleta, y decirlo por su papel —superficie, texto,
+      Los papeles que cubre cualquier pantalla. No son colores nuevos: son
+      referencias a la paleta, y decirlo por su papel —superficie, texto,
       apagado, borde, marca— es lo que permite cambiar la paleta sin repasar
       el sitio entero.
+
+      Seis patrones: superficie, texto, borde, marca, accent y estado. Todos
+      tienen valor en los dos temas; un papel que solo existe en claro obliga
+      a resolverlo a mano en cada componente.
     */
+
+    /* Superficies: la página, lo que se levanta sobre ella, lo que se hunde. */
     --ft-color-surface: var(--color-secondary-50);
+    --ft-color-surface-2: var(--color-white);
+    --ft-color-surface-3: var(--color-secondary-100);
+
+    /* Texto: el normal, el apagado y el que va sobre un fondo oscuro. */
     --ft-color-text: var(--color-secondary-950);
     --ft-color-muted: var(--color-secondary-600);
+    --ft-color-text-inverse: var(--color-secondary-50);
+
     --ft-color-border: var(--color-secondary-200);
+
+    /*
+      Marca y accent: el color, su estado al pasar por encima y el color que
+      se lee ENCIMA de él. El `-contrast` existe para que un botón de marca no
+      tenga que adivinar de qué color va su texto.
+    */
     --ft-color-brand: var(--color-primary-500);
+    --ft-color-brand-hover: var(--color-primary-600);
+    --ft-color-brand-contrast: var(--color-white);
+
+    --ft-color-accent: var(--color-secondary-600);
+    --ft-color-accent-hover: var(--color-secondary-700);
+    --ft-color-accent-contrast: var(--color-white);
+
+    /*
+      Estados. Son papel y no escala: traen su valor puesto y casi nunca se
+      tocan, así que once peldaños de cada uno solo engordarían el panel y las
+      variables nativas de cada constructor. Si algún día hace falta un
+      `bg-success-200`, la escala se añade encima sin romper esto.
+
+      El error NO comparte hue con la marca (27,19): un aviso de error tiene
+      que distinguirse de un elemento de marca, así que se va a un rojo más
+      frío. Es el flag que el método dejaba abierto.
+    */
+    --ft-color-info: oklch(0.546 0.245 262.881);
+    --ft-color-info-bg: oklch(0.97 0.014 254.604);
+    --ft-color-success: oklch(0.627 0.194 149.214);
+    --ft-color-success-bg: oklch(0.982 0.018 155.826);
+    --ft-color-warning: oklch(0.555 0.163 48.998);
+    --ft-color-warning-bg: oklch(0.987 0.022 95.277);
+    --ft-color-error: oklch(0.577 0.245 13);
+    --ft-color-error-bg: oklch(0.971 0.013 13);
 
     /* Semantic colors */
     /* --ft-color-background era el nombre anterior de la superficie. */
@@ -282,19 +325,61 @@
   */
   :root[data-theme="dark"] {
     --ft-color-surface: var(--color-secondary-950);
+    --ft-color-surface-2: var(--color-secondary-900);
+    --ft-color-surface-3: var(--color-secondary-800);
+
     --ft-color-text: var(--color-secondary-50);
     --ft-color-muted: var(--color-secondary-400);
+    --ft-color-text-inverse: var(--color-secondary-950);
+
     --ft-color-border: var(--color-secondary-800);
+
     --ft-color-brand: var(--color-primary-400);
+    --ft-color-brand-hover: var(--color-primary-300);
+    --ft-color-brand-contrast: var(--color-secondary-950);
+
+    --ft-color-accent: var(--color-secondary-300);
+    --ft-color-accent-hover: var(--color-secondary-200);
+    --ft-color-accent-contrast: var(--color-secondary-950);
+
+    --ft-color-info: oklch(0.707 0.165 254.624);
+    --ft-color-info-bg: oklch(0.282 0.091 267.935);
+    --ft-color-success: oklch(0.792 0.209 151.711);
+    --ft-color-success-bg: oklch(0.266 0.065 152.934);
+    --ft-color-warning: oklch(0.828 0.189 84.429);
+    --ft-color-warning-bg: oklch(0.279 0.077 45.635);
+    --ft-color-error: oklch(0.704 0.191 13);
+    --ft-color-error-bg: oklch(0.258 0.092 13);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --ft-color-surface: var(--color-secondary-950);
+      --ft-color-surface-2: var(--color-secondary-900);
+      --ft-color-surface-3: var(--color-secondary-800);
+
       --ft-color-text: var(--color-secondary-50);
       --ft-color-muted: var(--color-secondary-400);
+      --ft-color-text-inverse: var(--color-secondary-950);
+
       --ft-color-border: var(--color-secondary-800);
+
       --ft-color-brand: var(--color-primary-400);
+      --ft-color-brand-hover: var(--color-primary-300);
+      --ft-color-brand-contrast: var(--color-secondary-950);
+
+      --ft-color-accent: var(--color-secondary-300);
+      --ft-color-accent-hover: var(--color-secondary-200);
+      --ft-color-accent-contrast: var(--color-secondary-950);
+
+      --ft-color-info: oklch(0.707 0.165 254.624);
+      --ft-color-info-bg: oklch(0.282 0.091 267.935);
+      --ft-color-success: oklch(0.792 0.209 151.711);
+      --ft-color-success-bg: oklch(0.266 0.065 152.934);
+      --ft-color-warning: oklch(0.828 0.189 84.429);
+      --ft-color-warning-bg: oklch(0.279 0.077 45.635);
+      --ft-color-error: oklch(0.704 0.191 13);
+      --ft-color-error-bg: oklch(0.258 0.092 13);
     }
   }
 }
@@ -354,6 +439,46 @@
     /* Flat defaults */
     --color-secondary: var(--color-secondary-500);
     --color-primary: oklch(0.5365 0.1984 27.19);
+
+    /*
+      Blanco. Lo declara Tailwind, pero los papeles de contraste lo usan y sin
+      WindPress delante no resolvería: el texto de un botón de marca se
+      quedaría sin color. Mismo motivo que la paleta neutral de aquí arriba.
+    */
+    --color-white: oklch(100% 0 0);
+
+    /* Semantic colors */
+    /*
+      Los papeles, otra vez, para que WindPress genere sus utilidades:
+      bg-surface, text-muted, border-border. El valor vivo NO está aquí —está
+      en --ft-color-* dentro de :root, que es lo que remapea el tema oscuro y
+      lo único que sigue en pie sin compilar Tailwind. Esto es su gemelo, y va
+      detrás del gemelo a propósito: si alguien declara su propio
+      --color-surface, se le rompen las utilidades pero no el sistema.
+
+      Mismo patrón que --text-lg: var(--ft-text-lg) más abajo.
+    */
+    --color-surface: var(--ft-color-surface);
+    --color-surface-2: var(--ft-color-surface-2);
+    --color-surface-3: var(--ft-color-surface-3);
+    --color-text: var(--ft-color-text);
+    --color-muted: var(--ft-color-muted);
+    --color-text-inverse: var(--ft-color-text-inverse);
+    --color-border: var(--ft-color-border);
+    --color-brand: var(--ft-color-brand);
+    --color-brand-hover: var(--ft-color-brand-hover);
+    --color-brand-contrast: var(--ft-color-brand-contrast);
+    --color-accent: var(--ft-color-accent);
+    --color-accent-hover: var(--ft-color-accent-hover);
+    --color-accent-contrast: var(--ft-color-accent-contrast);
+    --color-info: var(--ft-color-info);
+    --color-info-bg: var(--ft-color-info-bg);
+    --color-success: var(--ft-color-success);
+    --color-success-bg: var(--ft-color-success-bg);
+    --color-warning: var(--ft-color-warning);
+    --color-warning-bg: var(--ft-color-warning-bg);
+    --color-error: var(--ft-color-error);
+    --color-error-bg: var(--ft-color-error-bg);
 
     /* Leading */
     --leading-none: 1em;
