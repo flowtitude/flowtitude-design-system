@@ -4,7 +4,6 @@ categoria: product
 estado: active
 rama: main
 actualizado: 2026-07-25
-proximo_paso: Partir la distribución en fds-core/ gestionado + fds-project.css del usuario (lo consume el plugin FDS). Después, retomar el fluid token refactor
 ---
 
 # Estado — Flowtitude Design System (FDS)
