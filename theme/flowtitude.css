@@ -188,6 +188,37 @@
     --btn-py: 0.6em;
     --btn-px: 1.75em;
 
+    /* ─── Radio y sombra, valor vivo ──────────────────────
+       Lo de `@theme` más abajo solo existe si Tailwind compila: sirve para que
+       salgan `rounded-md` y `shadow-md`, pero no declara nada por sí solo. Esto
+       es lo que hace que los tokens signifiquen algo SIN WindPress delante, que
+       es para lo que existía `base/primitives.css` antes de que sus valores se
+       mudaran aquí. Mismo patrón que `--ft-text-*`.
+
+       Los papeles van aquí también, y no solo en `@theme`: `components/
+       buttons.css` pide `var(--radius-button)`, y sin esta línea el botón se
+       queda sin radio en cuanto WindPress no está. */
+    --radius-none: 0px;
+    --radius-xs: 0.125rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    --radius-button: var(--radius-sm);
+    --radius-card: var(--radius-lg);
+    --radius-section: var(--radius-lg);
+
+    --shadow-none: none;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    --shadow-card: var(--shadow-md);
+    --shadow-raised: var(--shadow-lg);
+
     /* ============================================================
        2) RUNTIME TOKEN FALLBACKS (no calc/clamp required)
        ============================================================ */
@@ -501,16 +532,22 @@
     --tracking-widest: 0.1em;
 
     /* Radius */
+    /*
+      Los valores son los que el sistema venía renderizando de verdad: los
+      declaraba `base/primitives.css` en la capa `base`, que va DESPUÉS de
+      `theme`, así que ganaba él y lo de aquí no se veía. Ese fichero ya no los
+      declara y estos son los que mandan.
+    */
     --radius-none: 0px;
     --radius-xs: 0.125rem;
     --radius-sm: 0.25rem;
-    --radius-md: 0.375rem;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
     --radius-4xl: 2rem;
-    --radius-full: calc(infinity * 1px);
+    --radius-full: 9999px;
 
     /* Radius roles */
     --radius-button: var(--radius-sm);
@@ -518,9 +555,12 @@
     --radius-section: var(--radius-lg);
 
     /* Sombra */
+    /* Mismo caso que el radio: `--shadow-none` y `--shadow-sm` los ponía
+       `base/primitives.css` y ganaban. Aquí están sus valores. */
+    --shadow-none: none;
     --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
     --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
