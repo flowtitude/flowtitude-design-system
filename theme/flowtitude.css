@@ -232,7 +232,7 @@
   /* Static desktop spacing fallback for browsers with weak CSS math support. */
   @media (min-width: 1280px) {
     :root {
-      --ft-text-xs: 0.79rem;
+      --ft-text-xs: 0.781rem;
       --ft-text-sm: 0.938rem;
       --ft-text-base: 1.125rem;
       --ft-text-lg: 1.35rem;
