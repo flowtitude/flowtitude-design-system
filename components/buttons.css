@@ -90,9 +90,12 @@
     box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1));
   }
 
+  /* Hereda el color de su superficie: sobre fondo claro es el del texto, y sobre un hero o una
+     banda oscura sale claro sin añadir clases de color. Antes era neutral-800 fijo y obligaba a
+     poner text-white en cada fondo oscuro. */
   .btn-link {
     background-color: transparent;
-    color: var(--color-neutral-800);
+    color: inherit;
     border: 0;
     padding-inline-start: 0;
   }

@@ -37,7 +37,7 @@ El padding usa `em`, por eso las variantes de tamano escalan el boton completo a
 | `.btn-outline` | Accion secundaria en grupos de CTA |
 | `.btn-light` | Boton sobre fondos oscuros o piezas visuales intensas |
 | `.btn-dark` | Boton neutro sobre fondos claros |
-| `.btn-link` | Accion terciaria o enlace contextual dentro de una composicion |
+| `.btn-link` | Accion terciaria o enlace contextual dentro de una composicion. Hereda el color de su superficie, así que funciona igual sobre fondo claro que oscuro |
 
 {% fds-example name="buttons-variants" /%}
 
