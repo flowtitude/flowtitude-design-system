@@ -1,0 +1,27 @@
+{
+  "name": "flowtitude-design-system",
+  "version": "1.0.0",
+  "description": "Configuración fuente del Flowtitude Design System para Tailwind CSS 4 y WindPress.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowtitude/flowtitude-design-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/flowtitude/flowtitude-design-system/issues"
+  },
+  "homepage": "https://github.com/flowtitude/flowtitude-design-system#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.3.3"
+  }
+}
