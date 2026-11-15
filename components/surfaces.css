@@ -1,0 +1,120 @@
+/* file: components/surfaces.css
+ *
+ * La superficie como una palabra: fondo y color de texto a la vez.
+ *
+ * Los colores sueltos ya los da el theme — `--color-surface-2`, `--color-muted`
+ * y compañía existen para que Tailwind genere `bg-surface-2`, `text-muted`,
+ * `border-border`. Lo que no había era la PAREJA: `bg-surface-2` pinta el fondo
+ * y deja el texto a la suerte del que la use, y basta con que la marca cambie
+ * para que algo se quede ilegible sin que nadie se entere.
+ *
+ * Eso es lo único que añade este fichero. No duplica ninguna utilidad de color:
+ * para pintar un texto está `text-muted`, y para un borde `border-border`.
+ *
+ * CSS plano, sin `@apply`: sirve igual en el panel del plugin y en un sitio sin
+ * WindPress, donde no hay nada que compile.
+ */
+
+@layer components {
+
+  /* ─── Neutras ───────────────────────────────────────── */
+  /* `.surface` es la misma del body: existe para poder volver al fondo normal
+     dentro de algo que no lo es. */
+
+  .surface,
+  .surface-1 {
+    background-color: var(--ft-color-surface);
+    color: var(--ft-color-text);
+  }
+
+  .surface-2 {
+    background-color: var(--ft-color-surface-2);
+    color: var(--ft-color-text);
+  }
+
+  .surface-3 {
+    background-color: var(--ft-color-surface-3);
+    color: var(--ft-color-text);
+  }
+
+  /* ─── De color ──────────────────────────────────────── */
+  /* Cada una con su contraste declarado, que es lo que permite cambiar la
+     marca sin repasar el sitio buscando textos ilegibles. */
+
+  .surface-brand {
+    background-color: var(--ft-color-brand);
+    color: var(--ft-color-brand-contrast);
+  }
+
+  .surface-accent {
+    background-color: var(--ft-color-accent);
+    color: var(--ft-color-accent-contrast);
+  }
+
+  .surface-inverse {
+    background-color: var(--ft-color-text);
+    color: var(--ft-color-text-inverse);
+  }
+
+}
+
+/* ─── El texto apagado dentro de una superficie de color ──────────────
+   Sobre fondo neutro, «apagado» es un gris de la paleta. Sobre marca no lo
+   es: ahí el gris se ensucia y lo que se quiere decir es «el mismo color,
+   con menos peso».
+
+   Va en `utilities` y no en `components` porque `text-muted` y
+   `border-border` son utilidades que Tailwind genera en esa capa, y las
+   capas mandan por encima de la especificidad: escrito en `components` este
+   override perdía siempre. Y no va en `custom`, que es espacio del usuario y
+   el plugin no toca (decisión de 2026-07-28); dentro de `utilities` basta con
+   ir después, que es lo que hace el orden de importación.
+
+   `color-mix` y no `opacity`: `opacity` es del elemento entero, así que
+   atenuaba también el texto de dentro de la caja, no solo su borde. */
+
+@layer utilities {
+
+  :is(.surface-brand, .surface-accent, .surface-inverse) .text-muted {
+    color: color-mix(in oklab, currentColor 75%, transparent);
+  }
+
+  :is(.surface-brand, .surface-accent, .surface-inverse) .border-border {
+    border-color: color-mix(in oklab, currentColor 25%, transparent);
+  }
+
+}
+
+/* ─── Ritmo vertical ──────────────────────────────────────────────────
+   Una sección con fondo propio necesita la ración entera de aire, igual
+   que `.has-background` en `layouts/section.css`. Se resuelve aquí y no
+   pidiendo dos clases en el marcado: acordarse de poner la segunda es
+   justo lo que no pasa.
+
+   `.half-top` y `.half-bottom` siguen mandando —son la media ración
+   explícita, y sin excluirlas aquí dejaban de funcionar en silencio sobre
+   cualquier superficie—. `.surface` queda fuera a propósito: es el fondo
+   del body, no un cambio. */
+
+@layer layouts {
+
+  section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse):not(.half-top),
+  .section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse):not(.half-top) {
+    padding-block-start: var(--ft-padding-content-y);
+  }
+
+  section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse):not(.half-bottom),
+  .section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse):not(.half-bottom) {
+    padding-block-end: var(--ft-padding-content-y);
+  }
+
+  section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse) + section:not(.half-top) {
+    padding-block-start: var(--ft-padding-content-y);
+  }
+
+  /* Sin soporte de :has() la regla se ignora y no rompe nada. */
+  section:not(.half-bottom):has(+ section:is(.surface-2, .surface-3, .surface-brand, .surface-accent, .surface-inverse)) {
+    padding-block-end: var(--ft-padding-content-y);
+  }
+
+}
